@@ -18,15 +18,21 @@ INCLUDES	+= -I./include
 
 RM		= rm -f
 
-NAME		= output
-
 LDFLAGS		+=
 
 DBGFLAGS	= -g3
 
-SRC		= src/main.cpp
+DET		= detection_test
 
-OBJ		= $(SRC:.cpp=.o)
+SRC_DET		= src/detection/main.cpp
+
+OBJ_DET		= $(SRC_DET:.cpp=.o)
+
+OPTI		= opti_test
+
+SRC_OPTI	= src/optimisation/main.cpp
+
+OBJ_OPTI	= $(SRC_OPTI:.cpp=.o)
 
 ECHO		= echo -e
 
@@ -35,24 +41,29 @@ GREEN		= "\033[0;32m"
 BLUE		= "\033[1;36m"
 RED		= "\033[0;31m"
 
-all: $(NAME)
+all: $(DET) $(OPTI)
 
 %.o: %.cpp
 	@$(COMP) -o $@ -c $< $(CFLAGS) $(LDFLAGS) $(INCLUDES) && \
 	 ($(ECHO) $(GREEN) "[OK]" $(BLUE) $@ $(DEFAULT)) || \
 	 ($(ECHO) $(RED) "[XX]" $(BLUE) $@ $(DEFAULT))
 
-$(NAME): $(OBJ)
-	@$(COMP) $(OBJ) -o $@ $(CFLAGS) $(LDFLAGS) $(INCLUDES) && \
+$(DET): $(OBJ_DET)
+	@$(COMP) $(OBJ_DET) -o $@ $(CFLAGS) $(LDFLAGS) $(INCLUDES) && \
+	 ($(ECHO) $(GREEN) "[OK]" $(BLUE) $@ $(DEFAULT)) || \
+	 ($(ECHO) $(RED) "[XX]" $(BLUE) $@ $(DEFAULT))
+
+$(OPTI): $(OBJ_OPTI)
+	@$(COMP) $(OBJ_OPTI) -o $@ $(CFLAGS) $(LDFLAGS) $(INCLUDES) && \
 	 ($(ECHO) $(GREEN) "[OK]" $(BLUE) $@ $(DEFAULT)) || \
 	 ($(ECHO) $(RED) "[XX]" $(BLUE) $@ $(DEFAULT))
 
 clean:
-	@$(RM) $(OBJ)
+	@$(RM) $(OBJ_DET) $(OBJ_OPTI)
 	@$(ECHO) $(BLUE) "Cleaning object files" $(DEFAULT)
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(DET) $(OPTI)
 	@$(ECHO) $(BLUE) "Cleaning binary" $(DEFAULT)
 
 re: fclean all
