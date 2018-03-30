@@ -1,0 +1,22 @@
+#Compiled Object File
+*.o
+obj
+
+#Precompiled Headers
+*.gch
+
+#Executables
+*.out
+bin
+detection_test
+opti_test
+
+#tmp files
+#*/#
+*~
+.#*
+
+*core*
+*.layout
+doxygen/html
+*.depend
