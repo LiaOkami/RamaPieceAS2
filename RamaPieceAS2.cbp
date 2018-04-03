@@ -18,19 +18,22 @@
 			<Target title="Detection">
 				<Option output="Detection" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Detection" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 			</Target>
 			<Target title="Opti">
 				<Option output="Opti" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Opti/" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="include/optimisation" />
+				</Compiler>
 			</Target>
 			<Target title="Release">
 				<Option output="RamaPieceAS2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -51,8 +54,14 @@
 			<Option target="Opti" />
 			<Option target="Detection" />
 		</Unit>
+		<Unit filename="include/optimisation/compte.h">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="src/detection/main.cpp">
 			<Option target="Detection" />
+		</Unit>
+		<Unit filename="src/optimisation/compte.cpp">
+			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/optimisation/main.cpp">
 			<Option target="Opti" />
