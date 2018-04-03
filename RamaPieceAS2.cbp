@@ -6,19 +6,31 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/RamaPieceAS2" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+			<Target title="Test">
+				<Option output="bin/Test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Test" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 			</Target>
+			<Target title="Detection">
+				<Option output="Detection" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Detection" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+			</Target>
+			<Target title="Opti">
+				<Option output="Opti" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Opti/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/RamaPieceAS2" prefix_auto="1" extension_auto="1" />
+				<Option output="RamaPieceAS2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -34,7 +46,20 @@
 		<Linker>
 			<Add library="opencv_world320" />
 		</Linker>
-		<Unit filename="src/test.cpp" />
+		<Unit filename="include/Position.hh">
+			<Option target="Release" />
+			<Option target="Opti" />
+			<Option target="Detection" />
+		</Unit>
+		<Unit filename="src/detection/main.cpp">
+			<Option target="Detection" />
+		</Unit>
+		<Unit filename="src/optimisation/main.cpp">
+			<Option target="Opti" />
+		</Unit>
+		<Unit filename="src/test.cpp">
+			<Option target="Test" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
