@@ -3,13 +3,13 @@
 #include "compte.h"
 
 using namespace std;
+
 // la fonction renvoie que les plus grosses pieces à ramasser
-//ramassage le plus efficace car prend le moin de piece possible
-void RamasCoinMax(int som){
+// Ramassage le plus efficace car prend le moins de piece possible
+void RamasCoinMax(int som)
+{
     int S1 = 0,S2 = 0,S5=0,S10=0,S20=0,S50=0,S100=0,S200=0;
     while(som>=200){
-    S200+=1;
-    som = som - 200;
     }
     while(som>=100){
         S100+=1;
