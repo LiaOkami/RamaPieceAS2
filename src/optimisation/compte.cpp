@@ -8,36 +8,38 @@ using namespace std;
 // Ramassage le plus efficace car prend le moins de piece possible
 void RamasCoinMax(int som)
 {
-    int S1 = 0,S2 = 0,S5=0,S10=0,S20=0,S50=0,S100=0,S200=0;
-    while(som>=200){
+    int S1 = 0, S2 = 0, S5 = 0, S10 = 0, S20 = 0, S50 = 0, S100 = 0, S200 = 0;
+    while(som >= 200){
+        S200 += 1;
+        som -= 200;
     }
-    while(som>=100){
-        S100+=1;
-        som=som-100;
+    while(som >= 100){
+        S100 += 1;
+        som -= 100;
     }
-    while(som>=50){
-        S50+=1;
-        som=som-50;
+    while(som >= 50){
+        S50 += 1;
+        som -= 50;
     }
-    while(som>=20){
-        S20+=1;
-        som=som-20;
+    while(som >= 20){
+        S20 += 1;
+        som -= 20;
     }
-    while(som>=10){
-        S10+=1;
-        som=som-10;
+    while(som >= 10){
+        S10 += 1;
+        som -= 10;
     }
-    while(som>=5){
-        S5+=1;
-        som=som-5;
+    while(som >= 5){
+        S5 += 1;
+        som -= 5;
     }
-    while(som>=2){
-        S2+=1;
-        som=som-2;
+    while(som >= 2){
+        S2 += 1;
+        som -= 2;
     }
-    while(som>=1){
-        S1+=1;
-        som=som-1;
+    while(som >= 1){
+        S1 += 1;
+        som -= 1;
     }
     cout<<"On va devoir ramasser un nomberes suivant de pieces : "<<endl;
     cout<<endl;
