@@ -5,6 +5,8 @@
 #ifndef _PIECE_HH_
 # define _PIECE_HH_
 
+# include "Position.hh"
+
 /** \brief Structure représentant une Piece
  *  \author Pierrick Garcia
  */
