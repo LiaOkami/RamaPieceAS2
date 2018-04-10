@@ -20,6 +20,9 @@
 				<Option object_output="obj/Detection" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="include/detection" />
+				</Compiler>
 			</Target>
 			<Target title="Opti">
 				<Option output="Opti" prefix_auto="1" extension_auto="1" />
@@ -45,14 +48,24 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="include" />
 		</Compiler>
 		<Linker>
 			<Add library="opencv_world320" />
 		</Linker>
+		<Unit filename="include/Piece.hh" />
 		<Unit filename="include/Position.hh">
 			<Option target="Release" />
 			<Option target="Opti" />
 			<Option target="Detection" />
+		</Unit>
+		<Unit filename="include/Ramapiece.hh">
+			<Option target="Opti" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/Robot.hh">
+			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
