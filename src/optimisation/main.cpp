@@ -1,5 +1,6 @@
 #include <iostream>
 #include "compte.h"
+#include "Ramapiece.hh"
 
 using namespace std;
 
