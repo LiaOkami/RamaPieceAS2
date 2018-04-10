@@ -18,6 +18,12 @@ struct Position
   Position(double xx = 0, double yy = 0);
 };
 
+/** \brief Retourne la distance entre deux Position
+ *
+ * \param const Position& pos1
+ * \param const Position& pos2
+ * \return double
+ */
 double  getDistance(const Position & pos1, const Position & pos2);
 
 #endif
