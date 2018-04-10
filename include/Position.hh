@@ -15,16 +15,9 @@ struct Position
   double	x;
   double	y;
 
-  Position(double xx = 0, double yy = 0) { x=xx; y=yy;}
+  Position(double xx = 0, double yy = 0);
 };
 
-/** \brief Structure représentant une Position en terme d'entiers positifs
- *  \author Pierrick Garcia
- */
-struct PositionInt
-{
-  unsigned int	x;
-  unsigned int	y;
-};
+double  getDistance(const Position & pos1, const Position & pos2);
 
 #endif
