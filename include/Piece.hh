@@ -7,18 +7,20 @@
 
 # include "Position.hh"
 
-/** \brief Structure représentant une Piece
+/** \brief Classe représentant une Piece
  *  \author Pierrick Garcia
  */
-struct Piece
+class Piece
 {
+  public:
     int         value;
     Position    pos;
 
-    Piece(int val = 0, Position po = Position())
-      : value(val), pos(po) {}
-    Piece(int val, double x, double y)
-      : value(val), pos(Position(x, y)) {}
+    Piece(int val = 0, const Position & po = Position());
+    Piece(int val, double x, double y);
+
+    bool    operator==(const Piece &piece);
+    bool    operator!=(const Piece &piece);
 };
 
 #endif

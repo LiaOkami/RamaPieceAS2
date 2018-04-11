@@ -5,17 +5,22 @@
 #ifndef _POSITION_HH_
 # define _POSITION_HH_
 
+# include <iostream>
 # include <stdint.h>
 
-/** \brief Structure représentant la Position d'un Object
+/** \brief Classe représentant la Position d'un Object
  *  \author Pierrick Garcia
  */
-struct Position
+class Position
 {
-  double	x;
-  double	y;
+  public:
+    double	x;
+    double	y;
 
-  Position(double xx = 0, double yy = 0);
+    Position(double xx = 0, double yy = 0);
+
+    bool    operator==(const Position &pos);
+    bool    operator!=(const Position &pos);
 };
 
 /** \brief Retourne la distance entre deux Position
@@ -25,5 +30,7 @@ struct Position
  * \return double
  */
 double  getDistance(const Position & pos1, const Position & pos2);
+
+std::ostream &   operator<<(std::ostream &os, const Position &pos);
 
 #endif

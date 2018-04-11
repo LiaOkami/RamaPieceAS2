@@ -9,12 +9,14 @@
 # include "Piece.hh"
 # include "Position.hh"
 
-class   Robot {
-  private:
+struct   Robot {
     Position            pos;
     double              speed;
     double              angle;
+    Position            start;
     std::vector<Piece>  pieces;
+
+    Robot (const Position &_pos) {pos=_pos;}
 };
 
 #endif // _ROBOT_HH_INCLUDED_
