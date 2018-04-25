@@ -1,0 +1,132 @@
+/** \file parcours.cpp
+ *  \brief Algorithme de parcours et de tri
+ */
+
+ /**
+ *  \author Stephane Achari
+ */
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include "compte.h"
+#include "Ramapiece.hh"
+#include "Piece.hh"
+
+
+/**
+ *  \brief Algorithme de tri, recupere le tableau de piece de la classe ramapiece,
+ *         tri des piece de la plus proche du bras a la plus eloigne
+ *         tableau utile si on part du principe que le bras reviens a sa position apres chaque piece
+ *  \return vector
+ */
+vector<piece> triDistancePieceBras(Ramapiece p){
+        Piece tmpPiece;
+        int j = 0, i = 0; indicePetit = 0;
+        double valPetit = 0.0;
+
+        vector<Piece> tabPiece = p.getPieces();
+
+        for(i = 0; i<p.tabPiece.size(); i++){
+            valPetite =  getDistance(tabPiece[i]->start, p.getRobotPosition());
+            indicePetit = i;
+
+            for(j = i; j<tabInt.size(); j++){
+                /*On parcours tout le tableau a la recherche de la plus petite distance
+                    puis on garde son indice et sa valeur pour la suite*/
+                if(getDistance(tabPiece[j]->start, p.getRobotPosition()) < valPetite){
+                    indicePetit = j;
+                    valPetite = getDistance(tabPiece[j]->start, p.getRobotPosition());
+                }
+            }
+            /*on echange*/
+            tmpPiece = tabPiece[i];
+            tabPiece[i] = valPetite;
+            tabPiece[indicePetit] = tmp;
+        }
+
+        return tabPiece;
+}
+
+/**
+ *  \brief Algorithme de tri, recupere la piece la plus proche du bras,
+ *          puis tri des pieces par rapport a la distance entre chacunes
+ * \param tableau de piece (exemple p.getPieces(), ou p est de type Ramapiece)
+ * \return vector
+ */
+vector<piece> triDistancePiecePiece(const std::vector<int> & tabP){
+
+        vector<Piece> tabPiece = tabP; /*on sait que la premiere piece sera la plus proche du bras et on fait par rapport a elle maintenant*/
+
+        Piece tmpPiece;
+        int j = 0, i = 0; indicePetit = 0;
+        double valPetit = 0.0;
+
+        for(i = 0; i<tabPiece.size(); i++)){
+            if(valPetit > getDistance(tabPiece[i]->start, p.getRobotPosition())){
+               indicePetit = i;
+               valPetit = getDistance(tabPiece[i]->start, p.getRobotPosition());
+            }
+        }
+        tmpPiece = tabPiece[0];
+        tabPiece[0] = tabPiece[indicePetit];
+        tabPiece[indicePetit] = tmpPiece;
+
+
+        /*on commence a 1 car elle à l'indice 0 on a notre reference de depart,
+            au fur et a mesure la reference change pour faire en fonction d'une autre piece*/
+
+        for(i = 1; i<p.tabPiece.size(); i++){
+            valPetit =  getDistance(tabPiece[0]->pos, tabPiece[i]->pos);
+            indicePetit = i;
+
+            for(j = i; j<tabInt.size(); j++){
+                if(getDistance(tabPiece[i]->pos,tabPiece[j]->pos) < valPetite){
+                    indicePetit = j;
+                    valPetit = getDistance(tabPiece[j]->pos, p.getRobotPosition());
+                }
+            }
+            /*on echange*/
+            tmpPiece = tabPiece[i];
+            tabPiece[i] = valPetit;
+            tabPiece[indicePetit] = tmp;
+        }
+
+        return tabPiece;
+}
+
+
+/**
+ *  \brief Parcours basique en partant du principe que le bras ramasse une piece
+ *          et reviens en position start à chaque fois
+ */
+void parcoursSimple(Ramapiece p){
+
+        vector<Piece> tabPiece = triDistancePieceBras(p);
+
+        for(int i = 0; i<tabPiece.size(); i++){
+            p.pickUpPiece(tabPiece[i]);
+            p.dropPieces();
+        }
+}
+
+/**
+ *  \brief On parcours de telle manière a se que le bras,
+ *          aille toujours a la piece la plus proche de sa position actuelle, il fini en revenant a sa position
+ */
+void parcoursDesVoisins(Ramapiece p){
+
+        vector<Piece> tabPiece = triDistancePieceBras(p.getPieces());
+
+        for(int i = 0; i<tabPiece.size(); i++){
+            p.pickUpPiece(tabPiece[i]);
+        }
+        p.dropPieces();
+}
+
+/**
+ *  \brief On parcours de telle manière a faire des cercles pour se rapprocher du centre
+ */
+void parcoursCirculaire(Ramapiece p){
+
+
+}
