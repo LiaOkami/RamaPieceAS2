@@ -234,4 +234,83 @@ void parcoursCirculaire(Ramapiece p){
  *  \brief Parcours par dans une zone définie puis change de zone
  */
 void parcoursZone(Ramapiece p){
+    vector<Piece> tabPiece = p.getPieces();
+    vector<Piece> zoneBasGaucheTab = p.getPieces();
+    vector<Piece> zoneBasDroitTab = p.getPieces();
+    vector<Piece> zoneHautGaucheTab = p.getPieces();
+    vector<Piece> zoneHautDroitTab = p.getPieces();
+
+    int i = 0;
+
+    Piece pBasGauche = tabPiece[0], pHautGauche = tabPiece[0], pBasDroit = tabPiece[0], pHautDroit = tabPiece[0];
+    if(tabPiece.size() > 4){
+
+        /*on recupere les 4 piece qui vont creer la zone global de recherche*/
+        for(i = 0; tabPiece.size();i++){ //point bas droit du carre
+            if(tabPiece[i]->pos.x < pBasDroit->pos.x && tabPiece[i]->pos.y < pBasDroit->pos.y){
+                pBasDroit = tabPiece[i];
+            }
+        }
+
+        for(i = 0; tabPiece.size();i++){ //point bas gauche du carre
+            if(tabPiece[i]->pos.x > pBasGauche->pos.x && tabPiece[i]->pos.y < pBasGauche->pos.y){
+                pBasGauche = tabPiece[i];
+            }
+        }
+
+        for(i = 0; tabPiece.size();i++){ //point haut droit du carre
+            if(tabPiece[i]->pos.x < pHautDroit->pos.x && tabPiece[i]->pos.y > pHautDroit->pos.y){
+                pHautDroit = tabPiece[i];
+            }
+        }
+
+        for(i = 0; tabPiece.size();i++){ //point haut gauche du carre
+            if(tabPiece[i]->pos.x > pHautGauche->pos.x && tabPiece[i]->pos.y > pHautGauche->pos.y){
+                pHautGauche = tabPiece[i];
+            }
+        }
+
+        /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
+
+        for(i = 0; tabPiece.size();i++){ //point bas droit du carre
+            if(tabPiece[i]->pos.x <= (pBasDroit->pos.x + pBasGauche->pos.x)/2 && tabPiece[i]->pos.y <= (pBasDroit->pos.y + pHautDroit->pos.y)/2{
+                zoneBasDroitTab.push_back(tabPiece[i]);
+            }
+        }
+
+        for(i = 0; tabPiece.size();i++){ //point bas droit du carre
+            if(tabPiece[i]->pos.x > (pBasDroit->pos.x + pBasGauche->pos.x)/2 && tabPiece[i]->pos.y > (pBasDroit->pos.y + pHautDroit->pos.y)/2{
+                zoneHautDroitTab.push_back(tabPiece[i]);
+            }
+        }
+
+        for(i = 0; tabPiece.size();i++){ //point bas droit du carre
+            if(tabPiece[i]->pos.x > (pBasDroit->pos.x + pBasGauche->pos.x)/2 && tabPiece[i]->pos.y <= (pBasDroit->pos.y + pHautDroit->pos.y)/2{
+                zoneBasGaucheTab.push_back(tabPiece[i]);
+            }
+        }
+        for(i = 0; tabPiece.size();i++){ //point bas droit du carre
+            if(tabPiece[i]->pos.x <= (pBasDroit->pos.x + pBasGauche->pos.x)/2 && tabPiece[i]->pos.y <= (pBasDroit->pos.y + pHautDroit->pos.y)/2{
+                zoneHautGaucheTab.push_back(tabPiece[i]);
+            }
+        }
+
+        /*on parcours chaque zone pour ramasser*/
+        for(i = 0; zoneBasDroitTab.size(); i++){
+            p.pickUpPiece(zoneBasDroitTab[i]);
+
+        }
+        for(i = 0; zoneHautDroitTab.size(); i++){
+            p.pickUpPiece(zoneHautDroitTab[i]);
+        }
+        for(i = 0; zoneBasGaucheTab.size(); i++){
+            p.pickUpPiece(zoneBasGaucheTab[i]);
+        }
+        for(i = 0; zoneHautGaucheTab.size(); i++){
+            p.pickUpPiece(zoneHautGaucheTab[i]);
+        }
+
+        /*on depose toute les pieces*/
+        p.dropPieces();
+    }
 }
