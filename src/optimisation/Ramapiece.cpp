@@ -29,15 +29,20 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
         std::cout << "Distance : " << dist << "\tValue picked: "
                   << piece.value << std::endl;
         _robot.pos = piece.pos;
+        _robot.pieces.push_back(piece);
         _pieces->erase(it);
     }
 }
 
 void    Ramapiece::dropPieces() {
     double  dist = getDistance(_robot.pos, _robot.start);
+    int     value = 0;
 
-    std::cout << _robot.pos <<  " to " << _robot.start << std::endl;
-    std::cout << "Distance : " << dist << "\tCoins dropped." << std::endl;
+    for (const Piece &piece:_robot.pieces)
+        value += piece.value;
+    std::cout << _robot.pos <<  " to " << _robot.start << std::endl
+              << "Distance : " << dist << "\tCoins dropped, value: "
+              << value << "." << std::endl;
     _robot.pos = _robot.start;
     _pieces->clear();
 }

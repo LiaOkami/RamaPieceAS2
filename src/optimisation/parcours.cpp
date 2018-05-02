@@ -12,6 +12,7 @@
 #include "Ramapiece.hh"
 #include "Piece.hh"
 
+using namespace std;
 
 /**
  *  \brief Algorithme de tri, recupere le tableau de piece de la classe ramapiece,
@@ -21,12 +22,12 @@
  */
 vector<Piece> triDistancePieceBras(Ramapiece p){
         Piece tmpPiece;
-        int j = 0, i = 0; indicePetit = 0;
+        int j = 0, i = 0, indicePetit = 0;
         double valPetit = 0.0;
 
-        vector<Piece> tabPiece = p.getPieces();
+        vector<Piece> *tabPiece = p.getPieces();
 
-        for(i = 0; i<p.tabPiece.size(); i++){
+        for(i = 0; i<p.tabPiece->size(); i++){
             valPetite =  getDistance(tabPiece[i]->start, p.getRobotPosition());
             indicePetit = i;
 
