@@ -1,3 +1,7 @@
+/** \file Ramapiece.hh
+ *  \brief Classe Ramapiece
+ */
+
 #ifndef _RAMAPIECE_HH_INCLUDED_
 # define _RAMAPIECE_HH_INCLUDED_
 
@@ -6,6 +10,9 @@
 
 typedef std::vector<Piece>    vectorPiece;
 
+/** \brief Classe représentant le robot ramassant les Piece
+ *  \author Pierrick Garcia
+ */
 class   Ramapiece {
   private:
     vectorPiece *_pieces;
@@ -14,10 +21,34 @@ class   Ramapiece {
   public:
     Ramapiece(vectorPiece *pieces, const Robot& robot);
 
+    /** \brief Retourne le vecteur contenant les Piece sur le tapis roulant
+     *  \return vectorPiece*
+     */
     vectorPiece *       getPieces();
+
+    /** \brief Retourne la position actuelle du Robot
+     *  \return const Position&
+     */
     const Position &    getRobotPosition();
+
+    /** \brief Retourne la vitesse du Robot
+     *  \return double
+     */
     double              getRobotSpeed();
+
+    /** \brief Ramasse une Piece
+     *
+     *  \param const Piece& piece
+     *
+     *  Déplace le Robot jusqu'à la Piece.
+     *  La pièce est déposée dans le Robot, et est retirée du tapis.
+     */
     void                pickUpPiece(const Piece &piece);
+
+    /** \brief Dépose les Piece
+     *
+     *  Déplace le Robot jusqu'à son point d'origine, puis dépose les Piece.
+     */
     void                dropPieces();
 
 };
