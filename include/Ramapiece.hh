@@ -31,6 +31,11 @@ class   Ramapiece {
      */
     const Position &    getRobotPosition();
 
+    /** \brief Retourne la position initiale du Robot
+     *  \return const Position&
+     */
+    const Position &    getRobotStart();
+
     /** \brief Retourne la vitesse du Robot
      *  \return double
      */

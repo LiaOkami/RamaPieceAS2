@@ -12,6 +12,10 @@ const Position &    Ramapiece::getRobotPosition() {
     return _robot.pos;
 }
 
+const Position &    Ramapiece::getRobotStart() {
+    return _robot.start;
+}
+
 double  Ramapiece::getRobotSpeed() {
     return _robot.speed;
 }
