@@ -3,13 +3,18 @@
 
 #include "Piece.hh"
 
+/** \brief Fonction permettant la detection des pièces sur le tapis actuellement
+ */
+vector<Piece> detectionPieces();
+
+
 /** \brief Classe permettant la detection des pièces sur le tapis
  *  \author
  */
 
 class Detection{
 private:
-    vector<Piece> listePieceActuelle;
+     listePieceActuelle;
 public:
     Detection();
 };
