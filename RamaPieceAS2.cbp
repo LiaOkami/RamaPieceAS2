@@ -67,6 +67,10 @@
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="include/detection/detection.h">
+			<Option target="Detection" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
 		</Unit>
@@ -83,6 +87,10 @@
 		<Unit filename="src/Position.cpp">
 			<Option target="Detection" />
 			<Option target="Opti" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="src/detection/detection.cpp">
+			<Option target="Detection" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/detection/main.cpp">
