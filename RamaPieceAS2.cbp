@@ -70,6 +70,9 @@
 		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
 		</Unit>
+		<Unit filename="include/optimisation/generateRamapiece.hh">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="include/optimisation/parcours.h">
 			<Option target="Test" />
 			<Option target="Opti" />
@@ -95,12 +98,14 @@
 		<Unit filename="src/optimisation/compte.cpp">
 			<Option target="Opti" />
 		</Unit>
+		<Unit filename="src/optimisation/generateRamapiece.cpp">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="src/optimisation/main.cpp">
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/optimisation/parcours.cpp">
 			<Option target="Test" />
-			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/test.cpp">
