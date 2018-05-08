@@ -1,7 +1,7 @@
 #include "Ramapiece.hh"
 
 Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
-    _pieces(pieces), _robot(robot) {
+    _pieces(pieces), _robot(robot), _distance(0) {
 
 }
 
@@ -35,6 +35,7 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
         _pieces->erase(it);
+        _distance += dist;
     }
 }
 
@@ -49,4 +50,9 @@ void    Ramapiece::dropPieces() {
               << value << "." << std::endl;
     _robot.pos = _robot.start;
     _pieces->clear();
+    _distance += dist;
+}
+
+int Ramapiece::getTraveledDistance() {
+    return _distance;
 }

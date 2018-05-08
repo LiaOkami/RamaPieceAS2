@@ -17,6 +17,7 @@ class   Ramapiece {
   private:
     vectorPiece *_pieces;
     Robot       _robot;
+    int         _distance;
 
   public:
     Ramapiece(vectorPiece *pieces, const Robot& robot);
@@ -56,6 +57,10 @@ class   Ramapiece {
      */
     void                dropPieces();
 
+    /** \brief Récupère la distance totale parcourue par le Robot
+     *  \return int Distance parcourue
+     */
+    int                getTraveledDistance();
 };
 
 #endif // _RAMAPIECE_HH_INCLUDED_
