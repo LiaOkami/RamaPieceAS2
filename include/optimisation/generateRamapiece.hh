@@ -2,8 +2,10 @@
  *  \brief Comporte le générateur aléatoire de Ramapiece
  */
 
-#ifndef _PIECE_HH_
-# define _PIECE_HH_
+#ifndef _GENERATERAMAPIECE_HH_
+# define _GENERATERAMAPIECE_HH_
+
+# include "Ramapiece.hh"
 
 /** \brief Génére aléatoirement un Ramapiece contenant size pièces
  *
@@ -17,4 +19,4 @@
  */
 Ramapiece   generateRamapiece(int size);
 
-# include "Position.hh"
+#endif // _GENERATERAMAPIECE_HH_
