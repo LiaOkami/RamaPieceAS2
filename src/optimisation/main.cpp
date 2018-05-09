@@ -1,12 +1,15 @@
 #include <iostream>
 #include "compte.h"
+#include "algorithm.hh"
+#include "generateRamapiece.hh"
 #include "Ramapiece.hh"
 
 using namespace std;
 
 int main()
 {
-    //testRamapiece();
+    Ramapiece ramapiece = generateRamapiece(50);
+    menu(ramapiece);
 
 /*    int som;
     cout << "Quelle somme voulez vous en centimes ?" << endl;

@@ -67,6 +67,9 @@
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="include/optimisation/algorithm.hh">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
 		</Unit>
@@ -94,6 +97,9 @@
 		<Unit filename="src/optimisation/Ramapiece.cpp">
 			<Option target="Opti" />
 			<Option target="Release" />
+		</Unit>
+		<Unit filename="src/optimisation/algorithm.cpp">
+			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/optimisation/compte.cpp">
 			<Option target="Opti" />
