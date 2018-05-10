@@ -67,10 +67,12 @@
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="include/optimisation/algorithm.hh">
+		<Unit filename="include/detection/detection.h">
+			<Option target="Detection" />
+			<Option target="Release" />
+		</Unit>		<Unit filename="include/optimisation/algorithm.hh">
 			<Option target="Opti" />
-		</Unit>
-		<Unit filename="include/optimisation/compte.h">
+		</Unit>		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="include/optimisation/generateRamapiece.hh">
@@ -89,6 +91,10 @@
 		<Unit filename="src/Position.cpp">
 			<Option target="Detection" />
 			<Option target="Opti" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="src/detection/detection.cpp">
+			<Option target="Detection" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/detection/main.cpp">
@@ -111,7 +117,7 @@
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/optimisation/parcours.cpp">
-			<Option target="Test" />
+			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/test.cpp">
