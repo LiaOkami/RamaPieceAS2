@@ -19,9 +19,11 @@ void detectionPieces()
     /* boucle pour detecter tous les cercles, pour plus tard*/
         //on trace un cercle avec trois points tirés aléatoirement (E)
         //nombres aléatoires
-        //srand(time(NULL));
-        //int alea1=rand(), alea2=rand(), alea3=rand();
-        int alea1 = 1, alea2 =2, alea3 =3;
+        int MIN = 0, MAX = 10; //MAX = tableau.lenght()
+        srand(time(NULL));
+        int alea1 = rand()%(MAX-MIN) + MIN,
+            alea2 = rand()%(MAX-MIN) + MIN,
+            alea3 = rand()%(MAX-MIN) + MIN;
         cout << "Nombres aléatoires : " << alea1 << ", " << alea2 << ", " << alea3 << endl;
         //Piece pieceCourante = traceCercle();
 
