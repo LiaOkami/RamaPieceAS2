@@ -70,9 +70,11 @@
 		<Unit filename="include/detection/detection.h">
 			<Option target="Detection" />
 			<Option target="Release" />
-		</Unit>		<Unit filename="include/optimisation/algorithm.hh">
+		</Unit>
+		<Unit filename="include/optimisation/algorithm.hh">
 			<Option target="Opti" />
-		</Unit>		<Unit filename="include/optimisation/compte.h">
+		</Unit>
+		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="include/optimisation/generateRamapiece.hh">
