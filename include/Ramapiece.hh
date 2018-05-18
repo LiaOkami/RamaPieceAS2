@@ -21,6 +21,7 @@ class   Ramapiece {
 
   public:
     Ramapiece(vectorPiece *pieces, const Robot& robot);
+    ~Ramapiece();
 
     /** \brief Retourne le vecteur contenant les Piece sur le tapis roulant
      *  \return vectorPiece*

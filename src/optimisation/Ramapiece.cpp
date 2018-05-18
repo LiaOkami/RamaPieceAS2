@@ -5,6 +5,10 @@ Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
 
 }
 
+Ramapiece::~Ramapiece() {
+    _pieces->clear();
+}
+
 vectorPiece *   Ramapiece::getPieces() {
     return _pieces;
 }
@@ -34,7 +38,9 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
                   << piece.value << std::endl;
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
+        std::cout << _pieces->size() << std::endl;
         _pieces->erase(it);
+        std::cout << _pieces->size() << std::endl;
         _distance += dist;
     }
 }
@@ -49,7 +55,6 @@ void    Ramapiece::dropPieces() {
               << "Distance : " << dist << "\tCoins dropped, value: "
               << value << "." << std::endl;
     _robot.pos = _robot.start;
-    _pieces->clear();
     _distance += dist;
 }
 
