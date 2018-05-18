@@ -11,9 +11,11 @@ void detectionPieces();
 class Detection
 {
 private:
-    Piece pieceCourante; //pour les tests
+    /** \brief Pièce actuelement sur le tapis (pour les tests) */
+    Piece pieceCourante;
     /** \brief liste des pièces actuelement sur le tapis */
     vector<Piece> listePieceCourante;
+    bool tapisVide;
 public:
     //Constructeur
     Detection();
@@ -25,7 +27,7 @@ public:
      Piece getPieceCourante(); //pour les tests
 
     /** \brief
-     * \return la liste des pièce courante
+     * \return la liste des pièces sur le tapis
      */
      vector<Piece> getListePieceCourante();
 
@@ -36,6 +38,10 @@ public:
     /** \brief détecte et enregistre les pièces actuellement sur le tapis
     */
     void detectionPieces();
+
+    /** \brief trace une pièce à partir de 3 points
+    */
+    Piece tracerPiece3points(Position posA, Position posB, Position posC);
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
