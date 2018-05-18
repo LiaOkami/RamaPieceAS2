@@ -16,7 +16,7 @@ struct   Robot {
     Position            start;
     std::vector<Piece>  pieces;
 
-    Robot (const Position &_pos) {pos=_pos;}
+    Robot (const Position &_pos) {pos=_pos;start=_pos;}
 };
 
 #endif // _ROBOT_HH_INCLUDED_
