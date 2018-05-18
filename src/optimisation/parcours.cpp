@@ -41,7 +41,7 @@ void triDistancePieceBras(Ramapiece &p){
             }
             /*on echange*/
             tmpPiece = (*tabPiece)[i];
-            (*tabPiece)[i] = valPetit;
+            (*tabPiece)[i] = (*tabPiece)[indicePetit];
             (*tabPiece)[indicePetit] = tmpPiece;
         }
 }
@@ -164,13 +164,12 @@ int rechercheDicho(std::vector<Piece> * tabP, int val){
  *          et reviens en position start à chaque fois
  */
 void parcoursSimple(Ramapiece &p){
-
         triDistancePieceBras(p);
         vector<Piece> *tabPiece = p.getPieces();
+        std::cout << tabPiece->size() << std::endl;
 
-
-        for(int i = 0; i<tabPiece->size(); i++){
-            p.pickUpPiece((*tabPiece)[i]);
+        while (tabPiece->size() > 0) {
+            p.pickUpPiece(tabPiece->front());
             p.dropPieces();
         }
 }
@@ -184,8 +183,8 @@ void parcoursDesVoisins(Ramapiece &p){
         triDistancePiecePiece(p);
         vector<Piece> *tabPiece = p.getPieces();
 
-        for(int i = 0; i<tabPiece->size(); i++){
-            p.pickUpPiece((*tabPiece)[i]);
+        while (tabPiece->size() > 0) {
+            p.pickUpPiece(tabPiece->front()); // vector->front() == (*vector)[0]
         }
         p.dropPieces();
 }
