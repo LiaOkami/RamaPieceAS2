@@ -41,7 +41,7 @@ public:
 
     /** \brief trace une pièce à partir de 3 points
     */
-    Piece tracerPiece3points(Position posA, Position posB, Position posC);
+    Piece tracerPiece3points(Position A, Position B, Position C);
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
