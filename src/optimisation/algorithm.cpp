@@ -1,9 +1,11 @@
 #include "algorithm.hh"
+#include "parcours.h"
 
 //void parcoursZone(Ramapiece &p);
 
 const t_algorithm test[] = {
-   //{"test", &parcoursZone},
+   {"Parcours Simple", &parcoursSimple},
+   {"Parcours des Voisins", &parcoursDesVoisins},
    {"", nullptr}
 };
 
