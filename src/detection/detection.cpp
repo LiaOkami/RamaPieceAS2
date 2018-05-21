@@ -55,7 +55,9 @@ void Detection::detectionPieces()
     //transforme en tableau de points blancs (N)
 
     // On cherche les pièce du tapis (Etienne)
+
     /* --- boucle pour detecter toutes les pièces du tapis, pour plus tard ---*/
+        vector<std::pair<Piece, int>> tabPiecesDetectees; // enregistre la pièce et le nb de pts qu'il y a dessus (accès : .first, .second)
         for(int i = 0; i < 3; i++){
             //on trace un cercle avec trois points tirés aléatoirement (E)
             //nombres aléatoires
@@ -66,13 +68,21 @@ void Detection::detectionPieces()
                 alea3 = rand()%(MAX-MIN) + MIN;
             cout << "Nombres aléatoires : " << alea1 << ", " << alea2 << ", " << alea3 << endl; //test
             Piece piecetracée = tracerPiece3points(pos1,pos2,pos3); //prendre les positions à partir du tableau de points
-
+            int nbPoints appartenance;
             //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte (E)
             //Boucle pour chaque point blanc
+            //compare sa distance du centre du cercle
+
+            for(int c = 0; c < tabsize; c++){ //tableau des points blancs
+
+            }
         }
         //On Cherche le cercle avec le plus de points comme le "vrai" cercle
         //BOucle pour avec une donnée "max"
-        //listePieceActuel.push_back(pieceCourante);
+        int max = 0;
+        for(int c = 0; c < tabsize; c++){
+
+        }
     /* --- Fin boucle ---- */
 }
 
