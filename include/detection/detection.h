@@ -51,13 +51,19 @@ public:
     */
     void detectionPieces();
 
-    /** \brief trace une pièce à partir de 3 points
-    */
-    Piece tracerPiece3points(Position A, Position B, Position C);
+
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
     void afficherPieces();
 };
+
+    /* ---------------------------
+            Méthodes Externes
+       --------------------------- */
+
+/** \brief trace une pièce à partir de 3 points
+ */
+Piece tracerPiece3points(Position A, Position B, Position C);
 
 #endif // DETECTION_H_INCLUDED
