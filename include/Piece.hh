@@ -18,7 +18,7 @@ class Piece
     double      radius;
 
     Piece(int val = 0, const Position & po = Position());
-    Piece(int val, double x, double y, double rad);
+    Piece(int val, double x, double y, double rad = 0);
 
     bool    operator==(const Piece &piece);
     bool    operator!=(const Piece &piece);
