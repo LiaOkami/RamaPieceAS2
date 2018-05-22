@@ -9,6 +9,12 @@
 #include <iostream>
 #include <string>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+
+
+
 using namespace std;
 
 //void detectionPieces();
@@ -45,13 +51,11 @@ public:
 
     bool ouvertureFichier(const string chemin);
 
-
-
     /** \brief détecte et enregistre les pièces actuellement sur le tapis
     */
     void detectionPieces();
 
-
+    vector<vector<cv::Point>> tabContours();
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
