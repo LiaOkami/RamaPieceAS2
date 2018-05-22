@@ -20,7 +20,9 @@ class   Ramapiece {
     int         _distance;
 
   public:
+    Ramapiece();
     Ramapiece(vectorPiece *pieces, const Robot& robot);
+    Ramapiece & operator=(const Ramapiece &ramapiece);
     ~Ramapiece();
 
     /** \brief Retourne le vecteur contenant les Piece sur le tapis roulant

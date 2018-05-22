@@ -1,12 +1,22 @@
 #include "Ramapiece.hh"
 
-Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
-    _pieces(pieces), _robot(robot), _distance(0) {
-
+Ramapiece::Ramapiece() {
 }
 
+Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
+    _pieces(pieces), _robot(robot), _distance(0) {
+}
+
+Ramapiece & Ramapiece::operator=(const Ramapiece &other) {
+    _pieces = other._pieces;
+    _robot = other._robot;
+    _distance = other._distance;
+}
+
+
 Ramapiece::~Ramapiece() {
-    _pieces->clear();
+    if (_pieces != nullptr)
+        delete _pieces;
 }
 
 vectorPiece *   Ramapiece::getPieces() {
