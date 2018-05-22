@@ -120,6 +120,8 @@ cv::Mat contours;
 cvtColor( imageTapis, imageTapisNB, CV_RGB2GRAY );
 cv::Canny(imageTapis,contours,100,1001);
 
+cv::namedWindow("Gray");
+cv::imshow("Gray",gray_image);
 
 
 vector<vector<Point>> tableaucontours;
