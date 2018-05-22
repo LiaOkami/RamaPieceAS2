@@ -6,18 +6,13 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include <cstdlib>
-#include <ctime>
-
 #include <vector>
-#include <iostream>
-
 #include <iostream>
 using namespace std;
 
 int main()
 {
-    cout << "detection" << endl;
+    cout << "Detection" << endl;
     Detection detect;
     detect.detectionPieces();
     return (0);
