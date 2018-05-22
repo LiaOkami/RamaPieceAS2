@@ -1,51 +1,19 @@
 #include "algorithm.hh"
 #include "parcours.h"
-#include "generateRamapiece.hh"
 #include "Ramapiece.hh"
+#include "manualTest.hh"
 
-const t_algorithm test[] = {
+const t_algorithm funcs[] = {
    {"Parcours Simple", &parcoursSimple},
    {"Parcours des Voisins", &parcoursDesVoisins},
    {"Parcours des Voisins avec zone", &parcoursDesVoisinsZone},
-   {"Parcours par zones", &parcoursZone}
+   {"Parcours par zones", &parcoursZone},
+   {"", nullptr}
 };
 
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
-{
-    int dist;
-
-    std::cout << "### " << algorithm.first << std::endl;
-    algorithm.second(ramapiece);
-    dist = ramapiece.getTraveledDistance();
-    std::cout << "### " << algorithm.first
-              << "\tDistance : " << dist << std::endl;
-    return dist;
-}
-
-void    manualTest()
-{
-    int value = -1;
-    int i;
-    Ramapiece   *ramapiece;
-
-    while (value != 0)
-    {
-        ramapiece = generateRamapiece(50);
-        std::cout << "Veuillez choisir votre algorithme en rentrant le nombre correspondant." << std::endl;
-        i = 0;
-        while (test[i].first != "") {
-            std::cout << i + 1 << ") " << test[i].first << std::endl;
-            i += 1;
-        }
-        std::cout << "0) Quitter" << std::endl;
-        std::cin >> value;
-        if (value > 0 && value <= i) {
-            algorithmWrapper(*ramapiece, test[value - 1]);
-        }
-        delete ramapiece;
-        std::cout << std::endl;
-    }
-}
+const t_algorithm_param funcs_param[] = {
+   {"", nullptr}
+};
 
 void    unitTest()
 {
