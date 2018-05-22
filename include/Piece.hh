@@ -15,9 +15,10 @@ class Piece
   public:
     int         value;
     Position    pos;
+    double      radius;
 
     Piece(int val = 0, const Position & po = Position());
-    Piece(int val, double x, double y);
+    Piece(int val, double x, double y, double rad);
 
     bool    operator==(const Piece &piece);
     bool    operator!=(const Piece &piece);
