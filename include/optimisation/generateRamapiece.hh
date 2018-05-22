@@ -17,6 +17,6 @@
  *  est determinée aléatoirement avec un x et un y entre 0 et 1000.
  *  La valeur de chaque Piece est determinée aléatoirement entre 0 et 200.
  */
-Ramapiece   generateRamapiece(int size);
+Ramapiece * generateRamapiece(int size);
 
 #endif // _GENERATERAMAPIECE_HH_
