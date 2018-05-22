@@ -10,7 +10,8 @@ const t_algorithm test[] = {
    {"Parcours par zones", &parcoursZone}
 };
 
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm) {
+int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
+{
     int dist;
 
     std::cout << "### " << algorithm.first << std::endl;
@@ -21,11 +22,12 @@ int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm) {
     return dist;
 }
 
-void    menu() {
+void    manualTest()
+{
     int value = -1;
     int i;
     Ramapiece   *ramapiece;
-    std::cout << "Bienvenue dans Ramapiece." << std::endl;
+
     while (value != 0)
     {
         ramapiece = generateRamapiece(50);
@@ -42,6 +44,31 @@ void    menu() {
         }
         delete ramapiece;
         std::cout << std::endl;
+    }
+}
+
+void    unitTest()
+{
+
+}
+
+void    menu()
+{
+    int value;
+
+    std::cout << "Bienvenue dans Ramapiece." << std::endl
+              << "1) Tests manuels" << std::endl
+              << "2) Tests unitaires" << std::endl
+              << "0) Quitter" << std::endl;
+    std::cin >> value;
+    switch (value)
+    {
+    case 1:
+        manualTest();
+        break;
+    case 2:
+        unitTest();
+        break;
     }
     std::cout << "Sortie du programme." << std::endl;
 }
