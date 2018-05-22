@@ -33,14 +33,12 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
         it++;
     // Si la pièce est trouvée
     if (it != _pieces->end()) {
-        std::cout << _robot.pos << " to " << piece.pos << std::endl;
-        std::cout << "Distance : " << dist << "\tValue picked: "
+        std::cout << _robot.pos << " to " << piece.pos << '\t'
+                  << "Distance : " << dist << "\tValue picked: "
                   << piece.value << std::endl;
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
-        std::cout << _pieces->size() << std::endl;
         _pieces->erase(it);
-        std::cout << _pieces->size() << std::endl;
         _distance += dist;
     }
 }

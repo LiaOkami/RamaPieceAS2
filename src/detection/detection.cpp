@@ -5,52 +5,15 @@
 
 #include "detection/detection.h"
 #include "Piece.hh"
-
+//nombres aléatoires
 #include <cstdlib>
 #include <ctime>
 
 #include <vector>
 #include <iostream>
-
 using namespace std;
 using namespace cv;
 
-/*void detectionPieces()
-{
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //transforme en tableau de points blancs (N)
-
-    // boucle pour detecter tous les cercles, pour plus tard
-        //on trace un cercle avec trois points tirés aléatoirement (E)
-        //nombres aléatoires
-
-        //Piece pieceCourante = traceCercle();
-
-        //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte (E)
-        //Boucle pour chaque point blanc
-
-        //On  Prend le cercle avec le plus de points comme le "vrai" cercle
-        //BOucle pour avec une donnée "max"
-        //listePieceActuel.push_back(pieceCourante);
-}
-*/
 
 Detection::Detection(){
     pieceCourante = Piece();
@@ -102,21 +65,28 @@ void Detection::detectionPieces()
                 alea3 = rand()%(MAX-MIN) + MIN;
             cout << "Nombres aléatoires : " << alea1 << ", " << alea2 << ", " << alea3 << endl; //test
            // Piece piecetracée = tracerPiece3points(pos1,pos2,pos3); //prendre les positions à partir du tableau de points
-           // int nbPoints appartenance;
+
             //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte (E)
             //Boucle pour chaque point blanc
             //compare sa distance du centre du cercle
-
-           // for(int c = 0; c < tabsize; c++){ //tableau des points blancs
-
-          }
+            int nbPointsAppartenance;
+            for(int c = 0; c < tabsize; c++){ //tableau des points blancs //R
+                int distance = getDistance(pieceTracee.pos, tab[c]); //R
+                if(pieceTracee.rayon-2 < distance && distance < pieceTracee.rayon+2){ //si appartient, on le compte //R
+                    nbPointsAppartenance++;
+                }
        // }
+            tabPiecesDetectees.push_back(make_pair(pieceTracee,nbPointsAppartenance));
+        }
         //On Cherche le cercle avec le plus de points comme le "vrai" cercle
-        //BOucle pour avec une donnée "max"
-    /*    int max = 0;
-        for(int c = 0; c < tabsize; c++){
-
+        int maxPoints = 0, imax = 0;
+        for(int j = 0; j < tabPiecesDetectees.size(); j++){
+            if(tabPiecesDetectees[j].second > maxPoints){
+                maxPoints = tabPiecesDetectees[j].second;
+                imax = j;
         }*/
+        }
+        pieceCourante = tabPiecesDetectees[imax].first;
     /* --- Fin boucle ---- */
     this->afficherPieces();
 }
