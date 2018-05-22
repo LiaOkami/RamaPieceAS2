@@ -169,7 +169,6 @@ int rechercheDicho(std::vector<Piece> * tabP, int val){
 void parcoursSimple(Ramapiece &p){
         triDistancePieceBras(p);
         vector<Piece> *tabPiece = p.getPieces();
-        std::cout << tabPiece->size() << std::endl;
 
         while (tabPiece->size() > 0) {
             p.pickUpPiece(tabPiece->front());
@@ -211,8 +210,6 @@ void parcoursZone(Ramapiece &p){
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
 
-
-    std::cout<< "la" <<std::endl;
     if(tabPiece->size() >= 4){
         /*on recupere les 4 piece qui vont creer la zone global de recherche*/
         for(i = 1; i<tabPiece->size();i++){
@@ -234,7 +231,6 @@ void parcoursZone(Ramapiece &p){
             }
         }
 
-        std::cout<< "ici" <<std::endl;
         /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
 
         for(i = 0; i<tabPiece->size();i++){
@@ -276,8 +272,6 @@ void parcoursZone(Ramapiece &p){
 
         /*on depose toute les pieces*/
         p.dropPieces();
-
-        cout << "tab Erreur : " << tabErreur.size() <<endl;
     }
 }
 

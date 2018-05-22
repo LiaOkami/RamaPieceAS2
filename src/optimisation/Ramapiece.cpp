@@ -38,9 +38,7 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
                   << piece.value << std::endl;
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
-        std::cout << _pieces->size() << std::endl;
         _pieces->erase(it);
-        std::cout << _pieces->size() << std::endl;
         _distance += dist;
     }
 }

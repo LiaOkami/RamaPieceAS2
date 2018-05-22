@@ -102,6 +102,9 @@
 		<Unit filename="src/detection/main.cpp">
 			<Option target="Detection" />
 		</Unit>
+		<Unit filename="src/main.cpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="src/optimisation/Ramapiece.cpp">
 			<Option target="Opti" />
 			<Option target="Release" />
