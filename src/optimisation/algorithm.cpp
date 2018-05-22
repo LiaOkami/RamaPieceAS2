@@ -1,7 +1,7 @@
 #include "algorithm.hh"
 #include "parcours.h"
-
-
+#include "generateRamapiece.hh"
+#include "Ramapiece.hh"
 
 const t_algorithm test[] = {
    {"Parcours Simple", &parcoursSimple},
@@ -21,20 +21,27 @@ int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm) {
     return dist;
 }
 
-void    menu(Ramapiece &ramapiece) {
-    int value;
-    int i = 0;
-
-    std::cout << "Bienvenue dans Ramapiece." << std::endl
-              << "Veuillez choisir votre algorithme en rentrant le nombre correspondant." << std::endl;
-    while (test[i].first != "") {
-        std::cout << i + 1 << ") " << test[i].first << std::endl;
-        i += 1;
+void    menu() {
+    int value = -1;
+    int i;
+    Ramapiece   *ramapiece;
+    std::cout << "Bienvenue dans Ramapiece." << std::endl;
+    while (value != 0)
+    {
+        ramapiece = generateRamapiece(50);
+        std::cout << "Veuillez choisir votre algorithme en rentrant le nombre correspondant." << std::endl;
+        i = 0;
+        while (test[i].first != "") {
+            std::cout << i + 1 << ") " << test[i].first << std::endl;
+            i += 1;
+        }
+        std::cout << "0) Quitter" << std::endl;
+        std::cin >> value;
+        if (value > 0 && value <= i) {
+            algorithmWrapper(*ramapiece, test[value - 1]);
+        }
+        delete ramapiece;
+        std::cout << std::endl;
     }
-    std::cin >> value;
-    if (value > 0 && value <= i) {
-        algorithmWrapper(ramapiece, test[value - 1]);
-    }
-    else
-        std::cerr << "Mauvaise valeur rentrée, sortie du programme." << std::endl;
+    std::cout << "Sortie du programme." << std::endl;
 }

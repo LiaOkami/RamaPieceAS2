@@ -5,8 +5,8 @@ Piece::Piece(int val, const Position &po) :
 
 }
 
-Piece::Piece(int val, double x, double y) :
-    value(val), pos(Position(x, y)) {
+Piece::Piece(int val, double x, double y, double rad) :
+    value(val), pos(Position(x, y)), radius(rad) {
 
 }
 

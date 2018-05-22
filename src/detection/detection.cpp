@@ -20,21 +20,6 @@ Detection::Detection(){
     tapisVide = true;
 }
 
-Piece Detection::getPieceCourante()
-{
-    return pieceCourante;
-}
-
-vector<Piece> Detection::getListePieceCourante()
-{
-    if(tapisVide){
-        vector<Piece> vecteurVide;
-        return vecteurVide;
-    } else {
-        return listePieceCourante;
-    }
-}
-
 void Detection::detectionPieces()
 {
     //------------------------------------------------
@@ -48,47 +33,67 @@ void Detection::detectionPieces()
      //------------------------------------------------
     //transforme en tableau de points blancs (Nicolas)
     //------------------------------------------------
-    vector<vector<Point> > tableaucontours=this->tabContours();
-
+    vector<vector<Point> > tabContours = this->tabContours();
     //------------------------------------------------
     // On cherche les pièce du tapis (Etienne)
 
     /* --- boucle pour detecter toutes les pièces du tapis, pour plus tard ---*/
         vector<std::pair<Piece, int>> tabPiecesDetectees; // enregistre la pièce et le nb de pts qu'il y a dessus (accès : .first, .second)
         for(int i = 0; i < 3; i++){
-            //on trace un cercle avec trois points tirés aléatoirement (E)
+            //on trace un cercle avec trois points tirés aléatoirement du tableau de contours (E)
             //nombres aléatoires
-            int MIN = 0, MAX = 10; //MAX = tableau.lenght()
-            srand(time(NULL));
-            int alea1 = rand()%(MAX-MIN) + MIN,
-                alea2 = rand()%(MAX-MIN) + MIN,
-                alea3 = rand()%(MAX-MIN) + MIN;
-            cout << "Nombres aléatoires : " << alea1 << ", " << alea2 << ", " << alea3 << endl; //test
-           // Piece piecetracée = tracerPiece3points(pos1,pos2,pos3); //prendre les positions à partir du tableau de points
+            int MIN = 0, MAX = tabContours.size();
+            vector<cv::Point> pointsTires;
+            for(int cpt = 0; cpt < 3; cpt ++){
+                srand(time(NULL));
+                int Ialea = rand()%(MAX-MIN) + MIN;
+                int Jalea = rand()%(tabContours[Ialea].size()-MIN) + MIN;
+                pointsTires.push_back(tabContours[Ialea][Jalea]);
+            }
+            Position pos1(pointsTires[0].x, pointsTire[0].y), pos2(pointsTires[1].x, pointsTire[1].y), pos3(pointsTires[2].x, pointsTire[2].y);
+            Piece pieceTracee = tracerPiece3points(pos1, pos2, pos3);
 
             //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte (E)
             //Boucle pour chaque point blanc
             //compare sa distance du centre du cercle
             int nbPointsAppartenance;
-            for(int c = 0; c < tabsize; c++){ //tableau des points blancs //R
-                int distance = getDistance(pieceTracee.pos, tab[c]); //R
-                if(pieceTracee.rayon-2 < distance && distance < pieceTracee.rayon+2){ //si appartient, on le compte //R
-                    nbPointsAppartenance++;
+            for(int i = 0; i < tabContours.size(); i++){
+                for(int j = 0; j < tabContours[i].size(); j++){
+                    Position pointVerifie(tabContours[i][j].x, tabContours[i][j].y);
+                    double distance = getDistance(pieceTracee.pos, pointVerifie);
+                    if(pieceTracee.radius -2 < distance && distance < pieceTracee.radius +2){ //si appartient, on le compte
+                        nbPointsAppartenance++;
+                    }
                 }
-       // }
+            }
             tabPiecesDetectees.push_back(make_pair(pieceTracee,nbPointsAppartenance));
         }
         //On Cherche le cercle avec le plus de points comme le "vrai" cercle
-        int maxPoints = 0, imax = 0;
-        for(int j = 0; j < tabPiecesDetectees.size(); j++){
-            if(tabPiecesDetectees[j].second > maxPoints){
-                maxPoints = tabPiecesDetectees[j].second;
-                imax = j;
+        int maxPoints = 0, indexMax = 0;
+        for(int c = 0; c < tabPiecesDetectees.size(); c++){
+            if(tabPiecesDetectees[c].second > maxPoints){
+                maxPoints = tabPiecesDetectees[c].second;
+                indexMax = c;
         }*/
         }
-        pieceCourante = tabPiecesDetectees[imax].first;
+        pieceCourante = tabPiecesDetectees[indexMax].first;
     /* --- Fin boucle ---- */
     this->afficherPieces();
+}
+
+Piece Detection::getPieceCourante()
+{
+    return pieceCourante;
+}
+
+vector<Piece> Detection::getListePieceCourante()
+{
+    if(tapisVide){
+        vector<Piece> vecteurVide;
+        return vecteurVide;
+    } else {
+        return listePieceCourante;
+    }
 }
 
 bool Detection::ouvertureFichier(const string chemin){
@@ -148,8 +153,6 @@ findContours( contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPRO
       cv::imshow( "Contours", imageTapis );
 
     cv::waitKey(0);
-
-
 }
 
 Piece tracerPiece3points(Position A, Position B, Position C)
@@ -168,6 +171,6 @@ Piece tracerPiece3points(Position A, Position B, Position C)
     //Rayon
     double rayon = getDistance(A, posCentre);
 
-    return Piece(0, centreX, centreY); //àMODIFIER : doit aussi retourner le rayon de la pièce
+    return Piece(0, centreX, centreY, rayon); //àMODIFIER : doit aussi retourner le rayon de la pièce
 }
 
