@@ -2,10 +2,16 @@
 #define DETECTION_H_INCLUDED
 
 #include "Piece.hh"
+#include "Position.hh"
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
+#include <vector>
+#include <iostream>
+#include <string>
 
-/** \brief Fonction permettant la detection des pièces actuellement sur le tapis
- */
-void detectionPieces();
+using namespace std;
+
+//void detectionPieces();
 
 /** \brief Classe détection, pour détecter les pièces actuelemnt sur le tapis */
 class Detection
@@ -16,6 +22,8 @@ private:
     /** \brief liste des pièces actuelement sur le tapis */
     vector<Piece> listePieceCourante;
     bool tapisVide;
+    cv::Mat imageTapis;
+
 public:
     //Constructeur
     Detection();
@@ -35,17 +43,27 @@ public:
                 Méthodes
        --------------------------- */
 
+    bool ouvertureFichier(const string chemin);
+
+
+
     /** \brief détecte et enregistre les pièces actuellement sur le tapis
     */
     void detectionPieces();
 
-    /** \brief trace une pièce à partir de 3 points
-    */
-    Piece tracerPiece3points(Position A, Position B, Position C);
+
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
     void afficherPieces();
 };
+
+    /* ---------------------------
+            Méthodes Externes
+       --------------------------- */
+
+/** \brief trace une pièce à partir de 3 points
+ */
+Piece tracerPiece3points(Position A, Position B, Position C);
 
 #endif // DETECTION_H_INCLUDED

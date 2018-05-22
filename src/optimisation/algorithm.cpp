@@ -1,12 +1,13 @@
 #include "algorithm.hh"
 #include "parcours.h"
 
-//void parcoursZone(Ramapiece &p);
+
 
 const t_algorithm test[] = {
    {"Parcours Simple", &parcoursSimple},
    {"Parcours des Voisins", &parcoursDesVoisins},
-   {"", nullptr}
+   {"Parcours des Voisins avec zone", &parcoursDesVoisinsZone},
+   {"Parcours par zones", &parcoursZone}
 };
 
 int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm) {
