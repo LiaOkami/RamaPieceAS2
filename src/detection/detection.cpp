@@ -50,8 +50,10 @@ void Detection::detectionPieces()
                 int Jalea = rand()%(tabContours[Ialea].size()-MIN) + MIN;
                 pointsTires.push_back(tabContours[Ialea][Jalea]);
             }
-            Position pos1(pointsTires[0].x, pointsTire[0].y), pos2(pointsTires[1].x, pointsTire[1].y), pos3(pointsTires[2].x, pointsTire[2].y);
+            Position pos1(pointsTires[0].x, pointsTires[0].y), pos2(pointsTires[1].x, pointsTires[1].y), pos3(pointsTires[2].x, pointsTires[2].y);
             Piece pieceTracee = tracerPiece3points(pos1, pos2, pos3);
+
+            cout << "Pièce tracée : " << pieceTracee.pos.x << ", " << pieceTracee.pos.y << " rayon : " << pieceTracee.radius << endl;
 
             //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte (E)
             //Boucle pour chaque point blanc
@@ -74,7 +76,7 @@ void Detection::detectionPieces()
             if(tabPiecesDetectees[c].second > maxPoints){
                 maxPoints = tabPiecesDetectees[c].second;
                 indexMax = c;
-        }*/
+        }
         }
         pieceCourante = tabPiecesDetectees[indexMax].first;
     /* --- Fin boucle ---- */
@@ -108,11 +110,6 @@ bool Detection::ouvertureFichier(const string chemin){
     }
 }
 
-
-
-
-
-
 vector<vector<Point>> Detection::tabContours(){
 
 cv::Mat imageTapisNB;
@@ -120,9 +117,10 @@ cv::Mat contours;
 cvtColor( imageTapis, imageTapisNB, CV_RGB2GRAY );
 cv::Canny(imageTapis,contours,100,1001);
 
-cv::namedWindow("Gray");
-cv::imshow("Gray",gray_image);
-
+//cv::namedWindow("Gray");
+//cv::imshow("Gray",imageTapisNB);
+cv::namedWindow("Contours");
+cv::imshow("Contours", contours);
 
 vector<vector<Point>> tableaucontours;
 vector<Vec4i> hierarchy;
@@ -148,9 +146,12 @@ findContours( contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPRO
      */
      cv::Point point(10,10);
 
-      /// Show in a window
-      namedWindow( "Contours");
-      cv::imshow( "Contours", imageTapis );
+    /// Show in a window
+    namedWindow( "NB");
+    cv::imshow( "NB", imageTapis );
+
+    cout << "Pièce courante" << endl;
+    cout << "centre : " << pieceCourante.pos.x << ", " << pieceCourante.pos.y << " rayon : " << pieceCourante.radius << endl;
 
     cv::waitKey(0);
 }
