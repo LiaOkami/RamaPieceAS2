@@ -1,27 +1,25 @@
-#include <functional>
 #include "algorithm.hh"
 #include "generateRamapiece.hh"
 
-using namespace std::placeholders;
-
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
+void    algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
 {
-    int dist;
-
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece);
-    dist = ramapiece.getTraveledDistance();
     std::cout << "### " << algorithm.first
-              << "\tDistance : " << dist << std::endl;
-    return dist;
+              << "\tDistance : " << ramapiece.getTraveledDistance()
+              << "\tArgent : " << ramapiece.getMoney() << std::endl;
 }
 
 int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
 {
     int dist;
     int money;
+    int availableMoney;
 
-    std::cout << "Combien d'argent desirez-vous ? (Il y a environ 5000 sur le tapis)" << std::endl;
+    for (const auto & piece:*(ramapiece.getPieces()))
+        availableMoney += piece.value;
+    std::cout << "Combien d'argent desirez-vous ? (Monnaie disponible : "
+              << availableMoney << ")" << std::endl;
     std::cin >> money;
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece, money);

@@ -1,4 +1,4 @@
-#include "Ramapiece.hh"
+#include "generateRamapiece.hh"
 
 Ramapiece * generateRamapiece(int size) {
     std::vector<Piece>  *pieces = new std::vector<Piece>;
