@@ -5,6 +5,7 @@ const t_algorithm   Algorithm::algos[] = {
         {"Parcours des Voisins", &parcoursDesVoisins},
         {"Parcours des Voisins avec zone", &parcoursDesVoisinsZone},
         {"Parcours par zones", &parcoursZone},
+        {"Parcours par zones", &parcoursZone},
         {"", nullptr}
     };
 

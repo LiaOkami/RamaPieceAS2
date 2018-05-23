@@ -80,6 +80,9 @@
 		<Unit filename="include/optimisation/generateRamapiece.hh">
 			<Option target="Opti" />
 		</Unit>
+		<Unit filename="include/optimisation/imageParcours.h">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="include/optimisation/manualTest.hh">
 			<Option target="Opti" />
 		</Unit>
@@ -122,6 +125,9 @@
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/optimisation/generateRamapiece.cpp">
+			<Option target="Opti" />
+		</Unit>
+		<Unit filename="src/optimisation/imageParcours.cpp">
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/optimisation/main.cpp">
