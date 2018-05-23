@@ -12,7 +12,7 @@ int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
     algorithm.second(ramapiece);
     dist = ramapiece.getTraveledDistance();
     std::cout << "### " << algorithm.first
-              << "\tDistance : " << dist << std::endl;
+              << "\tDistance : " << dist << "\tArgent : " << ramapiece.getMoney() <<  std::endl;
     return dist;
 }
 
