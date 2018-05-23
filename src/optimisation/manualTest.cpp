@@ -4,16 +4,13 @@
 
 using namespace std::placeholders;
 
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
+void    algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
 {
-    int dist;
-
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece);
-    dist = ramapiece.getTraveledDistance();
     std::cout << "### " << algorithm.first
-              << "\tDistance : " << dist << "\tArgent : " << ramapiece.getMoney() <<  std::endl;
-    return dist;
+              << "\tDistance : " << ramapiece.getTraveledDistance()
+              << "\tArgent : " << ramapiece.getMoney() << std::endl;
 }
 
 int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
