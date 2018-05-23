@@ -40,7 +40,7 @@ public:
 
      Piece getPieceCourante(); //pour les tests
 
-    /** \brief
+    /**\brief
      * \return la liste des pièces sur le tapis
      */
      vector<Piece> getListePieceCourante();
@@ -49,13 +49,20 @@ public:
                 Méthodes
        --------------------------- */
 
-    bool ouvertureFichier(const string chemin);
-
-    /** \brief détecte et enregistre les pièces actuellement sur le tapis
+    /**\brief Détecte et enregistre les pièces actuellement sur le tapis
     */
     void detectionPieces();
 
-    vector<vector<cv::Point>> tabContours();
+    /**\brief Ouvre le fichier correspondant à l'image du tapis
+     * \param chaine, chemin de l'image à ouvrir
+     * \return booléen indiquant si l'opération a fonctionné
+     */
+    bool ouvertureFichier(const string chemin);
+
+    /**\brief Détecte les contours marqués de l'image du tapis avec Canny edge detector
+     * \return matrice de cv::Point des points blancs de contours détectés sur l'image du tapis
+     */
+    vector<vector<cv::Point> > tabContours();
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
@@ -66,8 +73,9 @@ public:
             Méthodes Externes
        --------------------------- */
 
-/** \brief trace une pièce à partir de 3 points
- */
+    /**\brief Trace une pièce à partir de 3 positions
+     * \param 3 Positions
+     */
 Piece tracerPiece3points(Position A, Position B, Position C);
 
 #endif // DETECTION_H_INCLUDED
