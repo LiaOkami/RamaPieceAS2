@@ -11,6 +11,8 @@ Ramapiece & Ramapiece::operator=(const Ramapiece &other) {
     _pieces = other._pieces;
     _robot = other._robot;
     _distance = other._distance;
+    _money = other._money;
+    return *this;
 }
 
 
@@ -74,4 +76,12 @@ int Ramapiece::getTraveledDistance() {
 
 int Ramapiece::getMoney() {
     return _money;
+}
+
+Ramapiece & Ramapiece::copyRamapiece(const Ramapiece &other) {
+    _pieces = new vectorPiece(*(other._pieces));
+    _robot = other._robot;
+    _distance = 0;
+    _money = 0;
+    return *this;
 }
