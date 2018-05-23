@@ -1,8 +1,5 @@
-#include <functional>
 #include "algorithm.hh"
 #include "generateRamapiece.hh"
-
-using namespace std::placeholders;
 
 void    algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
 {
