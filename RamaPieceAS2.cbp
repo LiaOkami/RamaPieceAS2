@@ -80,10 +80,16 @@
 		<Unit filename="include/optimisation/generateRamapiece.hh">
 			<Option target="Opti" />
 		</Unit>
+		<Unit filename="include/optimisation/manualTest.hh">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="include/optimisation/parcours.h">
 			<Option target="Test" />
 			<Option target="Opti" />
 			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/optimisation/unitTest.hh">
+			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/Piece.cpp">
 			<Option target="Detection" />
@@ -121,9 +127,15 @@
 		<Unit filename="src/optimisation/main.cpp">
 			<Option target="Opti" />
 		</Unit>
+		<Unit filename="src/optimisation/manualTest.cpp">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="src/optimisation/parcours.cpp">
 			<Option target="Opti" />
 			<Option target="Release" />
+		</Unit>
+		<Unit filename="src/optimisation/unitTest.cpp">
+			<Option target="Opti" />
 		</Unit>
 		<Unit filename="src/test.cpp">
 			<Option target="Test" />

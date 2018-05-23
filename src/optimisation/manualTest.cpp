@@ -16,7 +16,7 @@ int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
     return dist;
 }
 
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_param &algorithm)
+int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
 {
     int dist;
     int money;
@@ -44,23 +44,23 @@ void    manualTest()
         ramapiece = generateRamapiece(50);
         std::cout << "Veuillez choisir votre algorithme en rentrant le nombre correspondant :" << std::endl;
         i = 0;
-        while (funcs[i].first != "") {
-            std::cout << i + 1 << ") " << funcs[i].first << std::endl;
+        while (Algorithm::algos[i].first != "") {
+            std::cout << i + 1 << ") " << Algorithm::algos[i].first << std::endl;
             i += 1;
         }
         j = 0;
-        while (funcs_param[j].first != "") {
-            std::cout << j + i + 1 << ") " << funcs_param[j].first << std::endl;
+        while (Algorithm::algosMoney[j].first != "") {
+            std::cout << j + i + 1 << ") " << Algorithm::algosMoney[j].first << std::endl;
             j += 1;
         }
 
         std::cout << "0) Quitter" << std::endl;
         std::cin >> value;
         if (value > 0 && value <= i) {
-            algorithmWrapper(*ramapiece, funcs[value - 1]);
+            algorithmWrapper(*ramapiece, Algorithm::algos[value - 1]);
         }
         else if (value > i && value <= i + j) {
-            algorithmWrapper(*ramapiece, funcs_param[value - 1 - i]);
+            algorithmWrapper(*ramapiece, Algorithm::algosMoney[value - 1 - i]);
         }
         delete ramapiece;
         std::cout << std::endl;

@@ -1,20 +1,39 @@
+/** \file main.cpp
+ *  \brief Fichier principale de la solution Opti
+ */
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "compte.h"
-#include "algorithm.hh"
+#include "manualTest.hh"
+#include "unitTest.hh"
 
-using namespace std;
+/** \brief Ouvre un menu terminal pour choisir son algorithme
+ */
+void    menu()
+{
+    int value;
+
+    std::cout << "Bienvenue dans Ramapiece." << std::endl
+              << "1) Tests manuels" << std::endl
+              << "2) Tests unitaires" << std::endl
+              << "0) Quitter" << std::endl;
+    std::cin >> value;
+    switch (value)
+    {
+    case 1:
+        manualTest();
+        break;
+    case 2:
+        unitTest();
+        break;
+    }
+}
+
 
 int main()
 {
+    srand(time(NULL));
     menu();
-
-/*    int som;
-    cout << "Quelle somme voulez vous en centimes ?" << endl;
-    cin >> som;
-    RamasCoinMax(som);
-    cout << endl;*/
-
+    std::cout << "Sortie du programme." << std::endl;
     return (0);
 }
