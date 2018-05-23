@@ -64,12 +64,17 @@ class   Ramapiece {
     /** \brief Récupère la distance totale parcourue par le Robot
      *  \return int Distance parcourue
      */
-    int                getTraveledDistance();
+    int                 getTraveledDistance();
 
     /** \brief Récupère l'argent ramassé par le Robot
      *  \return int Argent ramassé
      */
-    int                getMoney();
+    int                 getMoney();
+
+    /** \brief Copie Ramapièce avec un tableau de Piece unique
+     *  \return Ramapiece& *this
+     */
+    Ramapiece &         copyRamapiece(const Ramapiece &other);
 };
 
 #endif // _RAMAPIECE_HH_INCLUDED_
