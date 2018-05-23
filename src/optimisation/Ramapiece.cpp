@@ -4,7 +4,7 @@ Ramapiece::Ramapiece() {
 }
 
 Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
-    _pieces(pieces), _robot(robot), _distance(0) {
+    _pieces(pieces), _robot(robot), _distance(0), _money(0) {
 }
 
 Ramapiece & Ramapiece::operator=(const Ramapiece &other) {
@@ -62,10 +62,16 @@ void    Ramapiece::dropPieces() {
     std::cout << _robot.pos <<  " to " << _robot.start << std::endl
               << "Distance : " << dist << "\tCoins dropped, value: "
               << value << "." << std::endl;
+    _money += value;
     _robot.pos = _robot.start;
     _distance += dist;
 }
 
 int Ramapiece::getTraveledDistance() {
     return _distance;
+}
+
+
+int Ramapiece::getMoney() {
+    return _money;
 }

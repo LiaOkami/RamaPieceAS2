@@ -18,6 +18,7 @@ class   Ramapiece {
     vectorPiece *_pieces;
     Robot       _robot;
     int         _distance;
+    int         _money;
 
   public:
     Ramapiece();
@@ -64,6 +65,11 @@ class   Ramapiece {
      *  \return int Distance parcourue
      */
     int                getTraveledDistance();
+
+    /** \brief Récupère l'argent ramassé par le Robot
+     *  \return int Argent ramassé
+     */
+    int                getMoney();
 };
 
 #endif // _RAMAPIECE_HH_INCLUDED_

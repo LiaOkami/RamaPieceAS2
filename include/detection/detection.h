@@ -38,8 +38,6 @@ public:
             Getters / Setters
        --------------------------- */
 
-     Piece getPieceCourante(); //pour les tests
-
     /**\brief
      * \return la liste des pièces sur le tapis
      */

@@ -29,7 +29,7 @@ void Detection::detectionPieces()
     this->ouvertureFichier("2euros.jpg");
 
     //------------------------------------------------
-    //transforme en tableau de points blancs (N)
+    //transforme en tableau de points blancs
     //------------------------------------------------
     vector<vector<Point> > tabContours = this->tabContours();
 
@@ -42,12 +42,12 @@ void Detection::detectionPieces()
     for(int i = 0; i < 100; i++){
         //on trace un cercle avec trois points tirés aléatoirement du tableau de contours
         int MIN = 0, MAX = tabContours.size();
-        vector<cv::Point> pointsTires;
+        cv::Point pointsTires[3];
 
         for(int cpt = 0; cpt < 3; cpt ++){
             int Ialea = rand()%(MAX-MIN) + MIN;
             int Jalea = rand()%(tabContours[Ialea].size()-MIN) + MIN;
-            pointsTires.push_back(tabContours[Ialea][Jalea]);
+            pointsTires[cpt] = tabContours[Ialea][Jalea];
             //AFFICHAGE TEST
             cout << "Point aleatoire " << Ialea << ", " << Jalea << " trouve : " << tabContours[Ialea][Jalea].x << "x | " << tabContours[Ialea][Jalea].y <<"y" << endl;
         }
@@ -56,19 +56,22 @@ void Detection::detectionPieces()
         //AFFICHAGE TEST
         cout << "Piece tracee : " << pieceTracee.pos.x << "x | " << pieceTracee.pos.y << "y rayon : " << pieceTracee.radius;
 
-        //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte sur son contour (E)
+        //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte sur son contour
         //On compare la distance de chaque point blanc du centre du cercle
         int nbPointsAppartenance = 0;
-        for(int i = 0; i < tabContours.size(); i++){
-            for(int j = 0; j < tabContours[i].size(); j++){
-                Position pointVerifie(tabContours[i][j].x, tabContours[i][j].y);
-                double distance = getDistance(pieceTracee.pos, pointVerifie);
-                if(pieceTracee.radius -1.0 < distance && distance < pieceTracee.radius +1.0){ //si appartient, on le compte
-                    nbPointsAppartenance++;
+        if(pieceTracee.value != -1){
+            //si pas d'erreur, on fait le traitement et enregistre
+            for(int i = 0; i < tabContours.size(); i++){
+                for(int j = 0; j < tabContours[i].size(); j++){
+                    Position pointVerifie(tabContours[i][j].x, tabContours[i][j].y);
+                    double distance = getDistance(pieceTracee.pos, pointVerifie);
+                    if(pieceTracee.radius -1.0 < distance && distance < pieceTracee.radius +1.0){ //si appartient, on le compte
+                        nbPointsAppartenance++;
+                    }
                 }
             }
+            tabPiecesDetectees.push_back(make_pair(pieceTracee, nbPointsAppartenance));
         }
-        tabPiecesDetectees.push_back(make_pair(pieceTracee,nbPointsAppartenance));
         //AFFICHAGE TEST
         cout << ", apparait " << nbPointsAppartenance << " fois" << endl << "---------------------" << endl;
     }
@@ -81,16 +84,12 @@ void Detection::detectionPieces()
             indexMax = c;
         }
     }
-    pieceCourante = tabPiecesDetectees[indexMax].first;
+    pieceCourante = tabPiecesDetectees[indexMax].first; //temporaire
+    listePieceCourante.push_back(tabPiecesDetectees[indexMax].first); //définitif
     //AFFICHAGE TEST
-    cout << "Piece selectionee : " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y rayon : " << tabPiecesDetectees[indexMax].first.radius << ", apparait " << maxPoints << " fois" << endl << "---------------------" << endl;
+    //cout << "Piece selectionee : " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y rayon : " << tabPiecesDetectees[indexMax].first.radius << ", apparait " << maxPoints << " fois" << endl << "---------------------" << endl;
 
     this->afficherPieces();
-}
-
-Piece Detection::getPieceCourante()
-{
-    return pieceCourante;
 }
 
 vector<Piece> Detection::getListePieceCourante()
@@ -148,15 +147,19 @@ findContours( contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPRO
      }
 
      */
-     cv::Point point(10,10);
+    cv::Point centre(pieceCourante.pos.x,pieceCourante.pos.y);
+
+    cv::circle(imageTapis, centre, pieceCourante.radius, Scalar( 0, 255, 0 ), 5);
 
     /// Show in a window
     namedWindow( "NB");
     cv::imshow( "NB", imageTapis );
 
-    cout << "Pièce courante" << endl;
-    cout << "centre : " << pieceCourante.pos.x << ", " << pieceCourante.pos.y << " rayon : " << pieceCourante.radius << endl;
-
+    // Affichage dans la console de toutes les pièces sur le tapis
+    for(int i = 0; i < listePieceCourante.size(); i++){
+        cout << " --- Piece courante" << i+1 << " ---" << endl;
+        cout << "centre : " << listePieceCourante[i].pos.x << ", " << listePieceCourante[i].pos.y << " rayon : " << listePieceCourante[i].radius << endl;
+    }
     cv::waitKey(0);
 }
 
@@ -166,6 +169,10 @@ Piece tracerPiece3points(Position A, Position B, Position C)
     double xDelta_a = B.x - A.x;
     double yDelta_b = C.y - B.y;
     double xDelta_b = C.x - B.x;
+    //si un des delta x = 0, on quitte
+    if( xDelta_a == 0 || xDelta_b == 0){
+        return Piece(-1, 0.0, 0.0);
+    }
 
     double aSlope = yDelta_a/xDelta_a;
     double bSlope = yDelta_b/xDelta_b;
