@@ -87,14 +87,9 @@ void Detection::detectionPieces()
     pieceCourante = tabPiecesDetectees[indexMax].first; //temporaire
     listePieceCourante.push_back(tabPiecesDetectees[indexMax].first); //définitif
     //AFFICHAGE TEST
-    cout << "Piece selectionee : " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y rayon : " << tabPiecesDetectees[indexMax].first.radius << ", apparait " << maxPoints << " fois" << endl << "---------------------" << endl;
+    //cout << "Piece selectionee : " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y rayon : " << tabPiecesDetectees[indexMax].first.radius << ", apparait " << maxPoints << " fois" << endl << "---------------------" << endl;
 
     this->afficherPieces();
-}
-
-Piece Detection::getPieceCourante()
-{
-    return pieceCourante;
 }
 
 vector<Piece> Detection::getListePieceCourante()
