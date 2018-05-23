@@ -5,33 +5,29 @@
 #include "Position.hh"
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <vector>
 #include <iostream>
 #include <string>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-
-
-
-
 using namespace std;
 
-//void detectionPieces();
 
-/** \brief Classe détection, pour détecter les pièces actuelemnt sur le tapis */
+
+/** \brief Classe pour détecter les pièces actuelemnt sur le tapis
+ */
 class Detection
 {
 private:
-    /** \brief Pièce actuelement sur le tapis (pour les tests) */
-    Piece pieceCourante;
-    /** \brief liste des pièces actuelement sur le tapis */
-    vector<Piece> listePieceCourante;
-    bool tapisVide;
-    cv::Mat imageTapis;
+    Piece           pieceCourante; //tests
+    vector<Piece>   listePieceCourante; /** \brief liste des pièces actuelement sur le tapis */
+    bool            tapisVide;
+    cv::Mat         imageTapis;
 
 public:
-    //Constructeur
+    /**\brief Constructeur de la classe Détection
+     */
     Detection();
 
     /* ---------------------------
@@ -63,7 +59,7 @@ public:
     vector<vector<cv::Point> > tabContours();
 
     /** \brief affiche les pièces acuellement sur le tapis
-    */
+     */
     void afficherPieces();
 };
 
