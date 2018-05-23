@@ -341,6 +341,33 @@ case 200 :
     }while(som>0 && kindPieces != NULL);
     for(int i = 0;i < 8; i++){
     kindPiecesOriginal[i]-=kindPieces[i];
-
+    if(kindPiecesOriginal[i]>0){
+        switch(i){
+case 0:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 1 centime"<<endl;
+    break;
+case 1:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 2 centimes"<<endl;
+    break;
+case 2:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 5 centimes"<<endl;
+    break;
+case 3:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 10 centimes"<<endl;
+    break;
+case 4:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 20 centimes"<<endl;
+    break;
+case 5:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 50 centimes"<<endl;
+    break;
+case 6:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 1 euro"<<endl;
+    break;
+case 7:
+    cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << "pieces de 2 euros"<<endl;
+    break;
+}
+}
 }
 }
