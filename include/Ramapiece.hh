@@ -23,6 +23,7 @@ class   Ramapiece {
   public:
     Ramapiece();
     Ramapiece(vectorPiece *pieces, const Robot& robot);
+    Ramapiece(const Ramapiece &other);
     Ramapiece & operator=(const Ramapiece &ramapiece);
     ~Ramapiece();
 
@@ -70,11 +71,6 @@ class   Ramapiece {
      *  \return int Argent ramassé
      */
     int                 getMoney();
-
-    /** \brief Copie Ramapièce avec un tableau de Piece unique
-     *  \return Ramapiece& *this
-     */
-    Ramapiece &         copyRamapiece(const Ramapiece &other);
 };
 
 #endif // _RAMAPIECE_HH_INCLUDED_

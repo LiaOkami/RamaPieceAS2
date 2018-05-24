@@ -1,10 +1,18 @@
 #include "Ramapiece.hh"
 
-Ramapiece::Ramapiece() {
+Ramapiece::Ramapiece()
+{
 }
 
 Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
-    _pieces(pieces), _robot(robot), _distance(0), _money(0) {
+    _pieces(pieces), _robot(robot), _distance(0), _money(0)
+{
+}
+
+Ramapiece::Ramapiece(const Ramapiece &other) :
+    _pieces(new vectorPiece(*(other._pieces))), _robot(other._robot),
+    _distance(0), _money(0)
+{
 }
 
 Ramapiece & Ramapiece::operator=(const Ramapiece &other) {
@@ -76,12 +84,4 @@ int Ramapiece::getTraveledDistance() {
 
 int Ramapiece::getMoney() {
     return _money;
-}
-
-Ramapiece & Ramapiece::copyRamapiece(const Ramapiece &other) {
-    _pieces = new vectorPiece(*(other._pieces));
-    _robot = other._robot;
-    _distance = 0;
-    _money = 0;
-    return *this;
 }
