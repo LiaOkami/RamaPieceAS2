@@ -19,6 +19,7 @@ class   Ramapiece {
     Robot       _robot;
     int         _distance;
     int         _money;
+    bool        _isVerbose;
 
   public:
     Ramapiece();
@@ -71,6 +72,11 @@ class   Ramapiece {
      *  \return int Argent ramassé
      */
     int                 getMoney();
+
+    /** \brief Active l'affichage détaille en Console
+     *  Affiche tous les déplacements du Robot et les Piece ramassées.
+     */
+    void    verbose();
 };
 
 #endif // _RAMAPIECE_HH_INCLUDED_

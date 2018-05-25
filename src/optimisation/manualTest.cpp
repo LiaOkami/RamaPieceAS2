@@ -40,6 +40,7 @@ void    manualTest()
     while (value != 0)
     {
         ramapiece = generateRamapiece(50);
+        ramapiece->verbose();
         std::cout << "Veuillez choisir votre algorithme en rentrant le nombre correspondant :" << std::endl;
         i = 0;
         while (Algorithm::algos[i].first != "") {
