@@ -252,8 +252,8 @@ void parcoursDesVoisinsZone(Ramapiece &p){
                 tabPieceProvisoir.push_back((*tabPiece)[i]);
             }
             //On ramasse toute les pieces dans la zone
-            for(int i =0; i<tabPiece->size(); i++){
-                p.pickUpPiece(tabPiece->front());
+            for(const Piece & piece:tabPieceProvisoir){
+                p.pickUpPiece(piece);
             }
         }
         //On vide le tableau temporaire
