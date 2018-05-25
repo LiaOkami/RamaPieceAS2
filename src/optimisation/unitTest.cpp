@@ -4,7 +4,8 @@
 
 void    unitTest()
 {
-    std::vector<int>            average;
+    std::vector<int>            averageDistance;
+    std::vector<int>            averageValue;
     std::vector<Ramapiece *>    test;
     int i;
     int tries;
@@ -12,21 +13,24 @@ void    unitTest()
     i = 0;
     while (Algorithm::algos[i].first != "")
     {
-        average.push_back(0);
+        averageDistance.push_back(0);
+        averageValue.push_back(0);
         i += 1;
     }
     for (tries = 0 ; tries < NB_TRIES ; tries++) {
         test.push_back(generateRamapiece(50));
-        for (i = 1 ; i < average.size() ; i++) {
+        for (i = 1 ; i < averageDistance.size() ; i++) {
             test.push_back(new Ramapiece(*(test.front())));
         }
-        for (i = 0 ; i < average.size() ; i++) {
+        for (i = 0 ; i < averageDistance.size() ; i++) {
             Algorithm::algos[i].second(*test[i]);
-            average[i] = (average[i] * tries + test[i]->getTraveledDistance()) / (tries + 1);
+            averageDistance[i] = (averageDistance[i] * tries + test[i]->getTraveledDistance()) / (tries + 1);
+            averageValue[i] = (averageValue[i] * tries + test[i]->getMoney()) / (tries + 1);
         }
         test.clear();
     }
     std::cout << "Moyenne sur " << NB_TRIES << " essais" << std::endl;
-    for (i = 0 ; i < average.size() ; i++)
-        std::cout << Algorithm::algos[i].first << " : " << average[i] << std::endl;
+    for (i = 0 ; i < averageDistance.size() ; i++)
+        std::cout << "Distance : " << averageDistance[i] << " / Argent : " << averageValue[i]
+                  << " (" << Algorithm::algos[i].first << ")" << std::endl;
 }
