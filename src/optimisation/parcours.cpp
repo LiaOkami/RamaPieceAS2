@@ -65,18 +65,18 @@ void triDistancePiecePiece(Ramapiece &p){
             au fur et a mesure la reference change pour faire en fonction d'une autre piece*/
 
         for(i = 1; i<tabPiece->size(); i++){
-            valPetit =  getDistance((*tabPiece)[0].pos, (*tabPiece)[i].pos);
+            valPetit =  getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[i].pos);
             indicePetit = i;
 
-            for(j = i; j<tabPiece->size(); j++){
-                if(getDistance((*tabPiece)[i].pos, (*tabPiece)[j].pos) < valPetit){
+            for(j = i + 1; j<tabPiece->size(); j++){
+                if(getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[j].pos) < valPetit){
                     indicePetit = j;
-                    valPetit = getDistance((*tabPiece)[i].pos, (*tabPiece)[j].pos);
+                    valPetit = getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[j].pos);
                 }
             }
             /*on echange*/
             tmpPiece = (*tabPiece)[i];
-            (*tabPiece)[i] = valPetit;
+            (*tabPiece)[i] = (*tabPiece)[indicePetit];
             (*tabPiece)[indicePetit] = tmpPiece;
         }
 }
