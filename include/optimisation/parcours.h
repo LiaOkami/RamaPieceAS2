@@ -59,4 +59,6 @@ void    parcoursZone(Ramapiece &p);
  */
 void    parcoursDesVoisinsZone(Ramapiece &p);
 
+void    parcoursBasic(Ramapiece &ramapiece);
+
 #endif // PARCOURS_H_INCLUDED

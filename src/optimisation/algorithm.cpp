@@ -2,6 +2,7 @@
 
 const t_algorithm   Algorithm::algos[] = {
         {"Parcours Simple", &parcoursSimple},
+        {"Parcours Basique", &parcoursBasic},
         {"Parcours des Voisins", &parcoursDesVoisins},
         {"Parcours des Voisins avec zone", &parcoursDesVoisinsZone},
         {"Parcours par zones", &parcoursZone},

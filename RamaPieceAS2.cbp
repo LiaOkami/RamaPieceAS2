@@ -140,6 +140,9 @@
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="src/optimisation/parcoursBasic.cpp">
+			<Option target="Opti" />
+		</Unit>
 		<Unit filename="src/optimisation/unitTest.cpp">
 			<Option target="Opti" />
 		</Unit>
