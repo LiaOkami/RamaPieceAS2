@@ -17,14 +17,13 @@ using namespace cv;
 
 
 Detection::Detection(){
-    pieceCourante = Piece();
     tapisVide = true;
 }
 
 void Detection::detectionPieces()
 {
     //------------------------------------------------
-    //Charge l'image (avec Cany edge detector) dans l'attribut imageTapis (Nicolas)
+    //Charge l'image dans l'attribut imageTapis
     //------------------------------------------------
     this->ouvertureFichier("2euros.jpg");
 
@@ -34,12 +33,12 @@ void Detection::detectionPieces()
     vector<vector<Point> > tabContours = this->tabContours();
 
     //------------------------------------------------
-    // On cherche les pièce du tapis (E)
+    // On cherche les pièce du tapis
     //------------------------------------------------
     srand(time(NULL)); // initialise les nombres aléatoires
-    vector< std::pair<Piece, int> > tabPiecesDetectees; // enregistre la pièce et le nb de pts qu'il y a dessus (accès : .first, .second)
+    vector< std::pair<Piece, int> > tabPiecesDetectees; //pour enregistre la pièce et le nb de pts qui appartiennet à son contour (accès std::pair : .first, .second)
 
-    for(int i = 0; i < 100; i++){
+    for(int i = 0; i < 500; i++){
         //on trace un cercle avec trois points tirés aléatoirement du tableau de contours
         int MIN = 0, MAX = tabContours.size();
         cv::Point pointsTires[3];
@@ -56,16 +55,15 @@ void Detection::detectionPieces()
         //AFFICHAGE TEST
         cout << "Piece tracee : " << pieceTracee.pos.x << "x | " << pieceTracee.pos.y << "y rayon : " << pieceTracee.radius;
 
-        //On compare le centre du cercle avec chaque point du tableau > on enregistre le nombre de point blanc qu'il comporte sur son contour
-        //On compare la distance de chaque point blanc du centre du cercle
+        //On compare la distance de chaque point blanc du centre du cercle > on enregistre le nombre de points que la pièce comporte sur son contour
         int nbPointsAppartenance = 0;
-        if(pieceTracee.value != -1){
-            //si pas d'erreur, on fait le traitement et enregistre
+
+        if(pieceTracee.value > -1){
             for(int i = 0; i < tabContours.size(); i++){
                 for(int j = 0; j < tabContours[i].size(); j++){
                     Position pointVerifie(tabContours[i][j].x, tabContours[i][j].y);
                     double distance = getDistance(pieceTracee.pos, pointVerifie);
-                    if(pieceTracee.radius -1.0 < distance && distance < pieceTracee.radius +1.0){ //si appartient, on le compte
+                    if(pieceTracee.radius -0.5 < distance && distance < pieceTracee.radius +0.5){ //si appartient, on le compte
                         nbPointsAppartenance++;
                     }
                 }
@@ -75,8 +73,8 @@ void Detection::detectionPieces()
         //AFFICHAGE TEST
         cout << ", apparait " << nbPointsAppartenance << " fois" << endl << "---------------------" << endl;
     }
+
     //On Cherche le cercle avec le plus de points, qu'on enregistre comme le "vrai" cercle
-    /* A CHANGER pour detecter plusieurs pieces, et pour éliminer les doublons */
     int maxPoints = 0, indexMax = 0;
     for(int c = 0; c < tabPiecesDetectees.size(); c++){
         if(tabPiecesDetectees[c].second > maxPoints){
@@ -86,8 +84,20 @@ void Detection::detectionPieces()
     }
     pieceCourante = tabPiecesDetectees[indexMax].first; //temporaire
     listePieceCourante.push_back(tabPiecesDetectees[indexMax].first); //définitif
+    tapisVide = false;
     //AFFICHAGE TEST
-    //cout << "Piece selectionee : " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y rayon : " << tabPiecesDetectees[indexMax].first.radius << ", apparait " << maxPoints << " fois" << endl << "---------------------" << endl;
+    cout << "Piece selectionee MAX : " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y rayon : " << tabPiecesDetectees[indexMax].first.radius << ", apparait " << maxPoints << " fois" << endl << "---------------------" << endl;
+
+    // On prend toute les autres ieces qui ont un nb de points proche de la plus grande des pièces
+    int seuil = maxPoints * 90 /100;
+    // cout << "maxPoints : " << maxPoints << endl << "seuil : " << seuil << endl;
+    for(int c = 0; c < tabPiecesDetectees.size(); c++){
+        if(tabPiecesDetectees[c].second > seuil ){
+            listePieceCourante.push_back(tabPiecesDetectees[c].first);
+            //AFFICHAGE TEST
+            cout << "Piece selectionee : " << tabPiecesDetectees[c].first.pos.x << "x | " << tabPiecesDetectees[c].first.pos.y << "y rayon : " << tabPiecesDetectees[c].first.radius << ", apparait " << tabPiecesDetectees[c].second << " fois" << endl << "---------------------" << endl;
+        }
+    }
 
     this->afficherPieces();
 }
