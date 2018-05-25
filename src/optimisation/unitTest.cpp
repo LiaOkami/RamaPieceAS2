@@ -18,7 +18,7 @@ void    unitTest()
         i += 1;
     }
     for (tries = 0 ; tries < NB_TRIES ; tries++) {
-        test.push_back(generateRamapiece(50));
+        test.push_back(generateRamapiece(rand() % 100 + 1));
         for (i = 1 ; i < averageDistance.size() ; i++) {
             test.push_back(new Ramapiece(*(test.front())));
         }
