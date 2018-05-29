@@ -8,13 +8,15 @@
 # include "Position.hh"
 
 /** \brief Classe représentant une Piece
- *  \author Pierrick Garcia
+ *  \author Groupe 1
  */
 class Piece
 {
   public:
     int         value;
     Position    pos;
+    String      couleur;
+    int         chiffre;
 
     Piece(int val = 0, const Position & po = Position());
     Piece(int val, double x, double y);

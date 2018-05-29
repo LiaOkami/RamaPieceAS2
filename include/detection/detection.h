@@ -13,7 +13,7 @@ using namespace std;
 
 //void detectionPieces();
 
-/** \brief Classe détection, pour détecter les pièces actuelemnt sur le tapis */
+/** \brief Classe détection, pour détecter les pièces actuellemnt sur le tapis */
 class Detection
 {
 private:
