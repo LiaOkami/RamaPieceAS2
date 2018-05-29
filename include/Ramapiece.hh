@@ -19,10 +19,12 @@ class   Ramapiece {
     Robot       _robot;
     int         _distance;
     int         _money;
+    bool        _isVerbose;
 
   public:
     Ramapiece();
     Ramapiece(vectorPiece *pieces, const Robot& robot);
+    Ramapiece(const Ramapiece &other);
     Ramapiece & operator=(const Ramapiece &ramapiece);
     ~Ramapiece();
 
@@ -64,12 +66,17 @@ class   Ramapiece {
     /** \brief Récupère la distance totale parcourue par le Robot
      *  \return int Distance parcourue
      */
-    int                getTraveledDistance();
+    int                 getTraveledDistance();
 
     /** \brief Récupère l'argent ramassé par le Robot
      *  \return int Argent ramassé
      */
-    int                getMoney();
+    int                 getMoney();
+
+    /** \brief Active l'affichage détaille en Console
+     *  Affiche tous les déplacements du Robot et les Piece ramassées.
+     */
+    void    verbose();
 };
 
 #endif // _RAMAPIECE_HH_INCLUDED_

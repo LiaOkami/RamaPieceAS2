@@ -59,6 +59,9 @@ void    parcoursZone(Ramapiece &p);
  */
 void    parcoursDesVoisinsZone(Ramapiece &p);
 
+void    parcoursBasic(Ramapiece &ramapiece);
+
+
 /** \brief Renvoie le nombre de pièces nécessaire à obtenir la somme demandée, en fonction d'un
 tableau de piece en parametre
  *
@@ -68,5 +71,4 @@ tableau de piece en parametre
  *
  */
 void RamaDoable(Ramapiece &p, int som);
-
 #endif // PARCOURS_H_INCLUDED

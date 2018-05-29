@@ -4,4 +4,6 @@
 
 #pragma once
 
+#define NB_TRIES    500
+
 void    unitTest();

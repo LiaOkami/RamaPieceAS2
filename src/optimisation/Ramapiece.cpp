@@ -1,16 +1,27 @@
 #include "Ramapiece.hh"
 
-Ramapiece::Ramapiece() {
+Ramapiece::Ramapiece()
+{
 }
 
 Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
-    _pieces(pieces), _robot(robot), _distance(0), _money(0) {
+    _pieces(pieces), _robot(robot), _distance(0), _money(0), _isVerbose(false)
+{
+}
+
+Ramapiece::Ramapiece(const Ramapiece &other) :
+    _pieces(new vectorPiece(*(other._pieces))), _robot(other._robot),
+    _distance(0), _money(0), _isVerbose(false)
+{
 }
 
 Ramapiece & Ramapiece::operator=(const Ramapiece &other) {
     _pieces = other._pieces;
     _robot = other._robot;
     _distance = other._distance;
+    _money = other._money;
+    _isVerbose = other._isVerbose;
+    return *this;
 }
 
 
@@ -43,9 +54,11 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
         it++;
     // Si la pièce est trouvée
     if (it != _pieces->end()) {
-        std::cout << _robot.pos << " to " << piece.pos << '\t'
-                  << "Distance : " << dist << "\tValue picked: "
-                  << piece.value << std::endl;
+        if (_isVerbose) {
+            std::cout << _robot.pos << " to " << piece.pos << '\t'
+                      << "Distance : " << dist << "\tValue picked: "
+                      << piece.value << std::endl;
+        }
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
         _pieces->erase(it);
@@ -59,11 +72,14 @@ void    Ramapiece::dropPieces() {
 
     for (const Piece &piece:_robot.pieces)
         value += piece.value;
-    std::cout << _robot.pos <<  " to " << _robot.start << std::endl
-              << "Distance : " << dist << "\tCoins dropped, value: "
-              << value << "." << std::endl;
+    if (_isVerbose) {
+        std::cout << _robot.pos <<  " to " << _robot.start << std::endl
+                  << "Distance : " << dist << "\tCoins dropped, value: "
+                  << value << "." << std::endl;
+    }
     _money += value;
     _robot.pos = _robot.start;
+    _robot.pieces.clear();
     _distance += dist;
 }
 
@@ -72,6 +88,10 @@ int Ramapiece::getTraveledDistance() {
 }
 
 
-int Ramapiece::getMoney() {
+int Ramapiece::getMoney(){
     return _money;
+}
+
+void    Ramapiece::verbose() {
+    _isVerbose = true;
 }

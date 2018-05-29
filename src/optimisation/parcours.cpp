@@ -65,18 +65,18 @@ void triDistancePiecePiece(Ramapiece &p){
             au fur et a mesure la reference change pour faire en fonction d'une autre piece*/
 
         for(i = 1; i<tabPiece->size(); i++){
-            valPetit =  getDistance((*tabPiece)[0].pos, (*tabPiece)[i].pos);
+            valPetit =  getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[i].pos);
             indicePetit = i;
 
-            for(j = i; j<tabPiece->size(); j++){
-                if(getDistance((*tabPiece)[i].pos, (*tabPiece)[j].pos) < valPetit){
+            for(j = i + 1; j<tabPiece->size(); j++){
+                if(getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[j].pos) < valPetit){
                     indicePetit = j;
-                    valPetit = getDistance((*tabPiece)[i].pos, (*tabPiece)[j].pos);
+                    valPetit = getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[j].pos);
                 }
             }
             /*on echange*/
             tmpPiece = (*tabPiece)[i];
-            (*tabPiece)[i] = valPetit;
+            (*tabPiece)[i] = (*tabPiece)[indicePetit];
             (*tabPiece)[indicePetit] = tmpPiece;
         }
 }
@@ -172,69 +172,66 @@ void parcoursZone(Ramapiece &p){
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
 
-    if(tabPiece->size() >= 4){
-        /*on recupere les 4 piece qui vont creer la zone global de recherche*/
-        for(i = 1; i<tabPiece->size();i++){
-            //Piece avec le plus petit x
-            if((*tabPiece)[i].pos.x < xMin.pos.x){
-                xMin = (*tabPiece)[i];
-            }
-            //Piece avec le plus grand x
-            if((*tabPiece)[i].pos.x > xMax.pos.x){
-                xMax = (*tabPiece)[i];
-            }
-            //Piece avec le plus petit y
-            if((*tabPiece)[i].pos.y < yMin.pos.y){
-                yMin = (*tabPiece)[i];
-            }
-            //Piece avec le plus grand y
-            if((*tabPiece)[i].pos.y > yMax.pos.y){
-                yMax = (*tabPiece)[i];
-            }
+    /*on recupere les 4 piece qui vont creer la zone global de recherche*/
+    for(i = 1; i<tabPiece->size();i++){
+        //Piece avec le plus petit x
+        if((*tabPiece)[i].pos.x < xMin.pos.x){
+            xMin = (*tabPiece)[i];
         }
-
-        /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
-
-        for(i = 0; i<tabPiece->size();i++){
-            //zone bas droit du carre
-            if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
-                zoneBasDroitTab.push_back((*tabPiece)[i]);
-            }
-            //zone bas gauche du carre
-            else if((*tabPiece)[i].pos.x > (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
-                zoneHautDroitTab.push_back((*tabPiece)[i]);
-            }
-            //zone haut droit du carre
-            else if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y > (yMin.pos.y + yMax.pos.y)/2){
-                zoneBasGaucheTab.push_back((*tabPiece)[i]);
-            }
-            //zone haut gauche du carre
-            else if((*tabPiece)[i].pos.x > (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y > (yMin.pos.y + yMax.pos.y)/2){
-                zoneHautGaucheTab.push_back((*tabPiece)[i]);
-            }
-            else{
-                tabErreur.push_back((*tabPiece)[i]); //permet de vérifier qu'il n'y a pas de piece laissé
-            }
-
+        //Piece avec le plus grand x
+        if((*tabPiece)[i].pos.x > xMax.pos.x){
+            xMax = (*tabPiece)[i];
         }
-
-        /*on parcours chaque zone pour ramasser*/
-        for(i = 0; i<zoneBasDroitTab.size(); i++){
-            p.pickUpPiece(zoneBasDroitTab[i]);
+        //Piece avec le plus petit y
+        if((*tabPiece)[i].pos.y < yMin.pos.y){
+            yMin = (*tabPiece)[i];
         }
-        for(i = 0; i<zoneHautDroitTab.size(); i++){
-            p.pickUpPiece(zoneHautDroitTab[i]);
+        //Piece avec le plus grand y
+        if((*tabPiece)[i].pos.y > yMax.pos.y){
+            yMax = (*tabPiece)[i];
         }
-        for(i = 0; i<zoneBasGaucheTab.size(); i++){
-            p.pickUpPiece(zoneBasGaucheTab[i]);
-        }
-        for(i = 0; i<zoneHautGaucheTab.size(); i++){
-            p.pickUpPiece(zoneHautGaucheTab[i]);
-        }
-
-        /*on depose toute les pieces*/
-        p.dropPieces();
     }
+
+    /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
+
+    for(i = 0; i<tabPiece->size();i++){
+        //zone bas droit du carre
+        if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
+            zoneBasDroitTab.push_back((*tabPiece)[i]);
+        }
+        //zone bas gauche du carre
+        else if((*tabPiece)[i].pos.x > (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
+            zoneHautDroitTab.push_back((*tabPiece)[i]);
+        }
+        //zone haut droit du carre
+        else if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y > (yMin.pos.y + yMax.pos.y)/2){
+            zoneBasGaucheTab.push_back((*tabPiece)[i]);
+        }
+        //zone haut gauche du carre
+        else if((*tabPiece)[i].pos.x > (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y > (yMin.pos.y + yMax.pos.y)/2){
+            zoneHautGaucheTab.push_back((*tabPiece)[i]);
+        }
+        else{
+            tabErreur.push_back((*tabPiece)[i]); //permet de vérifier qu'il n'y a pas de piece laissé
+        }
+    }
+
+    /*on parcours chaque zone pour ramasser*/
+    for(i = 0; i<zoneBasDroitTab.size(); i++){
+        p.pickUpPiece(zoneBasDroitTab[i]);
+    }
+    for(i = 0; i<zoneHautDroitTab.size(); i++){
+        p.pickUpPiece(zoneHautDroitTab[i]);
+    }
+    for(i = 0; i<zoneBasGaucheTab.size(); i++){
+        p.pickUpPiece(zoneBasGaucheTab[i]);
+    }
+    for(i = 0; i<zoneHautGaucheTab.size(); i++){
+        p.pickUpPiece(zoneHautGaucheTab[i]);
+    }
+
+    /*on depose toute les pieces*/
+    p.dropPieces();
 }
 
 void parcoursDesVoisinsZone(Ramapiece &p){
@@ -252,8 +249,8 @@ void parcoursDesVoisinsZone(Ramapiece &p){
                 tabPieceProvisoir.push_back((*tabPiece)[i]);
             }
             //On ramasse toute les pieces dans la zone
-            for(int i =0; i<tabPiece->size(); i++){
-                p.pickUpPiece(tabPiece->front());
+            for(const Piece & piece:tabPieceProvisoir){
+                p.pickUpPiece(piece);
             }
         }
         //On vide le tableau temporaire

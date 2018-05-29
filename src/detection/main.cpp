@@ -15,5 +15,6 @@ int main()
     cout << "Detection" << endl;
     Detection detect;
     detect.detectionPieces();
+
     return (0);
 }

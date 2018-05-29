@@ -6,6 +6,9 @@
 #include <iostream>
 #include "manualTest.hh"
 #include "unitTest.hh"
+#include "imageParcours.h"
+#include "Ramapiece.hh"
+#include "generateRamapiece.hh"
 
 /** \brief Ouvre un menu terminal pour choisir son algorithme
  */
@@ -35,5 +38,13 @@ int main()
     srand(time(NULL));
     menu();
     std::cout << "Sortie du programme." << std::endl;
+
+
+    //Test Image
+    /*Ramapiece  * p = generateRamapiece(50);
+    Image img(1500,800);
+    img.placePieceImage(p->getPieces());
+    img.afficherImage();*/
+
     return (0);
 }
