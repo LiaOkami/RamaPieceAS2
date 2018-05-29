@@ -258,7 +258,7 @@ void RamasAlternative2(int som, Ramapiece p){
     }
 }
 
-bool RamaDoable(int som, Ramapiece p){
+void RamaDoable(Ramapiece &p, int som){
     vector<Piece> *pieces = p.getPieces();
     int kindPieces[8],kindPiecesOriginal[8];
     int sumTabPieces, sumObtenable, parcoursTab = pieces->size();
@@ -303,7 +303,7 @@ case 200 :
 }
     if(som > sumTabPieces){
         cout << "valeur demandee trop grande par rapport aux pieces sur le tapis" << endl;
-        return false;
+        return;
     }
     do{
         if(som >= 200 && kindPieces[7] > 0){
