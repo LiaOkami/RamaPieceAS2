@@ -38,8 +38,11 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="input.png, output.png" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include/detection" />
+					<Add directory="include/optimisation" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -120,9 +123,11 @@
 		</Unit>
 		<Unit filename="src/optimisation/algorithm.cpp">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/optimisation/compte.cpp">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/optimisation/generateRamapiece.cpp">
 			<Option target="Opti" />
@@ -142,6 +147,7 @@
 		</Unit>
 		<Unit filename="src/optimisation/parcoursBasic.cpp">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/optimisation/unitTest.cpp">
 			<Option target="Opti" />
