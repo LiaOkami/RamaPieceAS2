@@ -39,8 +39,6 @@ void    manualTest()
 
     while (value != 0)
     {
-        ramapiece = generateRamapiece(50);
-        ramapiece->verbose();
         std::cout << "Veuillez choisir votre algorithme en rentrant le nombre correspondant :" << std::endl;
         i = 0;
         while (Algorithm::algos[i].first != "") {
@@ -56,12 +54,17 @@ void    manualTest()
         std::cout << "0) Quitter" << std::endl;
         std::cin >> value;
         if (value > 0 && value <= i) {
+            ramapiece = generateRamapiece(50);
+            ramapiece->verbose();
             algorithmWrapper(*ramapiece, Algorithm::algos[value - 1]);
+            delete ramapiece;
         }
         else if (value > i && value <= i + j) {
+            ramapiece = generateRamapieceNormal(50);
+            ramapiece->verbose();
             algorithmWrapper(*ramapiece, Algorithm::algosMoney[value - 1 - i]);
+            delete ramapiece;
         }
-        delete ramapiece;
         std::cout << std::endl;
     }
 }

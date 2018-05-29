@@ -19,4 +19,6 @@
  */
 Ramapiece * generateRamapiece(int size);
 
+Ramapiece * generateRamapieceNormal(int size);
+
 #endif // _GENERATERAMAPIECE_HH_
