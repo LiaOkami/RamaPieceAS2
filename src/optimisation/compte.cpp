@@ -305,51 +305,55 @@ case 200 :
             }
 
 }
+
     cout<<"On a ce tableau de pieces"<<endl;
         for(int i = 0;i < 8; i++){
                 cout<<kindPieces[i]<<endl;
+
         }
+
     if(som > sumTabPieces){
         cout << "valeur demandee trop grande par rapport aux pieces sur le tapis" << endl;
         return;
     }
     do{
         if(som >= 200 && kindPieces[7] > 0){
-            som =- 200;
+            som = som - 200;
             kindPieces[7] -= 1;
+
         }
         else if(som >= 100 && kindPieces[6] > 0){
-            som =- 100;
+            som = som - 100;
             kindPieces[6] -= 1;
         }
         else if(som >= 50 && kindPieces[5] > 0){
-            som =- 50;
+            som = som - 50;
             kindPieces[5] -= 1;
         }
         else if(som >= 20 && kindPieces[4] > 0){
-            som =- 20;
+            som = som - 20;
             kindPieces[4] -= 1;
         }
         else if(som >= 10 && kindPieces[3] > 0){
-            som =- 10;
+            som = som - 10;
             kindPieces[3] -= 1;
         }
         else if(som >= 5 && kindPieces[2] > 0){
-            som =- 5;
+            som = som - 5;
             kindPieces[2] -= 1;
         }
         else if(som >= 2 && kindPieces[1] > 0){
-            som =- 2;
+            som = som - 2;
             kindPieces[1] -= 1;
         }
         else if(som >= 1 && kindPieces[0] > 0){
-            som =- 1;
+            som = som - 1;
             kindPieces[0] -= 1;
         }
-    }while(som>0 && kindPieces != NULL );
+    }while(som>0);// && kindPieces != NULL );
     for(int i = 0;i < 8; i++){
     kindPiecesOriginal[i]-=kindPieces[i];
-    if(kindPiecesOriginal[i]>0){
+   // if(kindPiecesOriginal[i]>0){
         switch(i){
 case 0:
     cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << " pieces de 1 centime"<<endl;
@@ -375,7 +379,7 @@ case 6:
 case 7:
     cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << " pieces de 2 euros"<<endl;
     break;
-}
+//}
 }//utiliser pickUpPiece(const Piece &piece); et
 
 }
