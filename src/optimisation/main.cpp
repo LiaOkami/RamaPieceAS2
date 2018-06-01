@@ -41,9 +41,20 @@ int main()
 
 
     //Test Image
-    /*Ramapiece  * p = generateRamapiece(50);
+   /* Ramapiece  * p = generateRamapiece(50);
     Image img(1500,800);
+    vector<Piece> *tabPiece = p->getPieces();
+    string cpt = "";
     img.placePieceImage(p->getPieces());
+    img.sauvegardeImage("");
+
+    for(int i =0; i<tabPiece->size(); i++){
+
+        cpt =  to_string(i);
+        img.placePieceParcourus((*tabPiece)[i].pos.x,(*tabPiece)[i].pos.y);
+        img.sauvegardeImage(cpt);
+    }
+
     img.afficherImage();*/
 
     return (0);
