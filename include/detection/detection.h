@@ -23,12 +23,11 @@ using namespace std;
 class Detection
 {
 private:
-    /** \brief Pièce actuelement sur le tapis (pour les tests) */
-    Piece pieceCourante;
+    Piece   pieceCourante;
     /** \brief liste des pièces actuelement sur le tapis */
-    vector<Piece> listePieceCourante;
-    bool tapisVide;
-    cv::Mat imageTapis;
+    vector<Piece>   listePieceCourante;
+    bool            tapisVide;
+    cv::Mat         imageTapis;
 
 public:
     //Constructeur
