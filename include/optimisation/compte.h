@@ -5,4 +5,5 @@ void RamasCoinMax(int);
 
 void RamasAlternative(int);
 
+
 #endif // FONCTION_H_INCLUDED

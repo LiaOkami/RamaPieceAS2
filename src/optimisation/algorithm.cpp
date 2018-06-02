@@ -10,5 +10,6 @@ const t_algorithm   Algorithm::algos[] = {
 };
 
 const t_algorithm_money Algorithm::algosMoney[] = {
+        {"Ramassage Possible ?", &RamaDoable},
         {"", nullptr}
 };
