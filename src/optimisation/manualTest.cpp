@@ -1,16 +1,17 @@
 #include "algorithm.hh"
 #include "generateRamapiece.hh"
 
-void    algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
+static inline void  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
 {
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece);
+    ramapiece.displayImage();
     std::cout << "### " << algorithm.first
               << "\tDistance : " << ramapiece.getTraveledDistance()
               << "\tArgent : " << ramapiece.getMoney() << std::endl;
 }
 
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
+static int  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
 {
     int dist;
     int money;
