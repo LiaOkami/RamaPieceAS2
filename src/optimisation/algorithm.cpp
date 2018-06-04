@@ -1,6 +1,6 @@
 #include "algorithm.hh"
 
-const t_algorithm   Algorithm::algos[] = {
+const t_algorithm   RamapieceAlgorithm::algos[] = {
         {"Parcours Simple", &parcoursSimple},
         {"Parcours Basique", &parcoursBasic},
         {"Parcours des Voisins", &parcoursDesVoisins},
@@ -9,7 +9,7 @@ const t_algorithm   Algorithm::algos[] = {
         {"", nullptr}
 };
 
-const t_algorithm_money Algorithm::algosMoney[] = {
+const t_algorithm_money RamapieceAlgorithm::algosMoney[] = {
         {"Ramassage Possible ?", &RamaDoable},
         {"", nullptr}
 };

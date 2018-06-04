@@ -10,8 +10,8 @@
 #define IMAGEPARCOURS_H_INCLUDED
 
 #include <opencv2/opencv.hpp>
-#include "Ramapiece.hh"
 #include <vector>
+#include "Piece.hh"
 
 using namespace std;
 using namespace cv;
