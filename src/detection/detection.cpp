@@ -178,5 +178,31 @@ Piece tracerPiece3points(Position A, Position B, Position C)
     double rayon = getDistance(A, posCentre);
 
     return Piece(0, centreX, centreY, rayon);
+
+
+}
+
+ bool comparaison2Pieces(Piece piece1, Piece piece2){
+
+ if ((piece1.pos.x<=piece2.pos.x +5 || piece1.pos.x>=piece2.pos.x-5) && (piece1.pos.y<=piece2.pos.y +5 || piece1.pos.y>=piece2.pos.y-5)) {
+
+    if (piece1.radius<=piece2.radius +5 && piece1.radius>=piece2.radius-5)
+        {
+           return true;
+        }
+    }
+    else return false;
+
+}
+
+Piece fusion2Pieces(Piece piece1, Piece piece2){
+
+    Piece pieceFusionne;
+    pieceFusionne.pos.x=(piece1.pos.x+piece2.pos.x)/2;
+    pieceFusionne.pos.y=(piece1.pos.y+piece2.pos.y)/2;
+    pieceFusionne.radius=(piece1.radius+piece2.radius)/2;
+
+    return pieceFusionne;
+
 }
 
