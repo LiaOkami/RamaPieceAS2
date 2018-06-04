@@ -59,7 +59,7 @@ class Image{
          *          r,g,b pour la couleur ex : 0,255,0 pour le vert
          *          ex de fonction : img.deplaceRobot(p->getRobotPosition(),tabPiece->front().pos, 0,255,0);
          */
-        void deplaceRobot(Position depart, Position arrivee, int r, int g, int b);
+        void deplaceRobot(Position depart, Position arrivee, int r = 0, int g = 255, int b = 0);
 };
 
 /**

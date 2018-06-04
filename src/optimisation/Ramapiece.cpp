@@ -79,14 +79,15 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
                       << "Distance : " << dist << "\tValue picked: "
                       << piece.value << std::endl;
         }
+        if (_image) {
+            _image->placePieceParcourus(piece.pos.x, piece.pos.y);
+            _image->deplaceRobot(_robot.pos, piece.pos);
+            this->_saveImage();
+        }
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
         _pieces->erase(it);
         _distance += dist;
-        if (_image) {
-            _image->placePieceParcourus(piece.pos.x, piece.pos.y);
-            this->_saveImage();
-        }
     }
 }
 
