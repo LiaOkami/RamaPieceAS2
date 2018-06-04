@@ -34,13 +34,12 @@ void Image::afficherImage(){
 }
 
 void Image::sauvegardeImage(string filename){
-    /*string chemin = "./images/";
+    string chemin = "./images/parcours/";
     string extension = ".jpg";
     chemin += filename;
-    chemin += extension*/
+    chemin += extension;
 
-
-    imwrite(filename, this->getImage());
+    imwrite(chemin, this->getImage());
 
 }
 
@@ -58,6 +57,14 @@ void Image::placePieceParcourus(int x, int y){
         MyFilledCircleRamasse(this->getImage(),centre);
 }
 
+void Image::deplaceRobot(Position depart, Position arrivee, int r, int g, int b){
+
+    Point dep(depart.x,depart.y);
+    Point arri(arrivee.x,arrivee.y);
+
+    line(this->getImage(), dep, arri, Scalar(r,g,b), 1, 8, 0);
+}
+
 void MyFilledCircle(Mat img, Point center){
     circle(img, center, 5, Scalar(0, 0, 0), FILLED, LINE_8);
 }
@@ -65,4 +72,3 @@ void MyFilledCircle(Mat img, Point center){
 void MyFilledCircleRamasse(Mat img, Point center){
     circle(img, center, 5, Scalar(255, 0, 0), FILLED, LINE_8);
 }
-

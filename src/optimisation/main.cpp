@@ -9,6 +9,8 @@
 #include "imageParcours.h"
 #include "Ramapiece.hh"
 #include "generateRamapiece.hh"
+#include <string>
+#include "parcours.h"
 
 /** \brief Ouvre un menu terminal pour choisir son algorithme
  */
@@ -41,21 +43,32 @@ int main()
 
 
     //Test Image
-   /* Ramapiece  * p = generateRamapiece(50);
-    Image img(1500,800);
-    vector<Piece> *tabPiece = p->getPieces();
-    string cpt = "";
+/*
+    Ramapiece *p = generateRamapiece(50);
+    Image img(2000,1500);
     img.placePieceImage(p->getPieces());
     img.sauvegardeImage("");
+    string cpt = "";
+    int i = 0;
 
-    for(int i =0; i<tabPiece->size(); i++){
+    triDistancePiecePiece(*p);
+    vector<Piece> *tabPiece = p->getPieces();
 
+    while (tabPiece->size() > 0) {
         cpt =  to_string(i);
-        img.placePieceParcourus((*tabPiece)[i].pos.x,(*tabPiece)[i].pos.y);
+
+        img.placePieceParcourus((tabPiece->front().pos.x),(tabPiece->front().pos.y));
+        img.deplaceRobot(p->getRobotPosition(),tabPiece->front().pos, 0,255,0); //vert
+
+        p->pickUpPiece(tabPiece->front()); // vector->front() == (*vector)[0]
+
         img.sauvegardeImage(cpt);
+
+        i++;
     }
+    p->dropPieces();
 
-    img.afficherImage();*/
-
+    img.afficherImage();
+*/
     return (0);
 }

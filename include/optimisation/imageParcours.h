@@ -49,10 +49,22 @@ class Image{
          /**
          *  \brief Enregistrer une image du tapis
          *  \param Mettre le path avec le nom de l'image dans lequel enregistrer la photo du tapis actuel
+         *          positions x et y de la piece ramassé
          */
         void sauvegardeImage(string);
+        /**
+         *  \brief Représente le trajet effectué par le robot via des traits
+         *  \param depart : position du bras actuelle
+         *          arrivee : position de la piece
+         *          r,g,b pour la couleur ex : 0,255,0 pour le vert
+         *          ex de fonction : img.deplaceRobot(p->getRobotPosition(),tabPiece->front().pos, 0,255,0);
+         */
+        void deplaceRobot(Position depart, Position arrivee, int r, int g, int b);
 };
 
+/**
+    *  \brief Utiliser par certaines fonction de la classe Image
+*/
 void MyFilledCircle(Mat img, Point center);
 void MyFilledCircleRamasse(Mat img, Point center);
 
