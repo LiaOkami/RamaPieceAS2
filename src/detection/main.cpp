@@ -14,7 +14,7 @@ int main()
 {
     cout << "Detection" << endl;
     Detection detect;
-    detect.detectionPieces();
+    detect.detectionPieces("images/01.jpg", 3);
 
     return (0);
 }
