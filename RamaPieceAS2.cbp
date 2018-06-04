@@ -30,6 +30,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add directory="include/optimisation" />
 				</Compiler>
 			</Target>
@@ -38,9 +39,10 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="input.png, output.png" />
+				<Option parameters="./input.jpg, ./output.jpg" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 					<Add directory="include/detection" />
 					<Add directory="include/optimisation" />
 				</Compiler>
@@ -76,15 +78,18 @@
 		</Unit>
 		<Unit filename="include/optimisation/algorithm.hh">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/compte.h">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/generateRamapiece.hh">
 			<Option target="Opti" />
 		</Unit>
 		<Unit filename="include/optimisation/imageParcours.h">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/manualTest.hh">
 			<Option target="Opti" />
@@ -134,6 +139,7 @@
 		</Unit>
 		<Unit filename="src/optimisation/imageParcours.cpp">
 			<Option target="Opti" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="src/optimisation/main.cpp">
 			<Option target="Opti" />

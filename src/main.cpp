@@ -10,17 +10,17 @@ std::vector<Piece>  *partie1(const std::string &filename) {
     return (pieces);
 }
 
-int testAlgorithm(const Ramapiece &sample, int i) {
+static inline int   testAlgorithm(const Ramapiece &sample, int i) {
     int ret;
 
     Ramapiece   *ramapiece = new Ramapiece(sample);
-    Algorithm::algos[i].second(*ramapiece);
+    RamapieceAlgorithm::algos[i].second(*ramapiece);
     ret = ramapiece->getTraveledDistance();
     delete ramapiece;
     return ret;
 }
 
-void    pickUpPieces(Ramapiece &sample)
+void    pickUpPieces(Ramapiece &sample, const std::string &filename)
 {
     int i;
     int minValue;
@@ -29,7 +29,7 @@ void    pickUpPieces(Ramapiece &sample)
 
     minValue = testAlgorithm(sample, 0);
     i = 1;
-    while (Algorithm::algos[i].first != "") {
+    while (RamapieceAlgorithm::algos[i].first != "") {
         value = testAlgorithm(sample, i);
         if (value < minValue) {
             minValue = value;
@@ -37,7 +37,9 @@ void    pickUpPieces(Ramapiece &sample)
         }
         i += 1;
     }
-    std::cout << idxMin << std::endl;
+    sample.initImage();
+    RamapieceAlgorithm::algos[idxMin].second(sample);
+    sample.saveImage(filename);
 }
 
 int main(int ac, char **av)
@@ -46,9 +48,9 @@ int main(int ac, char **av)
         std::vector<Piece>  *pieces = partie1(av[1]);
         Ramapiece ramapiece(pieces, Robot(Position(0, 0)));
         if (ac == 3)
-            pickUpPieces(ramapiece);
+            pickUpPieces(ramapiece, av[2]);
         else if (ac == 4)
-            ;//pickUpValue(ramapiece, std::stoi(av[3]));
+            ;//pickUpValue(ramapiece, av[2], std::stoi(av[3]));
     }
     else {
         std::cerr << "Nombre d'arguments incorrects" << std::endl;
