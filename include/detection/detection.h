@@ -73,4 +73,14 @@ public:
      */
 Piece tracerPiece3points(Position A, Position B, Position C);
 
+ /**\brief compare les parametre de deux pièces
+     * \param
+     */
+bool comparaison2Pieces(Piece piece1, Piece piece2);
+
+ /**\brief fuisionne les coordonnées de 2 pièces et retourne une piece
+     * \param
+     */
+Piece fusion2Pieces(Piece piece1, Piece piece2);
+
 #endif // DETECTION_H_INCLUDED
