@@ -23,12 +23,11 @@ using namespace std;
 class Detection
 {
 private:
-    /** \brief Pièce actuelement sur le tapis (pour les tests) */
-    Piece pieceCourante;
+    Piece   pieceCourante;
     /** \brief liste des pièces actuelement sur le tapis */
-    vector<Piece> listePieceCourante;
-    bool tapisVide;
-    cv::Mat imageTapis;
+    vector<Piece>   listePieceCourante;
+    bool            tapisVide;
+    cv::Mat         imageTapis;
 
 public:
     //Constructeur
@@ -75,5 +74,15 @@ public:
      * \param 3 Positions
      */
 Piece tracerPiece3points(Position A, Position B, Position C);
+
+ /**\brief compare les parametre de deux pièces
+     * \param
+     */
+bool comparaison2Pieces(Piece piece1, Piece piece2);
+
+ /**\brief fuisionne les coordonnées de 2 pièces et retourne une piece
+     * \param
+     */
+Piece fusion2Pieces(Piece piece1, Piece piece2);
 
 #endif // DETECTION_H_INCLUDED
