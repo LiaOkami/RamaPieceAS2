@@ -16,10 +16,17 @@ void    triDistancePieceBras(Ramapiece &p);
 /**
  *  \brief Algorithme de tri, recupere la piece la plus proche du bras,
  *          puis tri des pieces par rapport a la distance entre chacunes
- * \param tableau de piece (exemple p.getPieces())
+ * \param élément de type Ramapiece
  * \return modifie le tableau directement via les pointeurs
  */
 void    triDistancePiecePiece(Ramapiece &p);
+
+/**
+ *  \brief Surcharge de la fonction
+ * \param tableau de piece
+ * \return modifie le tableau directement via la référence
+ */
+void    triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece);
 
 /**
  *  \brief Algorithme de tri, retourne un vector de piece ordonnée par leur valeur croissante,
