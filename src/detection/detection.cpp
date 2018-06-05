@@ -166,13 +166,13 @@ vector<Point> Detection::tabContours(){
     cv::Mat imageTapisNB;
     cv::Mat contours;
     cvtColor( imageTapis, imageTapisNB, CV_RGB2GRAY );
-<<<<<<< HEAD
+
     Mat gaus;
     GaussianBlur( imageTapisNB, gaus, Size( 5, 5 ), 0, 0 );
     cv::Canny(gaus,contours,100,500);
-=======
+
     cv::Canny(imageTapis,contours,50,150);
->>>>>>> 77bdfb71765b302aa975dafbc24c262a8180b6f8
+
 
     //Affichage
     cv::namedWindow("Contours");
