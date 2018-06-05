@@ -8,7 +8,6 @@ using namespace std;
 
 // la fonction renvoie que les plus grosses pieces à ramasser
 // Ramassage le plus efficace car prend le moins de piece possible
-
 void RamasCoinMax(int som, Ramapiece p)
 {
     vector<Piece> *pieces = p.getPieces();
@@ -239,6 +238,8 @@ void RamasAlternative1(int som){
 
     }
 */
+
+/*
 void RamasAlternative2(int som, Ramapiece p){
 
     vector<Piece> *pieces = p.getPieces();
@@ -257,10 +258,22 @@ void RamasAlternative2(int som, Ramapiece p){
         parcoursTab-=1;
     }
 }
+*/
 
-void RamaDoable(Ramapiece &p, int som){
+static bool isEmpty(vector<int> kindPieces){
+    bool Vide =false;
+for(int k=0;k<=8;k++){
+    if(kindPieces[k]>0){
+        bool Vide = true;
+}
+}
+return Vide;
+}
+
+
+void RamaDoable(Ramapiece &p, int som){//, vector<int>& kindPiecesRemplit){
     vector<Piece> *pieces = p.getPieces();
-    int  nbPieces(8), kindPieces[nbPieces],kindPiecesOriginal[nbPieces];
+    vector<int>   kindPieces(8),kindPiecesOriginal(8);
     int sumTabPieces = 0, sumObtenable, parcoursTab = pieces->size();
     for(int i =0;i<=8;i++){
         kindPieces[i]=0;
@@ -312,10 +325,12 @@ case 200 :
 
         }
 
+
     if(som > sumTabPieces){
         cout << "valeur demandee trop grande par rapport aux pieces sur le tapis" << endl;
-        return;
+
     }
+
     do{
         if(som >= 200 && kindPieces[7] > 0){
             som = som - 200;
@@ -350,10 +365,11 @@ case 200 :
             som = som - 1;
             kindPieces[0] -= 1;
         }
-    }while(som>0);// && kindPieces != NULL );
+    }while(som>0&& isEmpty(kindPieces));
     for(int i = 0;i < 8; i++){
     kindPiecesOriginal[i]-=kindPieces[i];
    // if(kindPiecesOriginal[i]>0){
+
         switch(i){
 case 0:
     cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << " pieces de 1 centime"<<endl;
@@ -379,8 +395,14 @@ case 6:
 case 7:
     cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << " pieces de 2 euros"<<endl;
     break;
-//}
-}//utiliser pickUpPiece(const Piece &piece); et
 
 }
 }
+}//utiliser pickUpPiece(const Piece &piece); et
+/*
+    for(int j = 0; j <= 8; j++){
+        kindPiecesRemplit.push_back(kindPiecesOriginal[j]);
+    }
+}
+*/
+
