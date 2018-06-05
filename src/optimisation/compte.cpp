@@ -6,6 +6,161 @@
 
 using namespace std;
 
+//Renvoie vrai si le tableau est toujours remplit, faux si totalement vide
+static bool isEmpty(vector<int> kindPieces){
+    bool Vide =false;
+
+for(int k=0;k<=8;k++){
+
+    if(kindPieces[k]>0){
+
+         Vide = true;
+}
+}
+return Vide;
+}
+
+
+void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit){
+    vector<Piece> *pieces = p.getPieces();
+    vector<int>   kindPieces(8),kindPiecesOriginal(8);
+    int sumTabPieces = 0, parcoursTab = pieces->size();
+
+    //initialisation des atbleaux à 0
+
+    for(int i =0;i<=8;i++){
+        kindPieces[i]=0;
+        kindPiecesOriginal[i]=0;
+    }
+
+    //On remplit les tableaux selon les valeurs des pieces sur le tapis
+    for(int i = 0;i <= parcoursTab; i++){
+
+
+            switch((*pieces)[i].value){
+    case 1 :
+            kindPieces[0]+=1;
+            kindPiecesOriginal[0]+=1;
+            break;
+    case 2 :
+            kindPieces[1]+=1;
+            kindPiecesOriginal[1]+=1;
+            break;
+    case 5 :
+            kindPieces[2]+=1;
+            kindPiecesOriginal[2]+=1;
+            break;
+    case 10 :
+            kindPieces[3]+=1;
+            kindPiecesOriginal[3]+=1;
+            break;
+    case 20 :
+            kindPieces[4]+=1;
+            kindPiecesOriginal[4]+=1;
+            break;
+    case 50 :
+            kindPieces[5]+=1;
+            kindPiecesOriginal[5]+=1;
+            break;
+    case 100 :
+            kindPieces[6]+=1;
+            kindPiecesOriginal[6]+=1;
+            break;
+    case 200 :
+            kindPieces[7]+=1;
+            kindPiecesOriginal[7]+=1;
+            break;
+            }
+
+}
+
+    // on recherche les pieces a ramasser
+    do{
+        if(som >= 200 && kindPieces[7] > 0){
+            som = som - 200;
+            kindPieces[7] -= 1;
+
+        }
+        else if(som >= 100 && kindPieces[6] > 0){
+            som = som - 100;
+            kindPieces[6] -= 1;
+        }
+        else if(som >= 50 && kindPieces[5] > 0){
+            som = som - 50;
+            kindPieces[5] -= 1;
+        }
+        else if(som >= 20 && kindPieces[4] > 0){
+            som = som - 20;
+            kindPieces[4] -= 1;
+        }
+        else if(som >= 10 && kindPieces[3] > 0){
+            som = som - 10;
+            kindPieces[3] -= 1;
+        }
+        else if(som >= 5 && kindPieces[2] > 0){
+            som = som - 5;
+            kindPieces[2] -= 1;
+        }
+        else if(som >= 2 && kindPieces[1] > 0){
+            som = som - 2;
+            kindPieces[1] -= 1;
+        }
+        else if(som >= 1 && kindPieces[0] > 0){
+            som = som - 1;
+            kindPieces[0] -= 1;
+        }
+        else
+            break;
+    }while(som>0 && isEmpty(kindPieces));
+
+
+    // calcul de la différence entre les deux tableaux
+    for(int i = 0;i < 8; i++){
+    kindPiecesOriginal[i]-=kindPieces[i];
+
+}
+
+
+
+    // remplissage du tableau passé en parametre
+    for(int j = 0; j <= 8; j++){
+        kindPiecesRemplit.push_back(kindPiecesOriginal[j]);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Evolution des fonctions  */
+/*
+
+
+
+
+
 // la fonction renvoie que les plus grosses pieces à ramasser
 // Ramassage le plus efficace car prend le moins de piece possible
 void RamasCoinMax(int som, Ramapiece p)
@@ -258,7 +413,7 @@ void RamasAlternative2(int som, Ramapiece p){
         parcoursTab-=1;
     }
 }
-*/
+
 
 
 //Renvoie vrai si le tableau est toujours remplit, faux si totalement vide
@@ -280,43 +435,46 @@ void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit){
     vector<Piece> *pieces = p.getPieces();
     vector<int>   kindPieces(8),kindPiecesOriginal(8);
     int sumTabPieces = 0, sumObtenable, parcoursTab = pieces->size();
+
+    //initialisation des atbleaux à 0
     for(int i =0;i<=8;i++){
         kindPieces[i]=0;
         kindPiecesOriginal[i]=0;
     }
+        //On remplit les tableaux selon les valeurs des pieces sur le tapis
     for(int i = 0;i <= parcoursTab; i++){
-            sumTabPieces += (*pieces)[i].value;
-            //On remplit un tableau avec
+           // sumTabPieces += (*pieces)[i].value;
+
             switch((*pieces)[i].value){
-case 1 :
+    case 1 :
             kindPieces[0]+=1;
             kindPiecesOriginal[0]+=1;
             break;
-case 2 :
+    case 2 :
             kindPieces[1]+=1;
             kindPiecesOriginal[1]+=1;
             break;
-case 5 :
+    case 5 :
             kindPieces[2]+=1;
             kindPiecesOriginal[2]+=1;
             break;
-case 10 :
+    case 10 :
             kindPieces[3]+=1;
             kindPiecesOriginal[3]+=1;
             break;
-case 20 :
+    case 20 :
             kindPieces[4]+=1;
             kindPiecesOriginal[4]+=1;
             break;
-case 50 :
+    case 50 :
             kindPieces[5]+=1;
             kindPiecesOriginal[5]+=1;
             break;
-case 100 :
+    case 100 :
             kindPieces[6]+=1;
             kindPiecesOriginal[6]+=1;
             break;
-case 200 :
+    case 200 :
             kindPieces[7]+=1;
             kindPiecesOriginal[7]+=1;
             break;
@@ -335,8 +493,10 @@ case 200 :
         cout << "valeur demandee trop grande par rapport aux pieces sur le tapis" << endl;
 
     }
-    */
 
+
+
+    // on recherche les pieces a ramasser
     do{
         if(som >= 200 && kindPieces[7] > 0){
             som = som - 200;
@@ -374,6 +534,7 @@ case 200 :
         else
             break;
     }while(som>0 && isEmpty(kindPieces));
+    // calcul de la différence entre les deux tableaux
     for(int i = 0;i < 8; i++){
     kindPiecesOriginal[i]-=kindPieces[i];
    // if(kindPiecesOriginal[i]>0){
@@ -405,13 +566,16 @@ case 7:
     break;
 
 }
-*/
+
 }
 //utiliser pickUpPiece(const Piece &piece); et
 
+
+    // remplissage du tableau passé en parametre
     for(int j = 0; j <= 8; j++){
         kindPiecesRemplit.push_back(kindPiecesOriginal[j]);
     }
 }
 
 
+*/
