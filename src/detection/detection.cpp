@@ -170,7 +170,7 @@ vector<Point> Detection::tabContours(){
     GaussianBlur( imageTapisNB, gaus, Size( 5, 5 ), 0, 0 );
     cv::Canny(gaus,contours,100,500);
 
-    cv::Canny(imageTapis,contours,50,150);
+    //cv::Canny(imageTapis,contours,50,500);
 
 
     //Affichage
@@ -237,7 +237,7 @@ Piece tracerPiece3points(Position A, Position B, Position C){
     //cout << "ECART : p1(" << piece1.radius << ") + p2(" << piece2.radius << ") = "<< ECART <<endl;
     if (piece1.pos.x < piece2.pos.x + ECART && piece1.pos.x > piece2.pos.x - ECART) {
         if(piece1.pos.y < piece2.pos.y + ECART && piece1.pos.y > piece2.pos.y - ECART){
-            if (piece1.radius < piece2.radius + ECARTRAYON && piece1.radius > piece2.radius - ECARTRAYON || piece2.radius < piece1.radius + ECARTRAYON && piece2.radius > piece1.radius - ECARTRAYON){
+            if (piece1.radius < piece2.radius + ECARTRAYON && piece1.radius > piece2.radius - ECARTRAYON ){
                 return true;
             }
         }
