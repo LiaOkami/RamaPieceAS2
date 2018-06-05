@@ -90,5 +90,6 @@ static inline void  unitTestAlgorithmMoney()
 void    unitTest()
 {
     unitTestAlgorithm();
-    //unitTestAlgorithmMoney();
+    //
+    unitTestAlgorithmMoney();
 }
