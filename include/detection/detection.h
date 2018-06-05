@@ -23,8 +23,6 @@ using namespace std;
 class Detection
 {
 private:
-    Piece   pieceCourante;
-    /** \brief liste des pièces actuelement sur le tapis */
     vector<Piece>   listePieceCourante;
     bool            tapisVide;
     cv::Mat         imageTapis;
@@ -48,7 +46,7 @@ public:
 
     /**\brief Détecte et enregistre les pièces actuellement sur le tapis
     */
-    void detectionPieces();
+    void detectionPieces(const string chemin, const int nbPieces);
 
     /**\brief Ouvre le fichier correspondant à l'image du tapis
      * \param chaine, chemin de l'image à ouvrir

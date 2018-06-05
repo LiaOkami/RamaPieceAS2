@@ -70,6 +70,12 @@ void    parcoursDesVoisinsZone(Ramapiece &p);
 
 void    parcoursBasic(Ramapiece &ramapiece);
 
+/**
+ *  \brief Parcours de zone avec une somme précise à ramasser
+ * \param Objet de type Ramapiece
+ * \param int, la somme à ramasser
+ */
+void    parcoursZoneSomme(Ramapiece &p, int somme);
 
 /** \brief Utilisé pour avoir le nombre de pièces nécessaire à obtenir la somme demandée par le biai du
  *  vecteur de int en parametres, en fonction d'une entrée de somme et d'un tableau de piece
