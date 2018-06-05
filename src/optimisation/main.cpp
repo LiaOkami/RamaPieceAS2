@@ -47,8 +47,8 @@ void    testRamaDoable()
 int main()
 {
     srand(time(NULL));
-    //menu();
-    testRamaDoable();
+    menu();
+    //testRamaDoable();
     std::cout << "Sortie du programme." << std::endl;
 
 
