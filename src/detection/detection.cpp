@@ -175,6 +175,21 @@ vector<Point> Detection::tabContours(){
     vector< vector<Point> > tableaucontours;
     vector<Vec4i> hierarchy;
     findContours(contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+    vector<Point> tableauretour;
+
+    for(int i= 0; i < tableaucontours.size(); i++)
+{
+    for(int j= 0; j < tableaucontours[i].size();j++)
+    {
+        tableauretour[i].x=tableaucontours[i];
+        tableauretour[i].y=tableaucontours[j];
+
+
+    }
+})
+
+
+
 
     return tableaucontours;
 }

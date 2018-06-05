@@ -57,7 +57,8 @@ public:
     /**\brief Détecte les contours marqués de l'image du tapis avec Canny edge detector
      * \return matrice de cv::Point des points blancs de contours détectés sur l'image du tapis
      */
-    vector<vector<cv::Point> > tabContours();
+    vector<cv::Point> tabContours();
+
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
