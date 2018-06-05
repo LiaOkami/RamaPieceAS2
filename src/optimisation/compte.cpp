@@ -260,6 +260,8 @@ void RamasAlternative2(int som, Ramapiece p){
 }
 */
 
+
+//Renvoie vrai si le tableau est toujours remplit, faux si totalement vide
 static bool isEmpty(vector<int> kindPieces){
     bool Vide =false;
 for(int k=0;k<=8;k++){
@@ -318,18 +320,19 @@ case 200 :
             }
 
 }
-
+    /*
     cout<<"On a ce tableau de pieces"<<endl;
         for(int i = 0;i < 8; i++){
                 cout<<kindPieces[i]<<endl;
 
         }
-
-
+    */
+    /*
     if(som > sumTabPieces){
         cout << "valeur demandee trop grande par rapport aux pieces sur le tapis" << endl;
 
     }
+    */
 
     do{
         if(som >= 200 && kindPieces[7] > 0){
@@ -371,7 +374,7 @@ case 200 :
     for(int i = 0;i < 8; i++){
     kindPiecesOriginal[i]-=kindPieces[i];
    // if(kindPiecesOriginal[i]>0){
-
+/*
         switch(i){
 case 0:
     cout<<"Il faut ramasser "<< kindPiecesOriginal[i] << " pieces de 1 centime"<<endl;
@@ -399,6 +402,7 @@ case 7:
     break;
 
 }
+*/
 }
 //utiliser pickUpPiece(const Piece &piece); et
 

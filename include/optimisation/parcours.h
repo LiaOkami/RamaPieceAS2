@@ -64,11 +64,12 @@ void    parcoursDesVoisinsZone(Ramapiece &p);
 void    parcoursBasic(Ramapiece &ramapiece);
 
 
-/** \brief Renvoie le nombre de pièces nécessaire à obtenir la somme demandée, en fonction d'un
-tableau de piece en parametre
+/** \brief Utilisé pour avoir le nombre de pièces nécessaire à obtenir la somme demandée par le biai du
+ *  vecteur de int en parametres, en fonction d'une entrée de somme et d'un tableau de piece
  *
  * \param p Ramapiece& = tableau de pieces
  * \param som int = somme demandée
+ * \param vector<int> &kindPiecesRemplit = vecteur de int représantant les pieces à ramasser
  * \return void
  *
  */
