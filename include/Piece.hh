@@ -15,11 +15,11 @@ class Piece
   public:
     int         value;
     Position    pos;
-    String      couleur;
-    int         chiffre;
-
+	double		radius;
+	std::string	couleur;
+	int			chiffre;
     Piece(int val = 0, const Position & po = Position());
-    Piece(int val, double x, double y);
+    Piece(int val, double x, double y, double rad = 0);
 
     bool    operator==(const Piece &piece);
     bool    operator!=(const Piece &piece);

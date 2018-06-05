@@ -9,6 +9,12 @@
 #include <iostream>
 #include <string>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+
+
+
 using namespace std;
 
 //void detectionPieces();
@@ -17,12 +23,11 @@ using namespace std;
 class Detection
 {
 private:
-    /** \brief Pièce actuelement sur le tapis (pour les tests) */
-    Piece pieceCourante;
+    Piece   pieceCourante;
     /** \brief liste des pièces actuelement sur le tapis */
-    vector<Piece> listePieceCourante;
-    bool tapisVide;
-    cv::Mat imageTapis;
+    vector<Piece>   listePieceCourante;
+    bool            tapisVide;
+    cv::Mat         imageTapis;
 
 public:
     //Constructeur
@@ -32,9 +37,7 @@ public:
             Getters / Setters
        --------------------------- */
 
-     Piece getPieceCourante(); //pour les tests
-
-    /** \brief
+    /**\brief
      * \return la liste des pièces sur le tapis
      */
      vector<Piece> getListePieceCourante();
@@ -43,21 +46,43 @@ public:
                 Méthodes
        --------------------------- */
 
-    bool ouvertureFichier(const string chemin);
-
-
-
-    /** \brief détecte et enregistre les pièces actuellement sur le tapis
+    /**\brief Détecte et enregistre les pièces actuellement sur le tapis
     */
     void detectionPieces();
 
-    /** \brief trace une pièce à partir de 3 points
-    */
-    Piece tracerPiece3points(Position A, Position B, Position C);
+    /**\brief Ouvre le fichier correspondant à l'image du tapis
+     * \param chaine, chemin de l'image à ouvrir
+     * \return booléen indiquant si l'opération a fonctionné
+     */
+    bool ouvertureFichier(const string chemin);
+
+    /**\brief Détecte les contours marqués de l'image du tapis avec Canny edge detector
+     * \return matrice de cv::Point des points blancs de contours détectés sur l'image du tapis
+     */
+    vector<vector<cv::Point> > tabContours();
 
     /** \brief affiche les pièces acuellement sur le tapis
     */
     void afficherPieces();
 };
+
+    /* ---------------------------
+            Méthodes Externes
+       --------------------------- */
+
+    /**\brief Trace une pièce à partir de 3 positions
+     * \param 3 Positions
+     */
+Piece tracerPiece3points(Position A, Position B, Position C);
+
+ /**\brief compare les parametre de deux pièces
+     * \param
+     */
+bool comparaison2Pieces(Piece piece1, Piece piece2);
+
+ /**\brief fuisionne les coordonnées de 2 pièces et retourne une piece
+     * \param
+     */
+Piece fusion2Pieces(Piece piece1, Piece piece2);
 
 #endif // DETECTION_H_INCLUDED

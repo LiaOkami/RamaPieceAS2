@@ -1,14 +1,55 @@
 #include "Ramapiece.hh"
 
-Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot) :
-    _pieces(pieces), _robot(robot), _distance(0) {
+const std::string   Ramapiece::IMAGE_PATH = "./images/parcours";
+const std::string   Ramapiece::IMAGE_EXT = ".jpg";
 
+Ramapiece::Ramapiece()
+{
 }
+
+Ramapiece::Ramapiece(vectorPiece *pieces, const Robot& robot, bool isImage) :
+    _pieces(pieces), _robot(robot), _distance(0), _money(0), _isVerbose(false), _image(nullptr)
+{
+    if (isImage)
+        this->initImage();
+}
+
+Ramapiece::Ramapiece(const Ramapiece &other) :
+    _pieces(new vectorPiece(*(other._pieces))), _robot(other._robot),
+    _distance(0), _money(0), _isVerbose(false), _image(nullptr)
+{
+    if (_image)
+        this->initImage();
+}
+
+Ramapiece & Ramapiece::operator=(const Ramapiece &other) {
+    _pieces = other._pieces;
+    _robot = other._robot;
+    _distance = other._distance;
+    _money = other._money;
+    _isVerbose = other._isVerbose;
+    _image = other._image;
+    return *this;
+}
+
 
 Ramapiece::~Ramapiece() {
-    _pieces->clear();
+    if (_pieces != nullptr)
+        delete _pieces;
+    if (_image != nullptr)
+        delete _image;
 }
 
+void    Ramapiece::initImage() {
+    _image = new Image(IMAGE_WIDTH, IMAGE_HEIGHT);
+    _image->placePieceImage(_pieces);
+    _imageIndex = 0;
+}
+
+void    Ramapiece::_saveImage() {
+    _image->sauvegardeImage(IMAGE_PATH + std::to_string(_imageIndex) + IMAGE_EXT);
+    _imageIndex += 1;
+}
 vectorPiece *   Ramapiece::getPieces() {
     return _pieces;
 }
@@ -33,14 +74,19 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
         it++;
     // Si la pièce est trouvée
     if (it != _pieces->end()) {
-        std::cout << _robot.pos << " to " << piece.pos << std::endl;
-        std::cout << "Distance : " << dist << "\tValue picked: "
-                  << piece.value << std::endl;
+        if (_isVerbose) {
+            std::cout << _robot.pos << " to " << piece.pos << '\t'
+                      << "Distance : " << dist << "\tValue picked: "
+                      << piece.value << std::endl;
+        }
+        if (_image) {
+            _image->placePieceParcourus(piece.pos.x, piece.pos.y);
+            _image->deplaceRobot(_robot.pos, piece.pos);
+            this->_saveImage();
+        }
         _robot.pos = piece.pos;
         _robot.pieces.push_back(piece);
-        std::cout << _pieces->size() << std::endl;
         _pieces->erase(it);
-        std::cout << _pieces->size() << std::endl;
         _distance += dist;
     }
 }
@@ -51,13 +97,41 @@ void    Ramapiece::dropPieces() {
 
     for (const Piece &piece:_robot.pieces)
         value += piece.value;
-    std::cout << _robot.pos <<  " to " << _robot.start << std::endl
-              << "Distance : " << dist << "\tCoins dropped, value: "
-              << value << "." << std::endl;
+    if (_isVerbose) {
+        std::cout << _robot.pos <<  " to " << _robot.start << std::endl
+                  << "Distance : " << dist << "\tCoins dropped, value: "
+                  << value << "." << std::endl;
+    }
+    _money += value;
     _robot.pos = _robot.start;
+    _robot.pieces.clear();
     _distance += dist;
 }
 
 int Ramapiece::getTraveledDistance() {
     return _distance;
+}
+
+int Ramapiece::getAvailableMoney() {
+    int ret = 0;
+
+    for (const Piece & piece:*(_pieces))
+        ret += piece.value;
+    return ret;
+}
+
+int Ramapiece::getMoney(){
+    return _money;
+}
+
+void    Ramapiece::verbose() {
+    _isVerbose = true;
+}
+
+void    Ramapiece::displayImage() {
+    _image->afficherImage();
+}
+
+void    Ramapiece::saveImage(const std::string &filename) {
+    _image->sauvegardeImage(filename);
 }

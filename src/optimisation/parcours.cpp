@@ -10,15 +10,11 @@
 #include <vector>
 #include "Ramapiece.hh"
 #include "Piece.hh"
+#include "imageParcours.h"
 
 using namespace std;
 
-/**
- *  \brief Algorithme de tri, recupere le tableau de piece de la classe ramapiece,
- *         tri des piece de la plus proche du bras a la plus eloigne
- *         tableau utile si on part du principe que le bras reviens a sa position apres chaque piece
- *  \return modifie le tableau directement via les pointeurs
- */
+const int tailleCercleVoisin = 100;
 
 void triDistancePieceBras(Ramapiece &p){
         Piece tmpPiece;
@@ -46,12 +42,6 @@ void triDistancePieceBras(Ramapiece &p){
         }
 }
 
-/**
- *  \brief Algorithme de tri, recupere la piece la plus proche du bras,
- *          puis tri des pieces par rapport a la distance entre chacunes
- * \param tableau de piece (exemple p.getPieces())
- * \return modifie le tableau directement via les pointeurs
- */
 void triDistancePiecePiece(Ramapiece &p){
 
         vector<Piece> *tabPiece = p.getPieces();
@@ -61,9 +51,9 @@ void triDistancePiecePiece(Ramapiece &p){
         double valPetit = 0.0;
 
         for(i = 0; i<tabPiece->size(); i++){
-            if(valPetit > getDistance((*tabPiece)[i].pos, p.getRobotStart())){
+            if(valPetit > getDistance((*tabPiece)[i].pos, p.getRobotPosition())){
                indicePetit = i;
-               valPetit = getDistance((*tabPiece)[i].pos, p.getRobotStart());
+               valPetit = getDistance((*tabPiece)[i].pos, p.getRobotPosition());
             }
         }
         /*On recupere la piece la plus proche du robot*/
@@ -76,28 +66,22 @@ void triDistancePiecePiece(Ramapiece &p){
             au fur et a mesure la reference change pour faire en fonction d'une autre piece*/
 
         for(i = 1; i<tabPiece->size(); i++){
-            valPetit =  getDistance((*tabPiece)[0].pos, (*tabPiece)[i].pos);
+            valPetit =  getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[i].pos);
             indicePetit = i;
 
-            for(j = i; j<tabPiece->size(); j++){
-                if(getDistance((*tabPiece)[i].pos, (*tabPiece)[j].pos) < valPetit){
+            for(j = i + 1; j<tabPiece->size(); j++){
+                if(getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[j].pos) < valPetit){
                     indicePetit = j;
-                    valPetit = getDistance((*tabPiece)[i].pos, (*tabPiece)[j].pos);
+                    valPetit = getDistance((*tabPiece)[i - 1].pos, (*tabPiece)[j].pos);
                 }
             }
             /*on echange*/
             tmpPiece = (*tabPiece)[i];
-            (*tabPiece)[i] = valPetit;
+            (*tabPiece)[i] = (*tabPiece)[indicePetit];
             (*tabPiece)[indicePetit] = tmpPiece;
         }
 }
 
-/**
- *  \brief Algorithme de tri, retourne un vector de piece ordonnée par leur valeur croissante,
- *          peut servir à une recherche dichotomique
- * \param tableau de piece (exemple p.getPieces())
- * \return modifie le tableau directement via les pointeurs
- */
 void triValeur(std::vector<Piece> * tabP){
 
         vector<Piece> *tabPiece = tabP;
@@ -124,12 +108,6 @@ void triValeur(std::vector<Piece> * tabP){
         }
 }
 
-/**
- *  \brief Tri dichotomique pour retrouver une piece d'une certaine valeur,
- * \param tableau de piece (exemple p.getPieces(), ou p est de type Ramapiece)
- * \param valeur de la piece recherche
- * \return int -> indice ou trouver la piece, si non trouve retourne -999
- */
 int rechercheDicho(std::vector<Piece> * tabP, int val){
 
         vector<Piece> *tabPiece = tabP;
@@ -159,14 +137,9 @@ int rechercheDicho(std::vector<Piece> * tabP, int val){
         }
 }
 
-/**
- *  \brief Parcours basique en partant du principe que le bras ramasse une piece
- *          et reviens en position start à chaque fois
- */
 void parcoursSimple(Ramapiece &p){
         triDistancePieceBras(p);
         vector<Piece> *tabPiece = p.getPieces();
-        std::cout << tabPiece->size() << std::endl;
 
         while (tabPiece->size() > 0) {
             p.pickUpPiece(tabPiece->front());
@@ -174,10 +147,6 @@ void parcoursSimple(Ramapiece &p){
         }
 }
 
-/**
- *  \brief On parcours de telle manière a se que le bras,
- *          aille toujours a la piece la plus proche de sa position actuelle, il fini en revenant a sa position
- */
 void parcoursDesVoisins(Ramapiece &p){
 
         triDistancePiecePiece(p);
@@ -189,15 +158,6 @@ void parcoursDesVoisins(Ramapiece &p){
         p.dropPieces();
 }
 
-/**
- *  \brief On parcours de telle manière a faire des cercles pour se rapprocher du centre
- */
-void parcoursCirculaire(Ramapiece &p){
-}
-
-/**
- *  \brief Parcours par dans une zone définie puis change de zone
- */
 void parcoursZone(Ramapiece &p){
     vector<Piece> *tabPiece = p.getPieces();
 
@@ -211,71 +171,94 @@ void parcoursZone(Ramapiece &p){
     int i = 0;
 
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
-    Piece pBasGauche = (*tabPiece)[0], pHautGauche = (*tabPiece)[0], pBasDroit = (*tabPiece)[0], pHautDroit = (*tabPiece)[0];
+    Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
 
-
-    if(tabPiece->size() >= 4){
-        /*on recupere les 4 piece qui vont creer la zone global de recherche*/
-        for(i = 1; tabPiece->size();i++){
-            //point bas droit du carre
-            if((*tabPiece)[i].pos.x < pBasDroit.pos.x && (*tabPiece)[i].pos.y < pBasDroit.pos.y){
-                pBasDroit = (*tabPiece)[i];
-            }
-            //point bas gauche du carre
-            if((*tabPiece)[i].pos.x > pBasGauche.pos.x && (*tabPiece)[i].pos.y < pBasGauche.pos.y){
-                pBasGauche = (*tabPiece)[i];
-            }
-            //point haut droit du carre
-            if((*tabPiece)[i].pos.x < pHautDroit.pos.x && (*tabPiece)[i].pos.y > pHautDroit.pos.y){
-                pHautDroit = (*tabPiece)[i];
-            }
-            //point haut gauche du carre
-            if((*tabPiece)[i].pos.x > pHautGauche.pos.x && (*tabPiece)[i].pos.y > pHautGauche.pos.y){
-                pHautGauche = (*tabPiece)[i];
-            }
+    /*on recupere les 4 piece qui vont creer la zone global de recherche*/
+    for(i = 1; i<tabPiece->size();i++){
+        //Piece avec le plus petit x
+        if((*tabPiece)[i].pos.x < xMin.pos.x){
+            xMin = (*tabPiece)[i];
         }
-
-        /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
-
-        for(i = 0; tabPiece->size();i++){
-            //point bas droit du carre
-            if((*tabPiece)[i].pos.x <= (pBasDroit.pos.x + pBasGauche.pos.x)/2 && (*tabPiece)[i].pos.y <= (pBasDroit.pos.y + pHautDroit.pos.y)/2){
-                zoneBasDroitTab.push_back((*tabPiece)[i]);
-            }
-            //point bas droit du carre
-            else if((*tabPiece)[i].pos.x > (pBasDroit.pos.x + pBasGauche.pos.x)/2 && (*tabPiece)[i].pos.y > (pBasDroit.pos.y + pHautDroit.pos.y)/2){
-                zoneHautDroitTab.push_back((*tabPiece)[i]);
-            }
-            //point bas droit du carre
-            else if((*tabPiece)[i].pos.x > (pBasDroit.pos.x + pBasGauche.pos.x)/2 && (*tabPiece)[i].pos.y <= (pBasDroit.pos.y + pHautDroit.pos.y)/2){
-                zoneBasGaucheTab.push_back((*tabPiece)[i]);
-            }
-            //point bas droit du carre
-            else if((*tabPiece)[i].pos.x <= (pBasDroit.pos.x + pBasGauche.pos.x)/2 && (*tabPiece)[i].pos.y <= (pBasDroit.pos.y + pHautDroit.pos.y)/2){
-                zoneHautGaucheTab.push_back((*tabPiece)[i]);
-            }
-            else{
-                tabErreur.push_back((*tabPiece)[i]);
-            }
-
+        //Piece avec le plus grand x
+        if((*tabPiece)[i].pos.x > xMax.pos.x){
+            xMax = (*tabPiece)[i];
         }
-
-        /*on parcours chaque zone pour ramasser*/
-        for(i = 0; zoneBasDroitTab.size(); i++){
-            p.pickUpPiece(zoneBasDroitTab[i]);
-
+        //Piece avec le plus petit y
+        if((*tabPiece)[i].pos.y < yMin.pos.y){
+            yMin = (*tabPiece)[i];
         }
-        for(i = 0; zoneHautDroitTab.size(); i++){
-            p.pickUpPiece(zoneHautDroitTab[i]);
+        //Piece avec le plus grand y
+        if((*tabPiece)[i].pos.y > yMax.pos.y){
+            yMax = (*tabPiece)[i];
         }
-        for(i = 0; zoneBasGaucheTab.size(); i++){
-            p.pickUpPiece(zoneBasGaucheTab[i]);
-        }
-        for(i = 0; zoneHautGaucheTab.size(); i++){
-            p.pickUpPiece(zoneHautGaucheTab[i]);
-        }
-
-        /*on depose toute les pieces*/
-        p.dropPieces();
     }
+
+    /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
+
+    for(i = 0; i<tabPiece->size();i++){
+        //zone bas droit du carre
+        if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
+            zoneBasDroitTab.push_back((*tabPiece)[i]);
+        }
+        //zone bas gauche du carre
+        else if((*tabPiece)[i].pos.x > (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
+            zoneHautDroitTab.push_back((*tabPiece)[i]);
+        }
+        //zone haut droit du carre
+        else if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y > (yMin.pos.y + yMax.pos.y)/2){
+            zoneBasGaucheTab.push_back((*tabPiece)[i]);
+        }
+        //zone haut gauche du carre
+        else if((*tabPiece)[i].pos.x > (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y > (yMin.pos.y + yMax.pos.y)/2){
+            zoneHautGaucheTab.push_back((*tabPiece)[i]);
+        }
+        else{
+            tabErreur.push_back((*tabPiece)[i]); //permet de vérifier qu'il n'y a pas de piece laissé
+        }
+    }
+
+    /*on parcours chaque zone pour ramasser*/
+    for(i = 0; i<zoneBasDroitTab.size(); i++){
+        p.pickUpPiece(zoneBasDroitTab[i]);
+    }
+    for(i = 0; i<zoneHautDroitTab.size(); i++){
+        p.pickUpPiece(zoneHautDroitTab[i]);
+    }
+    for(i = 0; i<zoneBasGaucheTab.size(); i++){
+        p.pickUpPiece(zoneBasGaucheTab[i]);
+    }
+    for(i = 0; i<zoneHautGaucheTab.size(); i++){
+        p.pickUpPiece(zoneHautGaucheTab[i]);
+    }
+
+    /*on depose toute les pieces*/
+    p.dropPieces();
+}
+
+void parcoursDesVoisinsZone(Ramapiece &p){
+
+    triDistancePiecePiece(p);
+    vector<Piece> *tabPiece = p.getPieces();
+    vector<Piece> tabPieceProvisoir = {};
+
+    while (tabPiece->size() > 0) {
+        p.pickUpPiece(tabPiece->front()); //correspond a la premiere case du tableau
+
+        //On regarde si dans la zone autour du bras il y a des pieces
+        for(int i =0; i<tabPiece->size(); i++){
+            if(getDistance((*tabPiece)[i].pos,p.getRobotPosition()) <= tailleCercleVoisin){
+                tabPieceProvisoir.push_back((*tabPiece)[i]);
+            }
+            //On ramasse toute les pieces dans la zone
+            for(const Piece & piece:tabPieceProvisoir){
+                p.pickUpPiece(piece);
+            }
+        }
+        //On vide le tableau temporaire
+        tabPieceProvisoir.clear();
+        //On recalcule le tableau
+        triDistancePiecePiece(p);
+        //*tabPiece = p.getPieces();
+    }
+    p.dropPieces();
 }
