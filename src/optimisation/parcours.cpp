@@ -47,10 +47,11 @@ void triDistancePiecePiece(Ramapiece &p){
         vector<Piece> *tabPiece = p.getPieces();
 
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
-        double valPetit = 0.0;
+        int i, j;
+        int indicePetit = 0;
+        double valPetit = getDistance((*tabPiece)[0].pos, p.getRobotPosition());
 
-        for(i = 0; i<tabPiece->size(); i++){
+        for(i = 1; i<tabPiece->size(); i++){
             if(valPetit > getDistance((*tabPiece)[i].pos, p.getRobotPosition())){
                indicePetit = i;
                valPetit = getDistance((*tabPiece)[i].pos, p.getRobotPosition());
