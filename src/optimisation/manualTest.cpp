@@ -1,25 +1,23 @@
 #include "algorithm.hh"
 #include "generateRamapiece.hh"
 
-void    algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
+static inline void  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &algorithm)
 {
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece);
+    ramapiece.displayImage();
     std::cout << "### " << algorithm.first
               << "\tDistance : " << ramapiece.getTraveledDistance()
               << "\tArgent : " << ramapiece.getMoney() << std::endl;
 }
 
-int algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
+static int  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
 {
     int dist;
     int money;
-    int availableMoney;
 
-    for (const auto & piece:*(ramapiece.getPieces()))
-        availableMoney += piece.value;
     std::cout << "Combien d'argent desirez-vous ? (Monnaie disponible : "
-              << availableMoney << ")" << std::endl;
+              << ramapiece.getAvailableMoney() << ")" << std::endl;
     std::cin >> money;
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece, money);
@@ -41,13 +39,13 @@ void    manualTest()
     {
         std::cout << "Veuillez choisir votre algorithme en rentrant le nombre correspondant :" << std::endl;
         i = 0;
-        while (Algorithm::algos[i].first != "") {
-            std::cout << i + 1 << ") " << Algorithm::algos[i].first << std::endl;
+        while (RamapieceAlgorithm::algos[i].first != "") {
+            std::cout << i + 1 << ") " << RamapieceAlgorithm::algos[i].first << std::endl;
             i += 1;
         }
         j = 0;
-        while (Algorithm::algosMoney[j].first != "") {
-            std::cout << j + i + 1 << ") " << Algorithm::algosMoney[j].first << std::endl;
+        while (RamapieceAlgorithm::algosMoney[j].first != "") {
+            std::cout << j + i + 1 << ") " << RamapieceAlgorithm::algosMoney[j].first << std::endl;
             j += 1;
         }
 
@@ -56,13 +54,15 @@ void    manualTest()
         if (value > 0 && value <= i) {
             ramapiece = generateRamapiece(50);
             ramapiece->verbose();
-            algorithmWrapper(*ramapiece, Algorithm::algos[value - 1]);
+            ramapiece->initImage();
+            algorithmWrapper(*ramapiece, RamapieceAlgorithm::algos[value - 1]);
             delete ramapiece;
         }
         else if (value > i && value <= i + j) {
             ramapiece = generateRamapieceNormal(50);
             ramapiece->verbose();
-            algorithmWrapper(*ramapiece, Algorithm::algosMoney[value - 1 - i]);
+            ramapiece->initImage();
+            algorithmWrapper(*ramapiece, RamapieceAlgorithm::algosMoney[value - 1 - i]);
             delete ramapiece;
         }
         std::cout << std::endl;

@@ -7,12 +7,12 @@
 
 # include "Ramapiece.hh"
 
-/** \brief Génére aléatoirement un Ramapiece contenant size pièces
+/** \brief Génère aléatoirement un Ramapiece contenant size pièces
  *
  *  \param int size Nombre de Piece sur le tapis
  *  \return Ramapiece
  *
- *  Cette fonction créé un nouvel objet Ramapiece.
+ *  Cette fonction crée un nouvel objet Ramapiece.
  *  La Position de chaque Piece, ainsi que la Position de départ du Robot,
  *  est determinée aléatoirement avec un x et un y entre 0 et 1000.
  *  La valeur de chaque Piece est determinée aléatoirement entre 0 et 200.

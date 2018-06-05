@@ -77,9 +77,6 @@
 		<Unit filename="include/optimisation/algorithm.hh">
 			<Option target="Opti" />
 		</Unit>
-		<Unit filename="include/optimisation/compte.h">
-			<Option target="Opti" />
-		</Unit>
 		<Unit filename="include/optimisation/generateRamapiece.hh">
 			<Option target="Opti" />
 		</Unit>

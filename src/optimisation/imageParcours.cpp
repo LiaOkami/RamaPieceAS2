@@ -34,13 +34,7 @@ void Image::afficherImage(){
 }
 
 void Image::sauvegardeImage(string filename){
-    string chemin = "./images/parcours/";
-    string extension = ".jpg";
-    chemin += filename;
-    chemin += extension;
-
-    imwrite(chemin, this->getImage());
-
+    imwrite(filename, this->getImage());
 }
 
 void Image::placePieceImage(vector<Piece> *tabPiece){
