@@ -102,6 +102,10 @@ void    Ramapiece::dropPieces() {
                   << "Distance : " << dist << "\tCoins dropped, value: "
                   << value << "." << std::endl;
     }
+    if (_image) {
+        _image->deplaceRobot(_robot.pos, _robot.start);
+        this->_saveImage();
+    }
     _money += value;
     _robot.pos = _robot.start;
     _robot.pieces.clear();

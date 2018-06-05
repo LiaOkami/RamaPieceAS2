@@ -25,8 +25,6 @@ class   Ramapiece {
     Image       *_image;
     int         _imageIndex;
 
-    static const int            IMAGE_WIDTH = 1000;
-    static const int            IMAGE_HEIGHT = 1000;
     static const std::string    IMAGE_PATH;
     static const std::string    IMAGE_EXT;
 
@@ -42,6 +40,9 @@ class   Ramapiece {
     Ramapiece(const Ramapiece &other);
     Ramapiece & operator=(const Ramapiece &ramapiece);
     ~Ramapiece();
+
+    static const int            IMAGE_WIDTH = 1200;
+    static const int            IMAGE_HEIGHT = 800;
 
     /** \brief Initialise l'Image qui décrira le parcours du Robot
      */
