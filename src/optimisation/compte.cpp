@@ -264,14 +264,14 @@ static bool isEmpty(vector<int> kindPieces){
     bool Vide =false;
 for(int k=0;k<=8;k++){
     if(kindPieces[k]>0){
-        bool Vide = true;
+         Vide = true;
 }
 }
 return Vide;
 }
 
 
-void RamaDoable(Ramapiece &p, int som){//, vector<int>& kindPiecesRemplit){
+void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit){
     vector<Piece> *pieces = p.getPieces();
     vector<int>   kindPieces(8),kindPiecesOriginal(8);
     int sumTabPieces = 0, sumObtenable, parcoursTab = pieces->size();
@@ -365,7 +365,9 @@ case 200 :
             som = som - 1;
             kindPieces[0] -= 1;
         }
-    }while(som>0&& isEmpty(kindPieces));
+        else
+            break;
+    }while(som>0 && isEmpty(kindPieces));
     for(int i = 0;i < 8; i++){
     kindPiecesOriginal[i]-=kindPieces[i];
    // if(kindPiecesOriginal[i]>0){
@@ -398,11 +400,11 @@ case 7:
 
 }
 }
-}//utiliser pickUpPiece(const Piece &piece); et
-/*
+//utiliser pickUpPiece(const Piece &piece); et
+
     for(int j = 0; j <= 8; j++){
         kindPiecesRemplit.push_back(kindPiecesOriginal[j]);
     }
 }
-*/
+
 

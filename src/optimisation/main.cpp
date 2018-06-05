@@ -34,11 +34,18 @@ void    menu()
     }
 }
 
+void    testRamaDoable()
+{
+    Ramapiece *p = generateRamapieceNormal(5);
+    vector<int> pieces;
 
+    RamaDoable(*p, p->getAvailableMoney() / 10 , pieces);
+}
 int main()
 {
     srand(time(NULL));
-    menu();
+    //menu();
+    testRamaDoable();
     std::cout << "Sortie du programme." << std::endl;
 
 

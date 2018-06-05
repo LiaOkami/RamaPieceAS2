@@ -72,5 +72,5 @@ tableau de piece en parametre
  * \return void
  *
  */
-void RamaDoable(Ramapiece &p, int som);
+void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
 #endif // PARCOURS_H_INCLUDED
