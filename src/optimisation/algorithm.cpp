@@ -10,6 +10,6 @@ const t_algorithm   RamapieceAlgorithm::algos[] = {
 };
 
 const t_algorithm_money RamapieceAlgorithm::algosMoney[] = {
-        {"Ramassage Possible ?", &RamaDoable},
+
         {"", nullptr}
 };
