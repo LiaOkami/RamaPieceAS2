@@ -264,8 +264,11 @@ void RamasAlternative2(int som, Ramapiece p){
 //Renvoie vrai si le tableau est toujours remplit, faux si totalement vide
 static bool isEmpty(vector<int> kindPieces){
     bool Vide =false;
+
 for(int k=0;k<=8;k++){
+
     if(kindPieces[k]>0){
+
          Vide = true;
 }
 }
