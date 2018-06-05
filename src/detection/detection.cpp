@@ -45,10 +45,11 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
         cv::Point pointsTires[3];
 
         for(int cpt = 0; cpt < 3; cpt ++){
-            int Ialea = rand()%(MAX-MIN) + MIN;
-            int Jalea = rand()%(tabPointsContours[Ialea].size()-MIN) + MIN;
-            pointsTires[cpt] = tabPointsContours[Ialea][Jalea];
-            //int indexAlea = rand()%(MAX-MIN) + MIN;
+            //int Ialea = rand()%(MAX-MIN) + MIN;
+            //int Jalea = rand()%(tabPointsContours[Ialea].size()-MIN) + MIN;
+            //pointsTires[cpt] = tabPointsContours[Ialea][Jalea];
+            int indexAlea = rand()%(MAX-MIN) + MIN;
+            pointsTires[cpt] = tabPointsContours[indexAlea];
         }
         Position pos1(pointsTires[0].x, pointsTires[0].y), pos2(pointsTires[1].x, pointsTires[1].y), pos3(pointsTires[2].x, pointsTires[2].y);
         Piece pieceTracee = tracerPiece3points(pos1, pos2, pos3);
@@ -58,13 +59,13 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
         int nbPointsAppartenance = 0;
         if(pieceTracee.value > -1 && pieceTracee.radius < imageTapis.size().width/4 && pieceTracee.radius < imageTapis.size().height/4 ){  //si la pièce retournée n'as pas d'erreur
             for(int i = 0; i < (int) tabPointsContours.size(); i++){
-                for(int j = 0; j < (int) tabPointsContours[i].size(); j++){
-                    Position pointVerifie(tabPointsContours[i][j].x, tabPointsContours[i][j].y);
+                //for(int j = 0; j < (int) tabPointsContours[i].size(); j++){
+                    Position pointVerifie(tabPointsContours[i].x, tabPointsContours[i].y);
                     double distance = getDistance(pieceTracee.pos, pointVerifie);
                     if(pieceTracee.radius - 5.0 < distance && distance < pieceTracee.radius + 5.0){ //si appartient, on le compte
                         nbPointsAppartenance++;
                     }
-                }
+                //}
             }
 
             tabPiecesDetectees.push_back(make_pair(pieceTracee, nbPointsAppartenance));
@@ -75,7 +76,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
     //------------------------------------------------
     // ÉLIMINE LES DOUBLONS
     //------------------------------------------------
-    for(int i=0; i<(int)tabPiecesDetectees.size(); i++){
+    /*for(int i=0; i<(int)tabPiecesDetectees.size(); i++){
         bool correspondance = false;
         int j=0;
         while(j<(int)tabPiecesDetectees.size() && !correspondance){
@@ -90,7 +91,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
         if(!correspondance){
             tabPiecesDetectees.push_back(make_pair(pieceTracee, nbPointsAppartenance));
         }
-    }
+    }*/
 
     //------------------------------------------------
     // -----   SÉLECTION DES PIÈCES COURANTES   -----
@@ -166,7 +167,7 @@ vector<Point> Detection::tabContours(){
     cv::Mat imageTapisNB;
     cv::Mat contours;
     cvtColor( imageTapis, imageTapisNB, CV_RGB2GRAY );
-    cv::Canny(imageTapis,contours,50,150);
+    cv::Canny(imageTapis,contours,200,800);
 
     //Affichage
     cv::namedWindow("Contours");
@@ -177,21 +178,12 @@ vector<Point> Detection::tabContours(){
     findContours(contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
     vector<Point> tableauretour;
 
-    for(int i= 0; i < tableaucontours.size(); i++)
-{
-    for(int j= 0; j < tableaucontours[i].size();j++)
-    {
-        tableauretour[i].x=tableaucontours[i];
-        tableauretour[i].y=tableaucontours[j];
-
-
+    for(int i= 0; i < tableaucontours.size(); i++){
+        for(int j= 0; j < tableaucontours[i].size();j++){
+            tableauretour.push_back(tableaucontours[i][j]);
+        }
     }
-})
-
-
-
-
-    return tableaucontours;
+    return tableauretour;
 }
 
  void Detection::afficherPieces(){
@@ -233,8 +225,6 @@ Piece tracerPiece3points(Position A, Position B, Position C){
     double rayon = getDistance(A, posCentre);
 
     return Piece(0, centreX, centreY, rayon);
-
-
 }
 
  bool comparaison2Pieces(Piece piece1, Piece piece2){
@@ -259,6 +249,5 @@ Piece fusion2Pieces(Piece piece1, Piece piece2){
     pieceFusionne.radius= (piece1.radius+piece2.radius)/2;
 
     return pieceFusionne;
-
 }
 
