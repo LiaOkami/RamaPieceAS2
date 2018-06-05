@@ -1,6 +1,6 @@
 #include "Ramapiece.hh"
 
-const std::string   Ramapiece::IMAGE_PATH = "./images/parcours";
+const std::string   Ramapiece::IMAGE_PATH = "./images/parcours/";
 const std::string   Ramapiece::IMAGE_EXT = ".jpg";
 
 Ramapiece::Ramapiece()
