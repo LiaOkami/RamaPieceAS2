@@ -47,10 +47,11 @@ void triDistancePiecePiece(Ramapiece &p){
         vector<Piece> *tabPiece = p.getPieces();
 
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
-        double valPetit = 0.0;
+        int i, j;
+        int indicePetit = 0;
+        double valPetit = getDistance((*tabPiece)[0].pos, p.getRobotPosition());
 
-        for(i = 0; i<tabPiece->size(); i++){
+        for(i = 1; i<tabPiece->size(); i++){
             if(valPetit > getDistance((*tabPiece)[i].pos, p.getRobotPosition())){
                indicePetit = i;
                valPetit = getDistance((*tabPiece)[i].pos, p.getRobotPosition());
@@ -79,6 +80,48 @@ void triDistancePiecePiece(Ramapiece &p){
             tmpPiece = (*tabPiece)[i];
             (*tabPiece)[i] = (*tabPiece)[indicePetit];
             (*tabPiece)[indicePetit] = tmpPiece;
+        }
+}
+
+void triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece){
+
+        if(tabPiece.size() > 0){
+
+            Piece tmpPiece;
+            int i, j;
+            int indicePetit = 0;
+            double valPetit = getDistance(tabPiece[0].pos, p.getRobotPosition());
+
+            for(i = 1; i<tabPiece.size(); i++){
+                if(valPetit > getDistance(tabPiece[i].pos, p.getRobotPosition())){
+                   indicePetit = i;
+                   valPetit = getDistance(tabPiece[i].pos, p.getRobotPosition());
+                }
+            }
+            /*On recupere la piece la plus proche du robot*/
+            tmpPiece = tabPiece[0];
+            tabPiece[0] = tabPiece[indicePetit];
+            tabPiece[indicePetit] = tmpPiece;
+
+
+            /*on commence a 1 car elle à l'indice 0 on a notre reference de depart,
+                au fur et a mesure la reference change pour faire en fonction d'une autre piece*/
+
+            for(i = 1; i<tabPiece.size(); i++){
+                valPetit =  getDistance(tabPiece[i - 1].pos, tabPiece[i].pos);
+                indicePetit = i;
+
+                for(j = i + 1; j<tabPiece.size(); j++){
+                    if(getDistance(tabPiece[i - 1].pos, tabPiece[j].pos) < valPetit){
+                        indicePetit = j;
+                        valPetit = getDistance(tabPiece[i - 1].pos, tabPiece[j].pos);
+                    }
+                }
+                /*on echange*/
+                tmpPiece = tabPiece[i];
+                tabPiece[i] = tabPiece[indicePetit];
+                tabPiece[indicePetit] = tmpPiece;
+            }
         }
 }
 
@@ -216,6 +259,13 @@ void parcoursZone(Ramapiece &p){
             tabErreur.push_back((*tabPiece)[i]); //permet de vérifier qu'il n'y a pas de piece laissé
         }
     }
+
+    /*On organise les tableaux pour un parcours plus optimal*/
+
+    triDistancePiecePiece(p,zoneBasDroitTab);
+    triDistancePiecePiece(p,zoneHautDroitTab);
+    triDistancePiecePiece(p,zoneBasGaucheTab);
+    triDistancePiecePiece(p,zoneHautGaucheTab);
 
     /*on parcours chaque zone pour ramasser*/
     for(i = 0; i<zoneBasDroitTab.size(); i++){

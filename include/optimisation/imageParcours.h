@@ -10,8 +10,8 @@
 #define IMAGEPARCOURS_H_INCLUDED
 
 #include <opencv2/opencv.hpp>
-#include "Ramapiece.hh"
 #include <vector>
+#include "Piece.hh"
 
 using namespace std;
 using namespace cv;
@@ -59,7 +59,7 @@ class Image{
          *          r,g,b pour la couleur ex : 0,255,0 pour le vert
          *          ex de fonction : img.deplaceRobot(p->getRobotPosition(),tabPiece->front().pos, 0,255,0);
          */
-        void deplaceRobot(Position depart, Position arrivee, int r, int g, int b);
+        void deplaceRobot(Position depart, Position arrivee, int r = 0, int g = 255, int b = 0);
 };
 
 /**

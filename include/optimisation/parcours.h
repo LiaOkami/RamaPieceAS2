@@ -1,7 +1,9 @@
 #ifndef PARCOURS_H_INCLUDED
 #define PARCOURS_H_INCLUDED
-
+#include <vector>
 #include "Ramapiece.hh"
+
+using namespace std;
 
 /**
  *  \brief Algorithme de tri, recupere le tableau de piece de la classe ramapiece,
@@ -14,10 +16,17 @@ void    triDistancePieceBras(Ramapiece &p);
 /**
  *  \brief Algorithme de tri, recupere la piece la plus proche du bras,
  *          puis tri des pieces par rapport a la distance entre chacunes
- * \param tableau de piece (exemple p.getPieces())
+ * \param élément de type Ramapiece
  * \return modifie le tableau directement via les pointeurs
  */
 void    triDistancePiecePiece(Ramapiece &p);
+
+/**
+ *  \brief Surcharge de la fonction
+ * \param tableau de piece
+ * \return modifie le tableau directement via la référence
+ */
+void    triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece);
 
 /**
  *  \brief Algorithme de tri, retourne un vector de piece ordonnée par leur valeur croissante,
@@ -62,13 +71,14 @@ void    parcoursDesVoisinsZone(Ramapiece &p);
 void    parcoursBasic(Ramapiece &ramapiece);
 
 
-/** \brief Renvoie le nombre de pièces nécessaire à obtenir la somme demandée, en fonction d'un
-tableau de piece en parametre
+/** \brief Utilisé pour avoir le nombre de pièces nécessaire à obtenir la somme demandée par le biai du
+ *  vecteur de int en parametres, en fonction d'une entrée de somme et d'un tableau de piece
  *
  * \param p Ramapiece& = tableau de pieces
  * \param som int = somme demandée
+ * \param vector<int> &kindPiecesRemplit = vecteur de int représantant les pieces à ramasser
  * \return void
  *
  */
-void RamaDoable(Ramapiece &p, int som);
+void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
 #endif // PARCOURS_H_INCLUDED
