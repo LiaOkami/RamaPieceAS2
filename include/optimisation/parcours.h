@@ -1,7 +1,9 @@
 #ifndef PARCOURS_H_INCLUDED
 #define PARCOURS_H_INCLUDED
-
+#include <vector>
 #include "Ramapiece.hh"
+
+using namespace std;
 
 /**
  *  \brief Algorithme de tri, recupere le tableau de piece de la classe ramapiece,
