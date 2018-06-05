@@ -30,7 +30,7 @@ void Detection::detectionPieces()
     //------------------------------------------------
     //transforme en tableau de points blancs
     //------------------------------------------------
-    vector<vector<Point> > tabContours = this->tabContours();
+    vector<Point> tabContours = this->tabContours();
 
     //------------------------------------------------
     // On cherche les pièce du tapis
@@ -122,7 +122,7 @@ bool Detection::ouvertureFichier(const string chemin){
     }
 }
 
-vector< vector<Point> > Detection::tabContours()
+vector<Point> Detection::tabContours()
 {
     cv::Mat imageTapisNB;
     cv::Mat contours;
@@ -137,6 +137,21 @@ vector< vector<Point> > Detection::tabContours()
     vector<Vec4i> hierarchy;
 
     findContours(contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+    vector<Point> tableauretour;
+
+    for(int i= 0; i < tableaucontours.size(); i++)
+{
+    for(int j= 0; j < tableaucontours[i].size();j++)
+    {
+        tableauretour[i].x=tableaucontours[i];
+        tableauretour[i].y=tableaucontours[j];
+
+
+    }
+})
+
+
+
 
     return tableaucontours;
 }
