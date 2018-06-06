@@ -14,7 +14,18 @@ int main()
 {
     cout << "Detection" << endl;
     Detection detect;
-    detect.detectionPieces("images/test-10.jpg", 30);
+    detect.detectionPieces("images/10.jpg", 8);
 
+    //Détection multiple
+    /*int NBIMAGES = 10;
+    pair<string,int> tabTapis[] = {make_pair("images/01.jpg", 1), make_pair("images/02.jpg", 2), make_pair("images/03.jpg", 2), make_pair("images/04.jpg", 2), make_pair("images/05.jpg", 2)
+                                    ,make_pair("images/06.jpg", 4), make_pair("images/07.jpg", 4), make_pair("images/08.jpg", 4), make_pair("images/09.jpg", 4), make_pair("images/10.jpg", 8)
+                                    //,make_pair("images/internet-01.jpg", 1), make_pair("images/internet-02.jpg", 10), make_pair("images/internet-03.jpg", 10), make_pair("images/internet-04.jpg", 10)
+                                };
+    for(int i=0; i<NBIMAGES; i++){
+        detect.detectionPieces(tabTapis[i].first, tabTapis[i].second);
+    }
+    //*/
     return (0);
 }
+

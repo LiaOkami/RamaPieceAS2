@@ -35,7 +35,7 @@ public:
             Getters / Setters
        --------------------------- */
 
-    /**\brief
+    /**\brief accède à la liste de pièces sur le tapis
      * \return la liste des pièces sur le tapis
      */
      vector<Piece> getListePieceCourante();
@@ -45,8 +45,10 @@ public:
        --------------------------- */
 
     /**\brief Détecte et enregistre les pièces actuellement sur le tapis
+    * \param chemin (à partir du projet) de l'image du tapis à ouvrir
+    * \param nombre de pièce à détecter. Si inconnu, vaut 0
     */
-    void detectionPieces(const string chemin, const int nbPieces);
+    void detectionPieces(const string chemin, const int nbPieces = 0);
 
     /**\brief Ouvre le fichier correspondant à l'image du tapis
      * \param chaine, chemin de l'image à ouvrir
@@ -59,7 +61,6 @@ public:
      */
     vector<cv::Point> tabContours();
 
-
     /** \brief affiche les pièces acuellement sur le tapis
     */
     void afficherPieces();
@@ -70,18 +71,27 @@ public:
        --------------------------- */
 
     /**\brief Trace une pièce à partir de 3 positions
-     * \param 3 Positions
+     * \param Trois positions de 3 points différents
+     * \return Pièce tracée à partir des positions
      */
-Piece tracerPiece3points(Position A, Position B, Position C);
+Piece tracerPiece3points(const Position A, const Position B, const Position C);
 
- /**\brief compare les parametre de deux pièces
-     * \param
+ /**\brief vérifie si deux pièces correspondent à la même pièce
+     * \param 2 pièces à comparer
+     * \return vrai si les pièces correspondent, faux sinon
      */
 bool comparaison2Pieces(Piece piece1, Piece piece2);
 
- /**\brief fuisionne les coordonnées de 2 pièces et retourne une piece
-     * \param
+ /**\brief fusionne 2 pièces
+     * \param 2 pièces à fusionner
+     * \return Pièce fusionnée
      */
 Piece fusion2Pieces(Piece piece1, Piece piece2);
+
+ /**\brief recherche le max d'un tableau de paires Pièce/fréquence
+     * \param vecteur de paires Pièce/fréquence
+     * \return index de la pièce avec le plus de points sur son tr&cé
+     */
+int maxTabPaire(const vector< std::pair<Piece, int> > tabPaire, int& maxPoints);
 
 #endif // DETECTION_H_INCLUDED
