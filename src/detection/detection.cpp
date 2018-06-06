@@ -20,8 +20,14 @@ Detection::Detection(){
     tapisVide = true;
 }
 
-void Detection::detectionPieces(const string chemin, const int nbPieces)
-{
+void Detection::detectionPieces(const string chemin, const int nbPieces){
+    listePieceCourante.clear();
+    // CONSTANTES
+    //------------
+    int     NB_ITERATIONS = 1000;
+    double  ECART_PT_BLANC = 5.0;
+    int     pctSEUIL = 75/100;
+
     //------------------------------------------------
     // Charge l'image dans l'attribut imageTapis
     //------------------------------------------------
@@ -38,7 +44,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
     srand(time(NULL));
     vector< std::pair<Piece, int> > tabPiecesDetectees; // pièce, nb de pts qui appartiennet à son contour (accès std::pair : .first, .second)
 
-    for(int i = 0; i < 1000; i++){
+    for(int i = 0; i < NB_ITERATIONS; i++){
         // On trace un cercle avec trois points tirés aléatoirement du tableau de contours
         //--------------------------------------------
         int MIN = 0, MAX = tabPointsContours.size();
@@ -54,11 +60,11 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
         // Comptage des points du Cercle
         //--------------------------------------------
         int nbPointsAppartenance = 0;
-        if(pieceTracee.value > -1){// && pieceTracee.radius < imageTapis.size().width/4 && pieceTracee.radius < imageTapis.size().height/4 ){  //si la pièce retournée n'as pas d'erreur
+        if(pieceTracee.value > -1 && pieceTracee.radius < imageTapis.size().width/4 && pieceTracee.radius < imageTapis.size().height/4 ){  //si la pièce retournée n'as pas d'erreur
             for(int i = 0; i < (int) tabPointsContours.size(); i++){
                 Position pointVerifie(tabPointsContours[i].x, tabPointsContours[i].y);
                 double distance = getDistance(pieceTracee.pos, pointVerifie);
-                if(pieceTracee.radius - 5.0 < distance && distance < pieceTracee.radius + 5.0){
+                if(pieceTracee.radius - ECART_PT_BLANC < distance && distance < pieceTracee.radius + ECART_PT_BLANC){
                     nbPointsAppartenance++;
                 }
             }
@@ -80,7 +86,8 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
                 tabPiecesDetectees.push_back(make_pair(fusion2Pieces(tabPiecesDetectees[i].first, tabPiecesDetectees[j].first), tabPiecesDetectees[i].second + tabPiecesDetectees[j].second/2));
                 tabPiecesDetectees.erase(tabPiecesDetectees.begin() + i);
                 tabPiecesDetectees.erase(tabPiecesDetectees.begin() + j-1);
-                i--;
+                i = 0;
+                j = 1;
             }
             j++;
         }
@@ -91,9 +98,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
     // Si on connait le nb de pièces, on fait des tours de boucle
     // Sinon on fait avec un seuil p/r au max
     //------------------------------------------------
-    if(nbPieces > 0){
-        for(int c=0; c<nbPieces; c++){
-            int maxPoints = 0, indexMax = 0;
+    int maxPoints = 0, indexMax = 0; // Piece MAX
             for(int i=0; i<(int)tabPiecesDetectees.size(); i++){
                 if(tabPiecesDetectees[i].second > maxPoints){
                     maxPoints = tabPiecesDetectees[i].second;
@@ -102,38 +107,43 @@ void Detection::detectionPieces(const string chemin, const int nbPieces)
             }
             listePieceCourante.push_back(tabPiecesDetectees[indexMax].first);
             //AFFICHAGE TEST
-            cout << "SELEC | " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y | RAYON " << tabPiecesDetectees[indexMax].first.radius << ", a " << maxPoints << " points" << endl << "----------" << endl;
+    cout << "SELEC MAX | " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y | RAYON " << tabPiecesDetectees[indexMax].first.radius << ", a " << maxPoints << " points" << endl << "---------------------" << endl;
             tabPiecesDetectees.erase(tabPiecesDetectees.begin() + indexMax);
-        }
-    } else {
-        //On Cherche le cercle avec le plus de points
+    int rayonMoyen = listePieceCourante[0].radius;
+
+    if(nbPieces > 0){
+        for(int i = 0; i<nbPieces-1; i++){
         int maxPoints = 0, indexMax = 0;
-        for(int i = 0; i <(int)tabPiecesDetectees.size(); i++){
-            if(tabPiecesDetectees[i].second > maxPoints){
-                maxPoints = tabPiecesDetectees[i].second;
-                indexMax = i;
+            for(int j=0; j<(int)tabPiecesDetectees.size(); j++){
+                if(tabPiecesDetectees[j].second > maxPoints){
+                    maxPoints = tabPiecesDetectees[j].second;
+                    indexMax = j;
             }
         }
+            if(rayonMoyen/2 < tabPiecesDetectees[indexMax].first.radius && tabPiecesDetectees[indexMax].first.radius < rayonMoyen*2){
         listePieceCourante.push_back(tabPiecesDetectees[indexMax].first);
         //AFFICHAGE TEST
-        cout << "SELEC MAX | " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y | RAYON " << tabPiecesDetectees[indexMax].first.radius << ", a " << maxPoints << " points" << endl << "---------------------" << endl;
-
-        // On prend toute les autres pieces qui ont un nb de points proche de la plus grande des pièces
-        int seuil = maxPoints * 50 /100;
-        int rayonMoyen = listePieceCourante[0].radius;
-        for(int c = 0; c < (int)tabPiecesDetectees.size(); c++){
-            if(tabPiecesDetectees[c].second > seuil){
-                if (rayonMoyen/2 < tabPiecesDetectees[c].first.radius && tabPiecesDetectees[c].first.radius < rayonMoyen*2){
-                    listePieceCourante.push_back(tabPiecesDetectees[c].first);
+                cout << "SELEC NBPIECE | " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y | RAYON " << tabPiecesDetectees[indexMax].first.radius << ", a " << maxPoints << " points" << endl << "----------" << endl;
+                tabPiecesDetectees.erase(tabPiecesDetectees.begin() + indexMax);
+            } else {
+                tabPiecesDetectees.erase(tabPiecesDetectees.begin() + indexMax);
+            }
+        }
+    } else {
+        // On prend les autres pieces qui ont un nb de points proche de la pièce MAX
+        int seuil = maxPoints * pctSEUIL;
+        for(int i = 0; i < (int)tabPiecesDetectees.size(); i++){
+            if(tabPiecesDetectees[i].second > seuil){
+                if(rayonMoyen/2 < tabPiecesDetectees[i].first.radius && tabPiecesDetectees[i].first.radius < rayonMoyen*2){
+                    listePieceCourante.push_back(tabPiecesDetectees[i].first);
                     //AFFICHAGE TEST
-                    cout << "SELEC SEUIL | " << tabPiecesDetectees[c].first.pos.x << "x | " << tabPiecesDetectees[c].first.pos.y << "y | RAYON " << tabPiecesDetectees[c].first.radius << ", a " << tabPiecesDetectees[c].second << " points" << endl << "---------------------" << endl;
+                    cout << "SELEC SEUIL | " << tabPiecesDetectees[i].first.pos.x << "x | " << tabPiecesDetectees[i].first.pos.y << "y | RAYON " << tabPiecesDetectees[i].first.radius << ", a " << tabPiecesDetectees[i].second << " points" << endl << "---------------------" << endl;
                 }else{
-                    tabPiecesDetectees.erase(tabPiecesDetectees.begin() + c);
+                    tabPiecesDetectees.erase(tabPiecesDetectees.begin() + i);
                 }
             }
         }
     }
-
     tapisVide = false;
     this->afficherPieces();
 }
@@ -170,7 +180,7 @@ vector<Point> Detection::tabContours(){
     GaussianBlur( imageTapisNB, gaus, Size( 5, 5 ), 0, 0 );
     cv::Canny(gaus,contours,100,500);
 
-    //cv::Canny(imageTapis,contours,50,500);
+    //cv::Canny(imageTapis,contours, 100, 800);
 
 
     //Affichage
@@ -232,7 +242,7 @@ Piece tracerPiece3points(Position A, Position B, Position C){
 }
 
  bool comparaison2Pieces(Piece piece1, Piece piece2){
-    double ECART = 5;
+    double ECART = 10;
     double ECARTRAYON = 40;
     //cout << "ECART : p1(" << piece1.radius << ") + p2(" << piece2.radius << ") = "<< ECART <<endl;
     if (piece1.pos.x < piece2.pos.x + ECART && piece1.pos.x > piece2.pos.x - ECART) {
