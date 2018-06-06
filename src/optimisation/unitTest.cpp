@@ -10,11 +10,11 @@ static inline void  fillTestRamapiece(std::vector<Ramapiece *> & test, int size)
 }
 static inline void  unitTestAlgorithm()
 {
-    std::vector<double>            averageDistance;
+    std::vector<double>         averageDistance;
     std::vector<int>            averageValue;
     std::vector<Ramapiece *>    test;
-    int i;
-    int tries;
+    unsigned int    i;
+    unsigned int    tries;
 
     i = 0;
     while (RamapieceAlgorithm::algos[i].first != "")
@@ -44,9 +44,9 @@ static inline void  testHandler(std::vector<double> &avgDistance, std::vector<in
                                 std::vector<double> &avgError, int tries)
 {
     std::vector<Ramapiece *>    test;
-    int i;
-    int value;
-    int availableMoney;
+    unsigned int    i;
+    unsigned int    value;
+    unsigned int    availableMoney;
 
     test.push_back(generateRamapieceNormal(rand() % 100 + 1));
     fillTestRamapiece(test, avgDistance.size());
@@ -66,7 +66,7 @@ static inline void  unitTestAlgorithmMoney()
     std::vector<double> averageDistance;
     std::vector<int>    averageValue;
     std::vector<double> averageError;
-    int i;
+    unsigned int i;
 
     i = 0;
     while (RamapieceAlgorithm::algosMoney[i].first != "")

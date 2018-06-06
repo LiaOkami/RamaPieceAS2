@@ -39,7 +39,7 @@ void Image::placeRobotStart(const Position &pos){
 }
 
 void Image::placePieceImage(vector<Piece> *tabPiece){
-    for(int i = 0 ; i < tabPiece->size() ; i++) {
+    for(unsigned int i = 0 ; i < tabPiece->size() ; i++) {
         Point centre((*tabPiece)[i].pos.x,(*tabPiece)[i].pos.y);
         MyFilledCircle(this->getImage(),centre);
     }

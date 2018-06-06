@@ -18,7 +18,7 @@ const int tailleCercleVoisin = 100;
 
 void triDistancePieceBras(Ramapiece &p){
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
+        unsigned int j = 0, i = 0, indicePetit = 0;
         double valPetit = 0.0;
 
         vector<Piece> *tabPiece = p.getPieces();
@@ -47,7 +47,7 @@ void triDistancePiecePiece(Ramapiece &p){
         vector<Piece> *tabPiece = p.getPieces();
 
         Piece tmpPiece;
-        int i, j;
+        unsigned int i, j;
         int indicePetit = 0;
         double valPetit = getDistance((*tabPiece)[0].pos, p.getRobotPosition());
 
@@ -88,7 +88,7 @@ void triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece){
         if(tabPiece.size() > 0){
 
             Piece tmpPiece;
-            int i, j;
+            unsigned int i, j;
             int indicePetit = 0;
             double valPetit = getDistance(tabPiece[0].pos, p.getRobotPosition());
 
@@ -130,7 +130,7 @@ void triValeur(std::vector<Piece> * tabP){
         vector<Piece> *tabPiece = tabP;
 
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
+        unsigned int j = 0, i = 0, indicePetit = 0;
         int valPetit = 0;
 
         for(i = 0; i<tabPiece->size(); i++){
@@ -211,7 +211,7 @@ void parcoursZone(Ramapiece &p){
     vector<Piece> zoneHautDroitTab;
     vector<Piece> tabErreur;
 
-    int i = 0;
+    unsigned int i;
 
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
@@ -295,7 +295,7 @@ void parcoursDesVoisinsZone(Ramapiece &p){
         p.pickUpPiece(tabPiece->front()); //correspond a la premiere case du tableau
 
         //On regarde si dans la zone autour du bras il y a des pieces
-        for(int i =0; i<tabPiece->size(); i++){
+        for(unsigned int i =0; i<tabPiece->size(); i++){
             if(getDistance((*tabPiece)[i].pos,p.getRobotPosition()) <= tailleCercleVoisin){
                 tabPieceProvisoir.push_back((*tabPiece)[i]);
             }

@@ -25,17 +25,16 @@ void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesOriginal) {
 
     vector<Piece> *pieces = p.getPieces();
     vector<int>   kindPieces(8);
-    int sumTabPieces = 0;
 
     //initialisation des atbleaux à 0
 
-    for(int i =0;i<8;i++){
+    for(int i = 0 ; i < 8 ; i++) {
         kindPieces[i]=0;
         kindPiecesOriginal.push_back(0);
     }
     //On remplit les tableaux selon les valeurs des pieces sur le tapis
 
-    for(int i = 0;i < pieces->size(); i++){
+    for(unsigned int i = 0 ; i < pieces->size() ; i++) {
             switch((*pieces)[i].value){
         case 1 :
             kindPieces[0]+=1;
