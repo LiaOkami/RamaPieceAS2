@@ -40,6 +40,7 @@ static int getKindPiecesValue(const vector<int> &kindPiecesRemplit,  int value){
     }
 
 }
+
 static void removeKindPiece(vector<int> &kindPiecesRemplit,  int value){
     switch(value){
     case 1:
@@ -79,6 +80,7 @@ Piece   closestPiece(const Position & robotPos,
     double  minDist = -1;
 
     for (const Piece &piece:*pieces) {
+        //std::cout << "Piece : " << piece.value << std::endl;
         if (getKindPiecesValue(kindPiecesRemplit, piece.value) > 0)
         {
             if (getDistance(piece.pos, robotPos) < minDist || minDist == -1)

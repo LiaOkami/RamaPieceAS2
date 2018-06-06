@@ -34,7 +34,7 @@ void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesOriginal) {
     }
 
     //On remplit les tableaux selon les valeurs des pieces sur le tapis
-    for(int i = 0;i <= pieces->size(); i++){
+    for(int i = 0;i < pieces->size(); i++){
 
 
             switch((*pieces)[i].value){
@@ -112,8 +112,6 @@ void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesOriginal) {
         else
             break;
     }while(som>0 && !isEmpty(kindPieces));
-
-
     // calcul de la différence entre les deux tableaux
     for(int i = 0;i < 8; i++){
         kindPiecesOriginal[i]-=kindPieces[i];
