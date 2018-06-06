@@ -87,4 +87,6 @@ void    parcoursZoneSomme(Ramapiece &p, int somme);
  *
  */
 void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
+bool    checkZonePiece(const vector<int>& tabNbPieceRamasse, vector<Piece>& zone);
+int     exctractionValeur(int i);
 #endif // PARCOURS_H_INCLUDED
