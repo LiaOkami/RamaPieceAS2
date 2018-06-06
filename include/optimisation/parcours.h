@@ -71,20 +71,34 @@ void    parcoursDesVoisinsZone(Ramapiece &p);
 void    parcoursBasic(Ramapiece &ramapiece);
 
 /**
- *  \brief Parcours de zone avec une somme précise à ramasser
- * \param Objet de type Ramapiece
- * \param int, la somme à ramasser
+ *  \brief Parcours des Voisons avec une somme précise à ramasser
+ *  \param Objet de type Ramapiece
+ *  \param int, la somme à ramasser
  */
-void    parcoursZoneSomme(Ramapiece &p, int somme);
+void    parcoursVoisinsSomme(Ramapiece &p, int somme);
+
+/** \brief Utilisé pour savoir si le tableau est vide
+ *
+ * \param vector<int> &kindPiecesRemplit est un vecteur de int représantant un tableau de comptage de pieces, de 1 centime à
+ * 2 euros
+ * \return booléen, vrai si tableau vide, faux sinon
+ *
+ */
+
+bool isEmpty(vector<int> kindPieces);
 
 /** \brief Utilisé pour avoir le nombre de pièces nécessaire à obtenir la somme demandée par le biai du
  *  vecteur de int en parametres, en fonction d'une entrée de somme et d'un tableau de piece
  *
- * \param p Ramapiece& = tableau de pieces
- * \param som int = somme demandée
+ * \param p Ramapiece& est un tableau de pieces
+ * \param som int correspond à la somme demandée
  * \param vector<int> &kindPiecesRemplit = vecteur de int représantant les pieces à ramasser
  * \return void
  *
  */
 void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
+
+bool    checkZonePiece(const vector<int>& tabNbPieceRamasse, vector<Piece>& zone);
+int     exctractionValeur(int i);
+
 #endif // PARCOURS_H_INCLUDED

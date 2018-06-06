@@ -216,7 +216,7 @@ void parcoursZone(Ramapiece &p){
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
 
-    /*on recupere les 4 piece qui vont creer la zone global de recherche*/
+    /*on recupere les 4 piece qui vont creer la zone globale de recherche*/
     for(i = 1; i<tabPiece->size();i++){
         //Piece avec le plus petit x
         if((*tabPiece)[i].pos.x < xMin.pos.x){
