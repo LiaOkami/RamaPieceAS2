@@ -21,3 +21,5 @@ images/parcours
 *.layout
 doxygen/html
 *.depend
+doxygen.log
+output.jpg
