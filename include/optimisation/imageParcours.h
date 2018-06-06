@@ -27,31 +27,43 @@ class Image{
          *  \param hauteur et largeur du tapis
          */
         Image(int width, int height);
+
         ~Image();
+
         /**
          *  \brief Permet d'afficher l'image du tapis
          */
         void afficherImage();
+
         /**
          *  \return Retourne la matrice de l'image
          */
         Mat getImage();
+
         /**
          *  \brief Placer les pieces sur le tapis avant ramassage
          *  \param Tableau de pieces à placer sur la table
          */
         void placePieceImage(vector<Piece> *tabPiece);
+
         /**
          *  \brief Marque en bleu les piece ramassé
          *  \param Les coordonnées pos x et y de la piece
          */
         void placePieceParcourus(int x, int y);
+
          /**
          *  \brief Enregistrer une image du tapis
          *  \param Mettre le path avec le nom de l'image dans lequel enregistrer la photo du tapis actuel
          *          positions x et y de la piece ramassé
          */
         void sauvegardeImage(string);
+
+        /** \brief Affiche la position de départ du Robot par un cercle
+         *  \param const Position& pos
+         */
+        void placeRobotStart(const Position &pos);
+
         /**
          *  \brief Représente le trajet effectué par le robot via des traits
          *  \param depart : position du bras actuelle
@@ -63,7 +75,7 @@ class Image{
 };
 
 /**
-    *  \brief Utiliser par certaines fonction de la classe Image
+    *  \brief Utilisé par certaines fonction de la classe Image
 */
 void MyFilledCircle(Mat img, Point center);
 void MyFilledCircleRamasse(Mat img, Point center);

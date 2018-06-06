@@ -44,6 +44,7 @@ void    Ramapiece::initImage() {
     _image = new Image(IMAGE_WIDTH, IMAGE_HEIGHT);
     _image->placePieceImage(_pieces);
     _imageIndex = 0;
+    _image->placeRobotStart(_robot.start);
 }
 
 void    Ramapiece::_saveImage() {

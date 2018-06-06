@@ -37,6 +37,11 @@ void Image::sauvegardeImage(string filename){
     imwrite(filename, this->getImage());
 }
 
+void Image::placeRobotStart(const Position &pos){
+    Point centre(pos.x, pos.y);
+    MyFilledCircle(this->getImage(),centre);
+}
+
 void Image::placePieceImage(vector<Piece> *tabPiece){
 
     for(int i =0; i<tabPiece->size(); i++){
