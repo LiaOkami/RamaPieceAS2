@@ -63,16 +63,16 @@
 			<Option target="Opti" />
 			<Option target="Detection" />
 		</Unit>
-		<Unit filename="include/Ramapiece.hh">
-			<Option target="Opti" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="include/Robot.hh">
-			<Option target="Opti" />
-			<Option target="Release" />
-		</Unit>
 		<Unit filename="include/detection/detection.h">
 			<Option target="Detection" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/optimisation/Ramapiece.hh">
+			<Option target="Opti" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="include/optimisation/Robot.hh">
+			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/algorithm.hh">
