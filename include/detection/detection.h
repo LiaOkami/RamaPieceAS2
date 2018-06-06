@@ -92,6 +92,6 @@ Piece fusion2Pieces(Piece piece1, Piece piece2);
      * \param vecteur de paires Pièce/fréquence
      * \return index de la pièce avec le plus de points sur son tr&cé
      */
-int maxTabPaire(const vector< std::pair<Piece, int> > tabPaire);
+int maxTabPaire(const vector< std::pair<Piece, int> > tabPaire, int& maxPoints);
 
 #endif // DETECTION_H_INCLUDED
