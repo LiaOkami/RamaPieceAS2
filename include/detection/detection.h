@@ -64,6 +64,8 @@ public:
     /** \brief affiche les pièces acuellement sur le tapis
     */
     void afficherPieces();
+
+    void valeurAleatoirePiece(); //TEST /!\ à remplacer
 };
 
     /* ---------------------------
