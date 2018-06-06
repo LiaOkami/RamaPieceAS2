@@ -24,7 +24,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces){
 
     // CONSTANTES
     //------------
-    int     NB_ITERATIONS = 1000;   // Nombre de détection de cercle
+    int     NB_ITERATIONS = 500;   // Nombre de détection de cercle
     double  ECART_PT_BLANC = 5.0;   // Écart pour la vérification du nombre de points que comporte un cercle
     int     pctSEUIL = 63/100;      // Pourcentage de fréquence au-dessus duquel on sélectionne des cercles
 
@@ -44,7 +44,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces){
     // TRACÉ ALÉATOIRE, On cherche les pièce du tapis
     //------------------------------------------------
     srand(time(NULL));
-    vector< std::pair<Piece, int> > tabPiecesDetectees; // pièce, nb de pts qui appartiennet à son contour (accès std::pair : .first, .second)
+    vector< pair<Piece, int> > tabPiecesDetectees; // pièce, nb de pts qui appartiennet à son contour (accès std::pair : .first, .second)
 
     for(int i = 0; i < NB_ITERATIONS; i++){
         // On trace un cercle avec trois points tirés aléatoirement du tableau de contours
@@ -112,18 +112,23 @@ void Detection::detectionPieces(const string chemin, const int nbPieces){
     int seuil = maxPoints * pctSEUIL;
 
     if(nbPieces > 0){
-        for(int i = 0; i<nbPieces-1; i++){
+        int i = 1;
+        while(i < nbPieces && tabPiecesDetectees.size() > 0){
+
             // On prend autant de pièces max qu'il faut en détecter
             int maxPoints = 0, indexMax = maxTabPaire(tabPiecesDetectees, maxPoints);
-            if(rayonMoyen/2 < tabPiecesDetectees[indexMax].first.radius && tabPiecesDetectees[indexMax].first.radius < rayonMoyen*2 && tabPiecesDetectees[i].second > seuil){
+            if(rayonMoyen/2 < tabPiecesDetectees[indexMax].first.radius && tabPiecesDetectees[indexMax].first.radius < rayonMoyen*1.5 && tabPiecesDetectees[i].second > seuil){
                 //AFFICHAGE TEST
                 cout << "SELEC NBPIECE | " << tabPiecesDetectees[indexMax].first.pos.x << "x | " << tabPiecesDetectees[indexMax].first.pos.y << "y | RAYON " << tabPiecesDetectees[indexMax].first.radius << ", a " << maxPoints << " points" << endl << "----------" << endl;
                 listePieceCourante.push_back(tabPiecesDetectees[indexMax].first);
                 tabPiecesDetectees.erase(tabPiecesDetectees.begin() + indexMax);
+                i++;
             } else {
                 tabPiecesDetectees.erase(tabPiecesDetectees.begin() + indexMax);
             }
         }
+        //AFFICHAGE TEST
+        //if(tabPiecesDetectees.size() < NB_ITERATIONS/10){cout << "parcours LONG : tabsize " << tabPiecesDetectees.size() << endl;}
     } else {
         // On prend les pieces qui ont un nb de points proche de la pièce MAX
         for(int i = 0; i < (int)tabPiecesDetectees.size(); i++){
@@ -139,6 +144,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces){
         }
     }
     tapisVide = false;
+    this->valeurAleatoirePiece(); //!\ Appel à remplacer
     this->afficherPieces();
 }
 
@@ -185,6 +191,7 @@ vector<Point> Detection::tabContours(){
 
     for(int i= 0; i < tableaucontours.size(); i++){
         for(int j= 0; j < tableaucontours[i].size();j++){
+
             tableauretour.push_back(tableaucontours[i][j]);
         }
     }
@@ -203,7 +210,7 @@ vector<Point> Detection::tabContours(){
         cv::Point centre(listePieceCourante[i].pos.x,listePieceCourante[i].pos.y);
         cv::circle(imageTapis, centre, listePieceCourante[i].radius, Scalar( tabCouleur[0], tabCouleur[1], tabCouleur[2]), 5);
         // AFFICHAGE Console
-        //cout << " --- Piece Courante " << i+1 << " ---" << endl << "centre : " << listePieceCourante[i].pos.x << ", " << listePieceCourante[i].pos.y << " rayon : " << listePieceCourante[i].radius << endl;
+        cout << "------------------" << endl << " Piece Courante " << i+1 << " | " << endl << listePieceCourante[i].pos.x << " x | " << listePieceCourante[i].pos.y << " y | RAYON " << listePieceCourante[i].radius << " VALEUR " << listePieceCourante[i].value << endl ;
     }
 
     namedWindow("Affichage");
@@ -257,7 +264,8 @@ Piece fusion2Pieces(Piece piece1, Piece piece2){
     return pieceFusionne;
 }
 
-maxTabPaire(vector< std::pair<Piece, int> > tabPaire, int& maxPoints){
+int maxTabPaire(vector< std::pair<Piece, int> > tabPaire, int& maxPoints){
+
     int indexMax = 0;
     for(int i = 0; i <(int)tabPaire.size(); i++){
         if(tabPaire[i].second > maxPoints){
@@ -266,4 +274,14 @@ maxTabPaire(vector< std::pair<Piece, int> > tabPaire, int& maxPoints){
         }
     }
     return indexMax;
+}
+
+void Detection::valeurAleatoirePiece(){
+    int MIN = 0, MAX = 8;
+    int tabVal[MAX] = {1,2,5,10,20,50,100,200};
+
+    srand(time(NULL));
+    for(int i = 0; i < (int)listePieceCourante.size(); i++){
+        listePieceCourante[i].value = tabVal[rand()%(MAX-MIN) + MIN];
+    }
 }
