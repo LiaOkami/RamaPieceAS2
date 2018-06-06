@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include "compte.h"
 #include "Ramapiece.hh"
 #include "parcours.h"
 
