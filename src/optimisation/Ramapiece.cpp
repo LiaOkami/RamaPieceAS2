@@ -81,7 +81,7 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
                       << piece.value << std::endl;
         }
         if (_image) {
-            _image->placePieceParcourus(piece.pos.x, piece.pos.y);
+            _image->placePieceParcourus(piece.pos);
             _image->deplaceRobot(_robot.pos, piece.pos);
             this->_saveImage();
         }
