@@ -71,11 +71,11 @@ void    parcoursDesVoisinsZone(Ramapiece &p);
 void    parcoursBasic(Ramapiece &ramapiece);
 
 /**
- *  \brief Parcours de zone avec une somme précise à ramasser
- * \param Objet de type Ramapiece
- * \param int, la somme à ramasser
+ *  \brief Parcours des Voisons avec une somme précise à ramasser
+ *  \param Objet de type Ramapiece
+ *  \param int, la somme à ramasser
  */
-void    parcoursZoneSomme(Ramapiece &p, int somme);
+void    parcoursVoisinsSomme(Ramapiece &p, int somme);
 
 /** \brief Utilisé pour savoir si le tableau n'est pas vide
  *
@@ -97,5 +97,8 @@ bool isEmpty(vector<int> kindPieces);
  *
  */
 void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
+
+bool    checkZonePiece(const vector<int>& tabNbPieceRamasse, vector<Piece>& zone);
+int     exctractionValeur(int i);
 
 #endif // PARCOURS_H_INCLUDED

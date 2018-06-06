@@ -11,9 +11,8 @@ static inline void  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm &al
               << "\tArgent : " << ramapiece.getMoney() << std::endl;
 }
 
-static int  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
+static inline void  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algorithm)
 {
-    int dist;
     int money;
 
     std::cout << "Combien d'argent desirez-vous ? (Monnaie disponible : "
@@ -21,10 +20,10 @@ static int  algorithmWrapper(Ramapiece &ramapiece, const t_algorithm_money &algo
     std::cin >> money;
     std::cout << "### " << algorithm.first << std::endl;
     algorithm.second(ramapiece, money);
-    dist = ramapiece.getTraveledDistance();
+    ramapiece.displayImage();
     std::cout << "### " << algorithm.first
-              << "\tDistance : " << dist << std::endl;
-    return dist;
+              << "\tArgent : " << ramapiece.getMoney() << std::endl
+              << "\tDistance : " << ramapiece.getTraveledDistance() << std::endl;
 }
 
 
