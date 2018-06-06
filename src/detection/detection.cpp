@@ -21,12 +21,13 @@ Detection::Detection(){
 }
 
 void Detection::detectionPieces(const string chemin, const int nbPieces){
-    listePieceCourante.clear();
     // CONSTANTES
     //------------
     int     NB_ITERATIONS = 1000;
     double  ECART_PT_BLANC = 5.0;
     int     pctSEUIL = 75/100;
+
+    listePieceCourante.clear();
 
     //------------------------------------------------
     // Charge l'image dans l'attribut imageTapis
@@ -49,7 +50,10 @@ void Detection::detectionPieces(const string chemin, const int nbPieces){
         //--------------------------------------------
         int MIN = 0, MAX = tabPointsContours.size();
         cv::Point pointsTires[3];
-
+        if(MAX < 10){
+            cout << "ERREUR Detection : Points = " << MAX << endl;
+            return; //si aucun point detecté, quitte
+        }
         for(int cpt = 0; cpt < 3; cpt ++){
             int indexAlea = rand()%(MAX-MIN) + MIN;
             pointsTires[cpt] = tabPointsContours[indexAlea];
@@ -60,7 +64,7 @@ void Detection::detectionPieces(const string chemin, const int nbPieces){
         // Comptage des points du Cercle
         //--------------------------------------------
         int nbPointsAppartenance = 0;
-        if(pieceTracee.value > -1 && pieceTracee.radius < imageTapis.size().width/4 && pieceTracee.radius < imageTapis.size().height/4 ){  //si la pièce retournée n'as pas d'erreur
+        if(pieceTracee.value > -1 && pieceTracee.radius < imageTapis.size().width/2 && pieceTracee.radius < imageTapis.size().height/2 ){  //si la pièce retournée n'as pas d'erreur
             for(int i = 0; i < (int) tabPointsContours.size(); i++){
                 Position pointVerifie(tabPointsContours[i].x, tabPointsContours[i].y);
                 double distance = getDistance(pieceTracee.pos, pointVerifie);
@@ -180,9 +184,6 @@ vector<Point> Detection::tabContours(){
     GaussianBlur( imageTapisNB, gaus, Size( 5, 5 ), 0, 0 );
     cv::Canny(gaus,contours,100,500);
 
-    //cv::Canny(imageTapis,contours, 100, 800);
-
-
     //Affichage
     cv::namedWindow("Contours");
     cv::imshow("Contours", contours);
@@ -197,6 +198,7 @@ vector<Point> Detection::tabContours(){
             tableauretour.push_back(tableaucontours[i][j]);
         }
     }
+    cout << "Tableau de contours fait" << endl;
     return tableauretour;
 }
 
