@@ -93,7 +93,7 @@ Piece   closestPiece(const Position & robotPos,
     return minPiece;
 }
 
-void    parcoursZoneSomme(Ramapiece &p, int somme){
+void    parcoursVoisinsSomme(Ramapiece &p, int somme){
     std::vector<Piece> *tabPieces = p.getPieces();
     //triDistancePiecePiece(p);
     vector<int> kindPiecesRemplit;
