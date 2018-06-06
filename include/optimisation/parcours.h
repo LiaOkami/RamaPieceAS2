@@ -97,4 +97,5 @@ bool isEmpty(vector<int> kindPieces);
  *
  */
 void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
+
 #endif // PARCOURS_H_INCLUDED
