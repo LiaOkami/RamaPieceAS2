@@ -7,7 +7,7 @@
 using namespace std;
 
 //Renvoie vrai si le tableau est toujours remplit, faux si totalement vide
-static bool isEmpty(vector<int> kindPieces){
+ bool isEmpty(vector<int> kindPieces){
     bool Vide =false;
 
 for(int k=0;k<=8;k++){

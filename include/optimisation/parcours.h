@@ -77,6 +77,16 @@ void    parcoursBasic(Ramapiece &ramapiece);
  */
 void    parcoursZoneSomme(Ramapiece &p, int somme);
 
+/** \brief Utilisé pour savoir si le tableau n'est pas vide
+ *
+ * \param vector<int> &kindPiecesRemplit = vecteur de int représantant un tableau de comptage de pieces, de 1 centime à
+ * 2 euros
+ * \return bool
+ *
+ */
+
+bool isEmpty(vector<int> kindPieces);
+
 /** \brief Utilisé pour avoir le nombre de pièces nécessaire à obtenir la somme demandée par le biai du
  *  vecteur de int en parametres, en fonction d'une entrée de somme et d'un tableau de piece
  *
