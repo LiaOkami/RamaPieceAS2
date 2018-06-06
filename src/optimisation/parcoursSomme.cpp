@@ -11,6 +11,9 @@
 #include "Ramapiece.hh"
 #include "Piece.hh"
 #include "parcours.h"
+
+//Fonction qui renvoie le nombre de pièce selon la valeur demandée
+
 static int getKindPiecesValue(const vector<int> &kindPiecesRemplit,  int value){
     switch(value){
     case 1:
@@ -38,6 +41,146 @@ static int getKindPiecesValue(const vector<int> &kindPiecesRemplit,  int value){
         return kindPiecesRemplit[7];
         break;
     }
+}
+
+
+int     exctractionValeur(int i){
+    int valeurPiece = 0;
+
+    switch (i)
+    {
+        case 0:
+            valeurPiece = 1;
+        break;
+        case 1:
+            valeurPiece = 2;
+        break;
+        case 2:
+            valeurPiece = 5;
+        break;
+        case 3:
+            valeurPiece = 10;
+        break;
+        case 4:
+            valeurPiece = 20;
+        break;
+        case 5:
+            valeurPiece = 50;
+        break;
+        case 6:
+            valeurPiece = 100;
+        break;
+        case 7:
+            valeurPiece = 200;
+        break;
+
+        default:
+        break;
+    }
+
+    return valeurPiece;
+}
+
+
+
+//Fonction qui retire une piece du tableau compteur de piece
+
+static void removeKindPiece(vector<int> &kindPiecesRemplit,  int value){
+    switch(value){
+    case 1:
+        kindPiecesRemplit[0] -= 1;
+        break;
+    case 2:
+        kindPiecesRemplit[1] -= 1;
+        break;
+    case 5:
+        kindPiecesRemplit[2] -= 1;
+        break;
+    case 10:
+        kindPiecesRemplit[3] -= 1;
+        break;
+    case 20:
+        kindPiecesRemplit[4] -= 1;
+        break;
+    case 50:
+        kindPiecesRemplit[5] -= 1;
+        break;
+    case 100:
+        kindPiecesRemplit[6] -= 1;
+        break;
+    case 200:
+        kindPiecesRemplit[7] -= 1;
+        break;
+    }
+
+}
+
+
+Piece   closestPiece(const Position & robotPos,
+                             std::vector<Piece> *pieces,
+                             const std::vector<int> & kindPiecesRemplit)
+{
+    Piece   minPiece;
+    double  minDist = -1;
+
+    for (const Piece &piece:*pieces) {
+        //std::cout << "Piece : " << piece.value << std::endl;
+        if (getKindPiecesValue(kindPiecesRemplit, piece.value) > 0)
+        {
+            if (getDistance(piece.pos, robotPos) < minDist || minDist == -1)
+            {
+                minPiece = piece;
+                minDist = getDistance(piece.pos, robotPos);
+            }
+        }
+    }
+    return minPiece;
+}
+
+void    parcoursVoisinsSomme(Ramapiece &p, int somme){
+    std::vector<Piece> *tabPieces = p.getPieces();
+    vector<int> kindPiecesRemplit;
+
+    Piece tmpPiece;
+    RamaDoable(p,somme,kindPiecesRemplit);
+
+    //Parcours
+    while(!isEmpty(kindPiecesRemplit)){
+
+        tmpPiece = closestPiece(p.getRobotPosition(),tabPieces, kindPiecesRemplit);
+        p.pickUpPiece(tmpPiece);
+        removeKindPiece(kindPiecesRemplit,tmpPiece.value);
+    }
+    p.dropPieces();
+}
+
+bool    checkZonePiece(const vector<int>& tabNbPieceRamasse,vector<Piece>& zone){
+
+        bool toutePiece = true;
+        int i = 0, k = 0, cpt = 0, indice = 0, valeurPiece = 0;
+
+        /*On trie les valeurs pour rendre la recherche plus rapide*/
+        triValeur(&zone);
+
+        while(i<tabNbPieceRamasse.size() && toutePiece){
+        /*On récupère la valeur de la piece*/
+            cpt = 0;
+            valeurPiece = exctractionValeur(i);
+            indice = rechercheDicho(&zone, valeurPiece);
+
+            while(zone[indice] == valeurPiece){
+
+                cpt++;
+                indice++;
+            }
+
+            if(cpt < tabNbPieceRamasse[i]){ //verifie qu'on a bien le bon nombre de piece dans cette zone
+                toutePiece = false;
+            }
+            i++;
+        }
+
+        return toutePiece;
 }
 
 void    parcoursZoneSomme(Ramapiece &p, int somme){
@@ -164,143 +307,4 @@ void    parcoursZoneSomme(Ramapiece &p, int somme){
     /*on depose toute les pieces*/
     p.dropPieces();
 }
-
-int     exctractionValeur(int i){
-    int valeurPiece = 0;
-
-    switch (i)
-    {
-        case 0:
-            valeurPiece = 1;
-        break;
-        case 1:
-            valeurPiece = 2;
-        break;
-        case 2:
-            valeurPiece = 5;
-        break;
-        case 3:
-            valeurPiece = 10;
-        break;
-        case 4:
-            valeurPiece = 20;
-        break;
-        case 5:
-            valeurPiece = 50;
-        break;
-        case 6:
-            valeurPiece = 100;
-        break;
-        case 7:
-            valeurPiece = 200;
-        break;
-
-        default:
-        break;
-    }
-
-    return valeurPiece;
-}
-
-bool    checkZonePiece(const vector<int>& tabNbPieceRamasse,vector<Piece>& zone){
-
-        bool toutePiece = true;
-        int i = 0, k = 0, cpt = 0, indice = 0, valeurPiece = 0;
-
-        /*On trie les valeurs pour rendre la recherche plus rapide*/
-        triValeur(&zone);
-
-        while(i<tabNbPieceRamasse.size() && toutePiece){
-        /*On récupère la valeur de la piece*/
-            cpt = 0;
-            valeurPiece = exctractionValeur(i);
-            indice = rechercheDicho(&zone, valeurPiece);
-
-            while(zone[indice] == valeurPiece){
-
-                cpt++;
-                indice++;
-            }
-
-            if(cpt < tabNbPieceRamasse[i]){ //verifie qu'on a bien le bon nombre de piece dans cette zone
-                toutePiece = false;
-            }
-            i++;
-        }
-
-        return toutePiece;
-}
-
-static void removeKindPiece(vector<int> &kindPiecesRemplit,  int value){
-    switch(value){
-    case 1:
-        kindPiecesRemplit[0] -= 1;
-        break;
-    case 2:
-        kindPiecesRemplit[1] -= 1;
-        break;
-    case 5:
-        kindPiecesRemplit[2] -= 1;
-        break;
-    case 10:
-        kindPiecesRemplit[3] -= 1;
-        break;
-    case 20:
-        kindPiecesRemplit[4] -= 1;
-        break;
-    case 50:
-        kindPiecesRemplit[5] -= 1;
-        break;
-    case 100:
-        kindPiecesRemplit[6] -= 1;
-        break;
-    case 200:
-        kindPiecesRemplit[7] -= 1;
-        break;
-    }
-
-}
-
-
-Piece   closestPiece(const Position & robotPos,
-                             std::vector<Piece> *pieces,
-                             const std::vector<int> & kindPiecesRemplit)
-{
-    Piece   minPiece;
-    double  minDist = -1;
-
-    for (const Piece &piece:*pieces) {
-        //std::cout << "Piece : " << piece.value << std::endl;
-        if (getKindPiecesValue(kindPiecesRemplit, piece.value) > 0)
-        {
-            if (getDistance(piece.pos, robotPos) < minDist || minDist == -1)
-            {
-                minPiece = piece;
-                minDist = getDistance(piece.pos, robotPos);
-            }
-        }
-    }
-    return minPiece;
-}
-
-void    parcoursVoisinsSomme(Ramapiece &p, int somme){
-    std::vector<Piece> *tabPieces = p.getPieces();
-    //triDistancePiecePiece(p);
-    vector<int> kindPiecesRemplit;
-
-    Piece tmpPiece;
-    RamaDoable(p,somme,kindPiecesRemplit); // T'as une case en trop faut tu fix ça kthxbye
-     //Parcours
-    while(!isEmpty(kindPiecesRemplit)){
-    //creer tableau de pieces avec que les pieces de valeurs d'interet
-    //get la valeur de position de toutes les pieces d'un meme type pour
-    //prendre la piece avec la distance la plus faible
-    //fonction getVal ? getMoney ?
-        tmpPiece = closestPiece(p.getRobotPosition(),tabPieces, kindPiecesRemplit);
-        p.pickUpPiece(tmpPiece);
-        removeKindPiece(kindPiecesRemplit,tmpPiece.value);
-    }
-    p.dropPieces();
-}
-
 
