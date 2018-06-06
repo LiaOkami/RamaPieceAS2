@@ -48,25 +48,13 @@ class   Ramapiece {
      */
     void    initImage();
 
-    /** \brief Retourne le vecteur contenant les Piece sur le tapis roulant
-     *  \return vectorPiece*
-     */
-    vectorPiece *       getPieces();
+    vectorPiece *       getPieces();  /**< _pieces getter */
 
-    /** \brief Retourne la position actuelle du Robot
-     *  \return const Position&
-     */
-    const Position &    getRobotPosition();
+    const Position &    getRobotPosition(); /**< _robot.pos getter */
 
-    /** \brief Retourne la position initiale du Robot
-     *  \return const Position&
-     */
-    const Position &    getRobotStart();
+    const Position &    getRobotStart(); /**< _robot.start getter */
 
-    /** \brief Retourne la vitesse du Robot
-     *  \return double
-     */
-    double  getRobotSpeed();
+    double  getRobotSpeed(); /**< _robot.speed getter */
 
     /** \brief Ramasse une Piece
      *
@@ -88,6 +76,9 @@ class   Ramapiece {
      */
     int     getTraveledDistance();
 
+    /** \brief Calcule l'argent disponible sur le tapis
+     *  \return int Argent disponible
+     */
     int     getAvailableMoney();
 
     /** \brief Récupère l'argent ramassé par le Robot

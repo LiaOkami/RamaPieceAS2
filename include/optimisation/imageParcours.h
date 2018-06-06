@@ -2,10 +2,6 @@
  *  \brief Classe Image
  */
 
- /**
- *  \author Stephane Achari
- */
-
 #ifndef IMAGEPARCOURS_H_INCLUDED
 #define IMAGEPARCOURS_H_INCLUDED
 
@@ -16,6 +12,9 @@
 using namespace std;
 using namespace cv;
 
+/** \brief Classe gérant l'Image représentant le parcours du Robot
+ *  \author Stéphane Achari
+ */
 class Image{
 
     private:

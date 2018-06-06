@@ -9,6 +9,9 @@
 # include "Piece.hh"
 # include "Position.hh"
 
+/** \brief Structure représentant le Robot ramassant les Piece
+ *  \author Pierrick Garcia
+ */
 struct   Robot {
     Position            pos;
     double              speed;

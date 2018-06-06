@@ -8,7 +8,7 @@
 # include <iostream>
 # include <stdint.h>
 
-/** \brief Classe reprÃ©sentant la Position d'un Object
+/** \brief Classe représentant la Position d'un Object
  *  \author Pierrick Garcia
  */
 class Position
