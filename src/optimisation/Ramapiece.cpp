@@ -1,6 +1,6 @@
 #include "Ramapiece.hh"
 
-const std::string   Ramapiece::IMAGE_PATH = "./images/parcours";
+const std::string   Ramapiece::IMAGE_PATH = "./images/parcours/";
 const std::string   Ramapiece::IMAGE_EXT = ".jpg";
 
 Ramapiece::Ramapiece()
@@ -44,6 +44,7 @@ void    Ramapiece::initImage() {
     _image = new Image(IMAGE_WIDTH, IMAGE_HEIGHT);
     _image->placePieceImage(_pieces);
     _imageIndex = 0;
+    _image->placeRobotStart(_robot.start);
 }
 
 void    Ramapiece::_saveImage() {
@@ -80,7 +81,7 @@ void    Ramapiece::pickUpPiece(const Piece &piece) {
                       << piece.value << std::endl;
         }
         if (_image) {
-            _image->placePieceParcourus(piece.pos.x, piece.pos.y);
+            _image->placePieceParcourus(piece.pos);
             _image->deplaceRobot(_robot.pos, piece.pos);
             this->_saveImage();
         }
@@ -101,6 +102,10 @@ void    Ramapiece::dropPieces() {
         std::cout << _robot.pos <<  " to " << _robot.start << std::endl
                   << "Distance : " << dist << "\tCoins dropped, value: "
                   << value << "." << std::endl;
+    }
+    if (_image) {
+        _image->deplaceRobot(_robot.pos, _robot.start);
+        this->_saveImage();
     }
     _money += value;
     _robot.pos = _robot.start;

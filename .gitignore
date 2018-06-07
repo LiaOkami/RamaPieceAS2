@@ -16,8 +16,10 @@ opti_test
 #*/#
 *~
 .#*
-*parcours*.jpg
+images/parcours
 *core*
 *.layout
 doxygen/html
 *.depend
+doxygen.log
+output.jpg

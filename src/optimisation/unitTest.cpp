@@ -10,11 +10,11 @@ static inline void  fillTestRamapiece(std::vector<Ramapiece *> & test, int size)
 }
 static inline void  unitTestAlgorithm()
 {
-    std::vector<int>            averageDistance;
+    std::vector<double>         averageDistance;
     std::vector<int>            averageValue;
     std::vector<Ramapiece *>    test;
-    int i;
-    int tries;
+    unsigned int    i;
+    unsigned int    tries;
 
     i = 0;
     while (RamapieceAlgorithm::algos[i].first != "")
@@ -40,15 +40,15 @@ static inline void  unitTestAlgorithm()
 
 }
 
-static inline void  testHandler(std::vector<int> &avgDistance, std::vector<int> &avgValue,
-                                std::vector<int> &avgError, int tries)
+static inline void  testHandler(std::vector<double> &avgDistance, std::vector<int> &avgValue,
+                                std::vector<double> &avgError, int tries)
 {
     std::vector<Ramapiece *>    test;
-    int i;
-    int value;
-    int availableMoney;
+    unsigned int    i;
+    unsigned int    value;
+    unsigned int    availableMoney;
 
-    test.push_back(generateRamapiece(rand() % 100 + 1));
+    test.push_back(generateRamapieceNormal(rand() % 100 + 1));
     fillTestRamapiece(test, avgDistance.size());
     availableMoney = test[0]->getAvailableMoney();
     value = rand() % availableMoney;
@@ -56,17 +56,17 @@ static inline void  testHandler(std::vector<int> &avgDistance, std::vector<int> 
         RamapieceAlgorithm::algosMoney[i].second(*test[i], value);
         avgDistance[i] = (avgDistance[i] * tries + test[i]->getTraveledDistance()) / (tries + 1);
         avgValue[i] = (avgValue[i] * tries + test[i]->getMoney()) / (tries + 1);
-        avgError[i] = avgError[i] * tries + abs(test[i]->getMoney() - test[i]->getAvailableMoney()) / (tries + 1);
+        avgError[i] = (avgError[i] * tries + abs(test[i]->getMoney() - value)) / (tries + 1);
     }
     test.clear();
 }
 
 static inline void  unitTestAlgorithmMoney()
 {
-    std::vector<int>            averageDistance;
-    std::vector<int>            averageValue;
-    std::vector<int>            averageError;
-    int i;
+    std::vector<double> averageDistance;
+    std::vector<int>    averageValue;
+    std::vector<double> averageError;
+    unsigned int i;
 
     i = 0;
     while (RamapieceAlgorithm::algosMoney[i].first != "")
@@ -82,13 +82,14 @@ static inline void  unitTestAlgorithmMoney()
     std::cout << "Moyenne sur " << NB_TRIES << " essais" << std::endl;
     for (i = 0 ; i < averageDistance.size() ; i++)
         std::cout << "Distance : " << averageDistance[i] << " / Argent : " << averageValue[i]
-                  << "Erreur : " << averageError[i]
-                  << " (" << RamapieceAlgorithm::algos[i].first << ")" << std::endl;
+                  << " / Erreur : " << averageError[i]
+                  << " (" << RamapieceAlgorithm::algosMoney[i].first << ")" << std::endl;
 
 }
 
 void    unitTest()
 {
     unitTestAlgorithm();
+    //
     unitTestAlgorithmMoney();
 }

@@ -18,7 +18,7 @@ const int tailleCercleVoisin = 100;
 
 void triDistancePieceBras(Ramapiece &p){
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
+        unsigned int j = 0, i = 0, indicePetit = 0;
         double valPetit = 0.0;
 
         vector<Piece> *tabPiece = p.getPieces();
@@ -47,10 +47,11 @@ void triDistancePiecePiece(Ramapiece &p){
         vector<Piece> *tabPiece = p.getPieces();
 
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
-        double valPetit = 0.0;
+        unsigned int i, j;
+        int indicePetit = 0;
+        double valPetit = getDistance((*tabPiece)[0].pos, p.getRobotPosition());
 
-        for(i = 0; i<tabPiece->size(); i++){
+        for(i = 1; i<tabPiece->size(); i++){
             if(valPetit > getDistance((*tabPiece)[i].pos, p.getRobotPosition())){
                indicePetit = i;
                valPetit = getDistance((*tabPiece)[i].pos, p.getRobotPosition());
@@ -82,12 +83,54 @@ void triDistancePiecePiece(Ramapiece &p){
         }
 }
 
+void triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece){
+
+        if(tabPiece.size() > 0){
+
+            Piece tmpPiece;
+            unsigned int i, j;
+            int indicePetit = 0;
+            double valPetit = getDistance(tabPiece[0].pos, p.getRobotPosition());
+
+            for(i = 1; i<tabPiece.size(); i++){
+                if(valPetit > getDistance(tabPiece[i].pos, p.getRobotPosition())){
+                   indicePetit = i;
+                   valPetit = getDistance(tabPiece[i].pos, p.getRobotPosition());
+                }
+            }
+            /*On recupere la piece la plus proche du robot*/
+            tmpPiece = tabPiece[0];
+            tabPiece[0] = tabPiece[indicePetit];
+            tabPiece[indicePetit] = tmpPiece;
+
+
+            /*on commence a 1 car elle à l'indice 0 on a notre reference de depart,
+                au fur et a mesure la reference change pour faire en fonction d'une autre piece*/
+
+            for(i = 1; i<tabPiece.size(); i++){
+                valPetit =  getDistance(tabPiece[i - 1].pos, tabPiece[i].pos);
+                indicePetit = i;
+
+                for(j = i + 1; j<tabPiece.size(); j++){
+                    if(getDistance(tabPiece[i - 1].pos, tabPiece[j].pos) < valPetit){
+                        indicePetit = j;
+                        valPetit = getDistance(tabPiece[i - 1].pos, tabPiece[j].pos);
+                    }
+                }
+                /*on echange*/
+                tmpPiece = tabPiece[i];
+                tabPiece[i] = tabPiece[indicePetit];
+                tabPiece[indicePetit] = tmpPiece;
+            }
+        }
+}
+
 void triValeur(std::vector<Piece> * tabP){
 
         vector<Piece> *tabPiece = tabP;
 
         Piece tmpPiece;
-        int j = 0, i = 0, indicePetit = 0;
+        unsigned int j = 0, i = 0, indicePetit = 0;
         int valPetit = 0;
 
         for(i = 0; i<tabPiece->size(); i++){
@@ -168,12 +211,12 @@ void parcoursZone(Ramapiece &p){
     vector<Piece> zoneHautDroitTab;
     vector<Piece> tabErreur;
 
-    int i = 0;
+    unsigned int i;
 
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
 
-    /*on recupere les 4 piece qui vont creer la zone global de recherche*/
+    /*on recupere les 4 piece qui vont creer la zone globale de recherche*/
     for(i = 1; i<tabPiece->size();i++){
         //Piece avec le plus petit x
         if((*tabPiece)[i].pos.x < xMin.pos.x){
@@ -217,6 +260,13 @@ void parcoursZone(Ramapiece &p){
         }
     }
 
+    /*On organise les tableaux pour un parcours plus optimal*/
+
+    triDistancePiecePiece(p,zoneBasDroitTab);
+    triDistancePiecePiece(p,zoneHautDroitTab);
+    triDistancePiecePiece(p,zoneBasGaucheTab);
+    triDistancePiecePiece(p,zoneHautGaucheTab);
+
     /*on parcours chaque zone pour ramasser*/
     for(i = 0; i<zoneBasDroitTab.size(); i++){
         p.pickUpPiece(zoneBasDroitTab[i]);
@@ -245,7 +295,7 @@ void parcoursDesVoisinsZone(Ramapiece &p){
         p.pickUpPiece(tabPiece->front()); //correspond a la premiere case du tableau
 
         //On regarde si dans la zone autour du bras il y a des pieces
-        for(int i =0; i<tabPiece->size(); i++){
+        for(unsigned int i =0; i<tabPiece->size(); i++){
             if(getDistance((*tabPiece)[i].pos,p.getRobotPosition()) <= tailleCercleVoisin){
                 tabPieceProvisoir.push_back((*tabPiece)[i]);
             }
