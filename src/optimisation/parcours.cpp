@@ -301,6 +301,7 @@ void parcoursDesVoisinsZone(Ramapiece &p){
                 tabPieceProvisoir.push_back((*tabPiece)[i]);
             }
             //On ramasse toute les pieces dans la zone
+            triDistancePiecePiece(p, tabPieceProvisoir);
             for(const Piece & piece:tabPieceProvisoir){
                 p.pickUpPiece(piece);
             }
