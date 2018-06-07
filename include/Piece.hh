@@ -16,7 +16,7 @@ class Piece
     int         value;
     Position    pos;
 	double		radius;
-	std::string	couleur;
+	int     	couleur;
 	int			chiffre;
     Piece(int val = 0, const Position & po = Position());
     Piece(int val, double x, double y, double rad = 0);
