@@ -128,26 +128,27 @@ void triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece){
 void triValeur(std::vector<Piece> * tabP){
 
         vector<Piece> *tabPiece = tabP;
+        if(tabP->size() > 0){
+            Piece tmpPiece;
+            unsigned int j = 0, i = 0, indicePetit = 0;
+            int valPetit = 0;
 
-        Piece tmpPiece;
-        unsigned int j = 0, i = 0, indicePetit = 0;
-        int valPetit = 0;
+            for(i = 0; i<tabPiece->size(); i++){
 
-        for(i = 0; i<tabPiece->size(); i++){
+                valPetit =  (*tabPiece)[j].value;
+                indicePetit = i;
 
-            valPetit =  (*tabPiece)[j].value;
-            indicePetit = i;
-
-            for(j = i; j<tabPiece->size(); j++){
-                if((*tabPiece)[j].value < valPetit){
-                    indicePetit = j;
-                    valPetit = (*tabPiece)[j].value;
+                for(j = i; j<tabPiece->size(); j++){
+                    if((*tabPiece)[j].value < valPetit){
+                        indicePetit = j;
+                        valPetit = (*tabPiece)[j].value;
+                    }
                 }
+                /*on echange*/
+                tmpPiece = (*tabPiece)[i];
+                (*tabPiece)[i] = valPetit;
+                (*tabPiece)[indicePetit] = tmpPiece;
             }
-            /*on echange*/
-            tmpPiece = (*tabPiece)[i];
-            (*tabPiece)[i] = valPetit;
-            (*tabPiece)[indicePetit] = tmpPiece;
         }
 }
 

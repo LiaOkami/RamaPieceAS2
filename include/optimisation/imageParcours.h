@@ -74,6 +74,12 @@ class Image{
          *  Trace un trait de couleur (r, g, b) correspondant au déplacement que le Robot aura effectué
          */
         void deplaceRobot(Position depart, Position arrivee, int r = 0, int g = 255, int b = 0);
+
+        /**
+         *  \brief Marque en rouge un carré pour la position de départ du robot
+         *  \param const Position & pos Coordonnées du robot au départ
+         */
+        void placerobotDepart(const Position & pos);
 };
 
 /**
