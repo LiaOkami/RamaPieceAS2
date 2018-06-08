@@ -30,7 +30,6 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
 					<Add directory="include/optimisation" />
 				</Compiler>
 			</Target>
@@ -42,7 +41,6 @@
 				<Option parameters="input.png, output.png" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="-std=c++11" />
 					<Add directory="include/detection" />
 					<Add directory="include/optimisation" />
 				</Compiler>
@@ -65,7 +63,7 @@
 			<Option target="Opti" />
 			<Option target="Detection" />
 		</Unit>
-		<Unit filename="include/detection/detection.h">
+		<Unit filename="include/detection/detection.hh">
 			<Option target="Detection" />
 			<Option target="Release" />
 		</Unit>
@@ -84,16 +82,15 @@
 		<Unit filename="include/optimisation/generateRamapiece.hh">
 			<Option target="Opti" />
 		</Unit>
-		<Unit filename="include/optimisation/imageParcours.h">
-			<Option target="Opti" />
+		<Unit filename="include/optimisation/imageParcours.hh">
+			<Option target="Detection" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/manualTest.hh">
 			<Option target="Opti" />
 		</Unit>
-		<Unit filename="include/optimisation/parcours.h">
-			<Option target="Test" />
-			<Option target="Opti" />
+		<Unit filename="include/optimisation/parcours.hh">
+			<Option target="Detection" />
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/optimisation/unitTest.hh">
@@ -127,10 +124,6 @@
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="src/optimisation/compte.cpp">
-			<Option target="Opti" />
-			<Option target="Release" />
-		</Unit>
 		<Unit filename="src/optimisation/generateRamapiece.cpp">
 			<Option target="Opti" />
 		</Unit>
@@ -144,15 +137,19 @@
 		<Unit filename="src/optimisation/manualTest.cpp">
 			<Option target="Opti" />
 		</Unit>
-		<Unit filename="src/optimisation/parcours.cpp">
+		<Unit filename="src/optimisation/parcours/compte.cpp">
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="src/optimisation/parcoursBasic.cpp">
+		<Unit filename="src/optimisation/parcours/parcours.cpp">
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="src/optimisation/parcoursSomme.cpp">
+		<Unit filename="src/optimisation/parcours/parcoursBasic.cpp">
+			<Option target="Opti" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="src/optimisation/parcours/parcoursSomme.cpp">
 			<Option target="Opti" />
 			<Option target="Release" />
 		</Unit>
