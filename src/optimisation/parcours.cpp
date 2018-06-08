@@ -261,23 +261,22 @@ void parcoursZone(Ramapiece &p){
         }
     }
 
+
     /*On organise les tableaux pour un parcours plus optimal*/
-
     triDistancePiecePiece(p,zoneBasDroitTab);
-    triDistancePiecePiece(p,zoneHautDroitTab);
-    triDistancePiecePiece(p,zoneBasGaucheTab);
-    triDistancePiecePiece(p,zoneHautGaucheTab);
-
     /*on parcours chaque zone pour ramasser*/
     for(i = 0; i<zoneBasDroitTab.size(); i++){
         p.pickUpPiece(zoneBasDroitTab[i]);
     }
+    triDistancePiecePiece(p,zoneHautDroitTab);
     for(i = 0; i<zoneHautDroitTab.size(); i++){
         p.pickUpPiece(zoneHautDroitTab[i]);
     }
+    triDistancePiecePiece(p,zoneBasGaucheTab);
     for(i = 0; i<zoneBasGaucheTab.size(); i++){
         p.pickUpPiece(zoneBasGaucheTab[i]);
     }
+    triDistancePiecePiece(p,zoneHautGaucheTab);
     for(i = 0; i<zoneHautGaucheTab.size(); i++){
         p.pickUpPiece(zoneHautGaucheTab[i]);
     }
