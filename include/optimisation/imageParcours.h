@@ -57,7 +57,7 @@ class Image{
          */
         void sauvegardeImage(const string &);
 
-        /** \brief Affiche la position de départ du Robot par un cercle
+        /** \brief Affiche la position de départ du Robot par un rectangle rouge
          *  \param const Position& pos Coordonnées du Robot
          */
         void placeRobotStart(const Position &pos);

@@ -157,47 +157,55 @@ void    parcoursVoisinsSomme(Ramapiece &p, int somme){
 bool    checkZonePiece(const vector<int>& tabNbPieceRamasse,vector<Piece>& zone){
 
         bool toutePiece = true;
-        int i = 0, k = 0, cpt = 0, indice = 0, valeurPiece = 0;
+        int i = 0, cpt = 0, indice = 0, valeurPiece = 0;
 
-        /*On trie les valeurs pour rendre la recherche plus rapide*/
-        triValeur(&zone);
+        if(zone.size() == 0){
+            return !toutePiece;
+        }else{
+            /*On trie les valeurs pour rendre la recherche plus rapide*/
+            triValeur(&zone);
 
-        while(i<tabNbPieceRamasse.size() && toutePiece){
-        /*On récupère la valeur de la piece*/
-            cpt = 0;
-            valeurPiece = exctractionValeur(i);
-            indice = rechercheDicho(&zone, valeurPiece);
+            while(i<tabNbPieceRamasse.size() && toutePiece){
+                /*On récupère la valeur de la piece*/
+                cpt = 0;
+                valeurPiece = exctractionValeur(i);
+                indice = rechercheDicho(&zone, valeurPiece);
 
-            while(zone[indice] == valeurPiece){
+                if(indice == -999){
+                    return false;
+                }else{
+                    do{
+                        cpt++;
+                        indice++;
+                    }while(zone[indice] == valeurPiece && indice < zone.size());
+                }
 
-                cpt++;
-                indice++;
+                if(cpt < tabNbPieceRamasse[i]){ //verifie qu'on a bien le bon nombre de piece dans cette zone
+                    toutePiece = false;
+                }
+                i++;
             }
 
-            if(cpt < tabNbPieceRamasse[i]){ //verifie qu'on a bien le bon nombre de piece dans cette zone
-                toutePiece = false;
-            }
-            i++;
+            return toutePiece;
         }
-
-        return toutePiece;
 }
 
 void    parcoursZoneSomme(Ramapiece &p, int somme){
-    vector<int> tabNbPieceRamasse;
+    std::vector<int> tabNbPieceRamasse;
     //appel a la fonction pour nous donner le nombre de piece par valeur qu'il faut
     RamaDoable(p, somme, tabNbPieceRamasse);
 
-    vector<Piece> *tabPiece = p.getPieces();
+    std::vector<Piece> *tabPiece = p.getPieces();
 
     /*Creation de tableau pour chaque zone*/
-    vector<Piece> zoneBasGaucheTab;
-    vector<Piece> zoneBasDroitTab;
-    vector<Piece> zoneHautGaucheTab;
-    vector<Piece> zoneHautDroitTab;
-    vector<Piece> tabErreur;
+    std::vector<Piece> zoneBasGaucheTab;
+    std::vector<Piece> zoneBasDroitTab;
+    std::vector<Piece> zoneHautGaucheTab;
+    std::vector<Piece> zoneHautDroitTab;
+    std::vector<Piece> tabErreur;
+    std::vector<Piece> zoneParcours;
 
-    int i = 0, zonePiece = 0;
+    int i = 0;
 
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
@@ -246,65 +254,35 @@ void    parcoursZoneSomme(Ramapiece &p, int somme){
         }
     }
 
-    /*On organise les tableaux pour un parcours plus optimal*/
-
-    triDistancePiecePiece(p,zoneBasDroitTab);
-    triDistancePiecePiece(p,zoneHautDroitTab);
-    triDistancePiecePiece(p,zoneBasGaucheTab);
-    triDistancePiecePiece(p,zoneHautGaucheTab);
-
     /*On test pour voir si une zone a déjà toute les pieces*/
 
-
     if(checkZonePiece(tabNbPieceRamasse, zoneBasDroitTab)){
-        zonePiece = 1;
+        zoneParcours = zoneBasDroitTab;
     }else if (checkZonePiece(tabNbPieceRamasse, zoneHautDroitTab)){
-        zonePiece = 2;
+        zoneParcours = zoneHautDroitTab;
     }else if (checkZonePiece(tabNbPieceRamasse, zoneBasGaucheTab)){
-        zonePiece = 3;
+        zoneParcours = zoneBasGaucheTab;
     }else if (checkZonePiece(tabNbPieceRamasse, zoneHautGaucheTab)){
-        zonePiece = 4;
+        zoneParcours = zoneHautGaucheTab;
+    }
+    /*on parcours la zone pour ramasser*/
+
+    //si le tableau est vide ça veut dire qu'aucune zone ne comporte toute les pièces
+    if(zoneParcours.size() == 0){
+        parcoursVoisinsSomme(p,somme);
     }else{
-        zonePiece = 0;
+        parcoursZonePiece(zoneParcours, p, tabNbPieceRamasse);
     }
-//a faire
-/*
-    switch (zone){
-        case 0:
-            valeurPiece = 1;
-        break;
-        case 1:
-            valeurPiece = 2;
-        break;
-        case 2:
-            valeurPiece = 5;
-        break;
-        case 3:
-            valeurPiece = 10;
-        break;
-        case 4:
-            valeurPiece = 20;
-        break;
-
-        default:
-        break;
-    }
-    */
-    /*on parcours chaque zone pour ramasser*/
-    for(i = 0; i<zoneBasDroitTab.size(); i++){
-        p.pickUpPiece(zoneBasDroitTab[i]);
-    }
-    for(i = 0; i<zoneHautDroitTab.size(); i++){
-        p.pickUpPiece(zoneHautDroitTab[i]);
-    }
-    for(i = 0; i<zoneBasGaucheTab.size(); i++){
-        p.pickUpPiece(zoneBasGaucheTab[i]);
-    }
-    for(i = 0; i<zoneHautGaucheTab.size(); i++){
-        p.pickUpPiece(zoneHautGaucheTab[i]);
-    }
-
-    /*on depose toute les pieces*/
-    p.dropPieces();
 }
 
+void parcoursZonePiece(std::vector<Piece> &zone,Ramapiece &p, std::vector<int> &tabNbPieceRamasse){
+
+    Piece tmpPiece;
+    while(!isEmpty(tabNbPieceRamasse)){
+
+        tmpPiece = closestPiece(p.getRobotPosition(), &zone, tabNbPieceRamasse);
+        p.pickUpPiece(tmpPiece);
+        removeKindPiece(tabNbPieceRamasse,tmpPiece.value);
+    }
+    p.dropPieces();
+}

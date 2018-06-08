@@ -11,5 +11,6 @@ const t_algorithm   RamapieceAlgorithm::algos[] = {
 
 const t_algorithm_money RamapieceAlgorithm::algosMoney[] = {
         {"Parcours simple avec valeur", &parcoursVoisinsSomme},
+        {"Parcours zone avec valeur", &parcoursZoneSomme},
         {"", nullptr}
 };

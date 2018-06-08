@@ -128,26 +128,27 @@ void triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece){
 void triValeur(std::vector<Piece> * tabP){
 
         vector<Piece> *tabPiece = tabP;
+        if(tabP->size() > 0){
+            Piece tmpPiece;
+            unsigned int j = 0, i = 0, indicePetit = 0;
+            int valPetit = 0;
 
-        Piece tmpPiece;
-        unsigned int j = 0, i = 0, indicePetit = 0;
-        int valPetit = 0;
+            for(i = 0; i<tabPiece->size(); i++){
 
-        for(i = 0; i<tabPiece->size(); i++){
+                valPetit =  (*tabPiece)[j].value;
+                indicePetit = i;
 
-            valPetit =  (*tabPiece)[j].value;
-            indicePetit = i;
-
-            for(j = i; j<tabPiece->size(); j++){
-                if((*tabPiece)[j].value < valPetit){
-                    indicePetit = j;
-                    valPetit = (*tabPiece)[j].value;
+                for(j = i; j<tabPiece->size(); j++){
+                    if((*tabPiece)[j].value < valPetit){
+                        indicePetit = j;
+                        valPetit = (*tabPiece)[j].value;
+                    }
                 }
+                /*on echange*/
+                tmpPiece = (*tabPiece)[i];
+                (*tabPiece)[i] = valPetit;
+                (*tabPiece)[indicePetit] = tmpPiece;
             }
-            /*on echange*/
-            tmpPiece = (*tabPiece)[i];
-            (*tabPiece)[i] = valPetit;
-            (*tabPiece)[indicePetit] = tmpPiece;
         }
 }
 
@@ -260,23 +261,22 @@ void parcoursZone(Ramapiece &p){
         }
     }
 
+
     /*On organise les tableaux pour un parcours plus optimal*/
-
     triDistancePiecePiece(p,zoneBasDroitTab);
-    triDistancePiecePiece(p,zoneHautDroitTab);
-    triDistancePiecePiece(p,zoneBasGaucheTab);
-    triDistancePiecePiece(p,zoneHautGaucheTab);
-
     /*on parcours chaque zone pour ramasser*/
     for(i = 0; i<zoneBasDroitTab.size(); i++){
         p.pickUpPiece(zoneBasDroitTab[i]);
     }
+    triDistancePiecePiece(p,zoneHautDroitTab);
     for(i = 0; i<zoneHautDroitTab.size(); i++){
         p.pickUpPiece(zoneHautDroitTab[i]);
     }
+    triDistancePiecePiece(p,zoneBasGaucheTab);
     for(i = 0; i<zoneBasGaucheTab.size(); i++){
         p.pickUpPiece(zoneBasGaucheTab[i]);
     }
+    triDistancePiecePiece(p,zoneHautGaucheTab);
     for(i = 0; i<zoneHautGaucheTab.size(); i++){
         p.pickUpPiece(zoneHautGaucheTab[i]);
     }
@@ -300,6 +300,7 @@ void parcoursDesVoisinsZone(Ramapiece &p){
                 tabPieceProvisoir.push_back((*tabPiece)[i]);
             }
             //On ramasse toute les pieces dans la zone
+            triDistancePiecePiece(p, tabPieceProvisoir);
             for(const Piece & piece:tabPieceProvisoir){
                 p.pickUpPiece(piece);
             }

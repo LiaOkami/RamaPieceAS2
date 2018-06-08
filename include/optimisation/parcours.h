@@ -98,7 +98,35 @@ bool isEmpty(vector<int> kindPieces);
  */
 void RamaDoable(Ramapiece &p, int som, vector<int> &kindPiecesRemplit);
 
+/**
+ *  \brief Parcours des zones avec une somme précise à ramasser
+ *  \param Objet de type Ramapiece
+ *  \param int, la somme à ramasser
+ */
+void    parcoursZoneSomme(Ramapiece &p, int somme);
+
+/**
+ *  \brief Parcours une zone determiné par parcoursZoneSomme
+ *  \param Objet de type Ramapiece
+ *  \param vector<piece> correspondant a la zone
+ *  \param vector<int> &tabNbPieceRamasse = vecteur de int représantant les pieces à ramasser
+ */
+void    parcoursZonePiece(vector<Piece> &zone, Ramapiece &p, vector<int> &tabNbPieceRamasse);
+
+/**
+ *  \brief Verifie si une zone comporte toute les pièce dont on a besoin
+ *  \param Objet de type Ramapiece
+ *  \param vector<piece> correspondant a la zone
+ *  \param vector<int> &tabNbPieceRamasse = vecteur de int représantant les pieces à ramasser
+ *  \return bool
+ */
 bool    checkZonePiece(const vector<int>& tabNbPieceRamasse, vector<Piece>& zone);
+
+/**
+ *  \brief Permet de définir la valeur de la pièce recherché
+ *  \param int -> correspond à k'indice du tableau, entre 0 et 7
+ *  \return int -> valeur de la piece
+ */
 int     exctractionValeur(int i);
 
 #endif // PARCOURS_H_INCLUDED

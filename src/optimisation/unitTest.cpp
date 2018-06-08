@@ -33,7 +33,7 @@ static inline void  unitTestAlgorithm()
         }
         test.clear();
     }
-    std::cout << "Moyenne sur " << NB_TRIES << " essais" << std::endl;
+    std::cout << "Algorithmes sans valeur : Moyenne sur " << NB_TRIES << " essais" << std::endl;
     for (i = 0 ; i < averageDistance.size() ; i++)
         std::cout << "Distance : " << averageDistance[i] << " / Argent : " << averageValue[i]
                   << " (" << RamapieceAlgorithm::algos[i].first << ")" << std::endl;
@@ -45,7 +45,7 @@ static inline void  testHandler(std::vector<double> &avgDistance, std::vector<in
 {
     std::vector<Ramapiece *>    test;
     unsigned int    i;
-    unsigned int    value;
+    double          value;
     unsigned int    availableMoney;
 
     test.push_back(generateRamapieceNormal(rand() % 100 + 1));
@@ -79,7 +79,7 @@ static inline void  unitTestAlgorithmMoney()
     for (int tries = 0 ; tries < NB_TRIES ; tries++) {
         testHandler(averageDistance, averageValue, averageError, tries);
     }
-    std::cout << "Moyenne sur " << NB_TRIES << " essais" << std::endl;
+    std::cout << "Algorithmes avec valeur : Moyenne sur " << NB_TRIES << " essais" << std::endl;
     for (i = 0 ; i < averageDistance.size() ; i++)
         std::cout << "Distance : " << averageDistance[i] << " / Argent : " << averageValue[i]
                   << " / Erreur : " << averageError[i]
@@ -90,6 +90,6 @@ static inline void  unitTestAlgorithmMoney()
 void    unitTest()
 {
     unitTestAlgorithm();
-    //
+    std::cout << std::endl;
     unitTestAlgorithmMoney();
 }
