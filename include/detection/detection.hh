@@ -1,3 +1,7 @@
+/** \file detection.hh
+ *  \brief Classe Detection
+ */
+
 #ifndef DETECTION_H_INCLUDED
 #define DETECTION_H_INCLUDED
 

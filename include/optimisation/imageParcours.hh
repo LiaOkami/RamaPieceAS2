@@ -1,4 +1,4 @@
-/** \file imageParcours.h
+/** \file imageParcours.hh
  *  \brief Classe Image
  */
 
@@ -77,8 +77,8 @@ class Image{
 };
 
 /**
-    *  \brief Utilisé par certaines fonctions de la classe Image
-*/
+ *  \brief Utilisé par certaines fonctions de la classe Image
+ */
 void MyFilledCircle(const Mat &img, Point center);
 void MyFilledCircleRamasse(const Mat &img, Point center);
 

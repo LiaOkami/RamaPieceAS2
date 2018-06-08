@@ -1,5 +1,5 @@
 /** \file algorithm.hh
- *  \brief Structure Algorithm
+ *  \brief Structure RamapieceAlgorithm
  */
 
 #ifndef _ALGORITHM_HH_

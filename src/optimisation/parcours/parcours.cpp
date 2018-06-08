@@ -1,10 +1,3 @@
-/** \file parcours.cpp
- *  \brief Algorithme de parcours et de tri
- */
-
- /**
- *  \author Stephane Achari
- */
 #include <iostream>
 #include <cmath>
 #include <vector>

@@ -1,3 +1,7 @@
+/** \file parcours.hh
+ *  \brief Liste les parcours disponible pour RamapieceAlgorithm
+ */
+
 #ifndef PARCOURS_H_INCLUDED
 #define PARCOURS_H_INCLUDED
 #include <vector>
@@ -15,38 +19,42 @@ void    triDistancePieceBras(Ramapiece &p);
 
 /**
  *  \brief Algorithme de tri, recupere la piece la plus proche du bras,
- *          puis tri des pieces par rapport a la distance entre chacunes
- * \param élément de type Ramapiece
- * \return modifie le tableau directement via les pointeurs
+ *          puis trie des pieces par rapport a la distance entre chacunes
+ *  \param élément de type Ramapiece
+ *  \return modifie le tableau directement via les pointeurs
  */
 void    triDistancePiecePiece(Ramapiece &p);
 
 /**
  *  \brief Surcharge de la fonction
- * \param tableau de piece
- * \return modifie le tableau directement via la référence
+ *
+ *  \param Ramapiece& p
+ *  \param vector<Piece>& tabPiece
+ *
+ *  Cette fonction modifie le tableau pris en référence
  */
 void    triDistancePiecePiece(Ramapiece &p, vector<Piece> &tabPiece);
 
 /**
  *  \brief Algorithme de tri, retourne un vector de piece ordonnée par leur valeur croissante,
  *          peut servir à une recherche dichotomique
- * \param tableau de piece (exemple p.getPieces())
- * \return modifie le tableau directement via les pointeurs
+ *  \param tableau de piece (exemple p.getPieces())
+ *  \return modifie le tableau directement via les pointeurs
  */
 void    triValeur(std::vector<Piece> * tabP);
 
 /**
  *  \brief Tri dichotomique pour retrouver une piece d'une certaine valeur,
- * \param tableau de piece (exemple p.getPieces(), ou p est de type Ramapiece)
- * \param valeur de la piece recherche
- * \return int -> indice ou trouver la piece, si non trouve retourne -999
+ *
+ *  \param tableau de piece (exemple p.getPieces(), ou p est de type Ramapiece)
+ *  \param valeur de la piece recherche
+ *  \return int Indice où trouver la piece, si aucune pièces n'est trouvée, retourne -999
  */
 int     rechercheDicho(std::vector<Piece> * tabP, int val);
 
 /**
- *  \brief Parcours basique en partant du principe que le bras ramasse une piece
- *          et reviens en position start à chaque fois
+ *  \brief Parcours basique en partant du principe que le bras ramasse une Piece
+ *          et revient en position start à chaque fois
  */
 void    parcoursSimple(Ramapiece &p);
 
@@ -79,7 +87,7 @@ void    parcoursVoisinsSomme(Ramapiece &p, int somme);
 
 /** \brief Utilisé pour savoir si le tableau est vide
  *
- * \param vector<int> &kindPiecesRemplit est un vecteur de int représantant un tableau de comptage de pieces, de 1 centime à
+ * \param vector<int> &kindPieces Remplit est un vecteur de int représantant un tableau de comptage de pieces, de 1 centime à
  * 2 euros
  * \return booléen, vrai si tableau vide, faux sinon
  *
