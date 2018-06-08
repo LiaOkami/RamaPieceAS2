@@ -1,4 +1,4 @@
-#include "detection/detection.h"
+#include "detection/detection.hh"
 #include "Piece.hh"
 
 #include <opencv2/imgproc/imgproc.hpp>

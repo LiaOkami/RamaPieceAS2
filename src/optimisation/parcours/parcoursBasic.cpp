@@ -1,4 +1,4 @@
-#include "parcours.h"
+#include "parcours.hh"
 
 void    parcoursBasic(Ramapiece &ramapiece) {
     std::vector<Piece> *tabPieces = ramapiece.getPieces();

@@ -6,11 +6,11 @@
 #include <iostream>
 #include "manualTest.hh"
 #include "unitTest.hh"
-#include "imageParcours.h"
+#include "imageParcours.hh"
 #include "Ramapiece.hh"
 #include "generateRamapiece.hh"
 #include <string>
-#include "parcours.h"
+#include "parcours.hh"
 
 /** \brief Ouvre un menu terminal pour choisir son algorithme
  */

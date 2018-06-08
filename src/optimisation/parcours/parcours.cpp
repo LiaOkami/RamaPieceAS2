@@ -10,7 +10,7 @@
 #include <vector>
 #include "Ramapiece.hh"
 #include "Piece.hh"
-#include "imageParcours.h"
+#include "imageParcours.hh"
 
 using namespace std;
 

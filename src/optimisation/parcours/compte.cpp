@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include "Ramapiece.hh"
-#include "parcours.h"
+#include "parcours.hh"
 
 using namespace std;
 
