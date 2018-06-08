@@ -34,8 +34,9 @@ void Image::sauvegardeImage(const string &filename){
 }
 
 void Image::placeRobotStart(const Position &pos){
-    Point centre(pos.x, pos.y);
-    MyFilledCircle(this->getImage(),centre);
+    Point pt1(pos.x-10, pos.y-10);
+    Point pt2(pos.x+10, pos.y+10);
+    rectangle(this->getImage(),pt1, pt2, Scalar(0, 0, 255), 1, 8, 0);
 }
 
 void Image::placePieceImage(vector<Piece> *tabPiece){
@@ -64,10 +65,4 @@ void MyFilledCircle(const Mat &img, Point center){
 
 void MyFilledCircleRamasse(const Mat &img, Point center){
     circle(img, center, 5, Scalar(255, 0, 0), FILLED, LINE_8);
-}
-
-void Image::placerobotDepart(const Position & pos){
-    Point pt1(pos.x-10, pos.y-10);
-    Point pt2(pos.x+10, pos.y+10);
-    rectangle(this->getImage(),pt1, pt2, Scalar(139, 0, 0), 1, 8, 0);
 }
