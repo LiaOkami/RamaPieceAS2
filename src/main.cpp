@@ -76,8 +76,8 @@ void    pickUpPieces(Ramapiece &sample, const std::string &filename, int toPick)
     RamapieceAlgorithm::algosMoney[idxMin].second(sample, toPick);
     sample.saveImage(filename);
 }
-
-/*std::vector<Piece>  *detection(const std::string &filename) {
+/*
+std::vector<Piece>  *detection(const std::string &filename) {
 {
     std::vector<Piece>  *pieces;
 
@@ -85,6 +85,7 @@ void    pickUpPieces(Ramapiece &sample, const std::string &filename, int toPick)
     detect.detectionPieces(filename);
     pieces = new std::vector<Piece>(detect.getListePieceCourante());
     quelCouleur(filename, *pieces);
+    donnerValeur(*pieces);
     return pieces;
 }*/
 
