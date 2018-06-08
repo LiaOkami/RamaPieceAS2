@@ -45,7 +45,7 @@ static inline void  testHandler(std::vector<double> &avgDistance, std::vector<in
 {
     std::vector<Ramapiece *>    test;
     unsigned int    i;
-    unsigned int    value;
+    double          value;
     unsigned int    availableMoney;
 
     test.push_back(generateRamapieceNormal(rand() % 100 + 1));
@@ -53,7 +53,6 @@ static inline void  testHandler(std::vector<double> &avgDistance, std::vector<in
     availableMoney = test[0]->getAvailableMoney();
     value = rand() % availableMoney;
     for (i = 0 ; i < avgDistance.size() ; i++) {
-
         RamapieceAlgorithm::algosMoney[i].second(*test[i], value);
         avgDistance[i] = (avgDistance[i] * tries + test[i]->getTraveledDistance()) / (tries + 1);
         avgValue[i] = (avgValue[i] * tries + test[i]->getMoney()) / (tries + 1);
