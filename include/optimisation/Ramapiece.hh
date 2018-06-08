@@ -7,7 +7,7 @@
 
 # include <vector>
 # include "Piece.hh"
-# include "imageParcours.h"
+# include "imageParcours.hh"
 # include "Robot.hh"
 
 typedef std::vector<Piece>    vectorPiece;

@@ -3,7 +3,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "detection/detection.h"
+#include "detection/detection.hh"
 #include "Piece.hh"
 
 #include <cstdlib>
@@ -189,8 +189,8 @@ vector<Point> Detection::tabContours(){
     findContours(contours, tableaucontours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
     vector<Point> tableauretour;
 
-    for(int i= 0; i < tableaucontours.size(); i++){
-        for(int j= 0; j < tableaucontours[i].size();j++){
+    for(unsigned int i = 0; i < tableaucontours.size() ; i++){
+        for(unsigned int j = 0; j < tableaucontours[i].size() ; j++){
 
             tableauretour.push_back(tableaucontours[i][j]);
         }

@@ -1,12 +1,12 @@
 /** \file algorithm.hh
- *  \brief Structure Algorithm
+ *  \brief Structure RamapieceAlgorithm
  */
 
 #ifndef _ALGORITHM_HH_
 # define _ALGORITHM_HH_
 
 # include <utility>
-# include "parcours.h"
+# include "parcours.hh"
 # include "Ramapiece.hh"
 
 typedef void    (*t_func_algorithm)(Ramapiece &);

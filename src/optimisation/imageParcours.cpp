@@ -1,13 +1,6 @@
-/** \file imageParcours.cpp
- *  \brief fonction de gestion d'images
- */
-
- /**
- *  \author Stephane Achari
- */
 #include <opencv2/opencv.hpp>
 
-#include "imageParcours.h"
+#include "imageParcours.hh"
 #include <string>
 
 using namespace std;

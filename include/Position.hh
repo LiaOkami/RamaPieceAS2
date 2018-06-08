@@ -31,6 +31,15 @@ class Position
  */
 double  getDistance(const Position & pos1, const Position & pos2);
 
+
+/** \brief Surcharge l'opérateur << pour la classe Position
+ *
+ *  \param std::ostream& os
+ *  \param const Position& pos
+ *  \return std::ostream&
+ *
+ *  Cette surcharge écrira (pos.x, pos.y)
+ */
 std::ostream &   operator<<(std::ostream &os, const Position &pos);
 
 #endif

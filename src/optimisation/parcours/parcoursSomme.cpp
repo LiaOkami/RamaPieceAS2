@@ -10,7 +10,7 @@
 #include <vector>
 #include "Ramapiece.hh"
 #include "Piece.hh"
-#include "parcours.h"
+#include "parcours.hh"
 
 //Fonction qui renvoie le nombre de pièce selon la valeur demandée
 
@@ -41,6 +41,7 @@ static int getKindPiecesValue(const vector<int> &kindPiecesRemplit,  int value){
         return kindPiecesRemplit[7];
         break;
     }
+    return -1;
 }
 
 
@@ -157,7 +158,8 @@ void    parcoursVoisinsSomme(Ramapiece &p, int somme){
 bool    checkZonePiece(const vector<int>& tabNbPieceRamasse,vector<Piece>& zone){
 
         bool toutePiece = true;
-        int i = 0, cpt = 0, indice = 0, valeurPiece = 0;
+        unsigned int i = 0;
+        int cpt = 0, indice = 0, valeurPiece = 0;
 
         if(zone.size() == 0){
             return !toutePiece;
@@ -165,7 +167,7 @@ bool    checkZonePiece(const vector<int>& tabNbPieceRamasse,vector<Piece>& zone)
             /*On trie les valeurs pour rendre la recherche plus rapide*/
             triValeur(&zone);
 
-            while(i<tabNbPieceRamasse.size() && toutePiece){
+            while(i < tabNbPieceRamasse.size() && toutePiece){
                 /*On récupère la valeur de la piece*/
                 cpt = 0;
                 valeurPiece = exctractionValeur(i);
@@ -205,7 +207,7 @@ void    parcoursZoneSomme(Ramapiece &p, int somme){
     std::vector<Piece> tabErreur;
     std::vector<Piece> zoneParcours;
 
-    int i = 0;
+    unsigned int i = 0;
 
     /*Initialisation des piece qui nous serviront à délimiter la zone*/
     Piece xMin = (*tabPiece)[0], xMax = (*tabPiece)[0], yMin = (*tabPiece)[0], yMax = (*tabPiece)[0];
@@ -232,7 +234,7 @@ void    parcoursZoneSomme(Ramapiece &p, int somme){
 
     /*on divise la zone qu'on a creer en 4 et on repartie les piece dans chaque zone*/
 
-    for(i = 0; i<tabPiece->size();i++){
+    for(i = 0; i < tabPiece->size() ; i++){
         //zone bas droit du carre
         if((*tabPiece)[i].pos.x <= (xMin.pos.x + xMax.pos.x)/2 && (*tabPiece)[i].pos.y <= (yMin.pos.y + yMax.pos.y)/2){
             zoneBasDroitTab.push_back((*tabPiece)[i]);

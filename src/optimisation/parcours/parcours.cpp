@@ -1,16 +1,9 @@
-/** \file parcours.cpp
- *  \brief Algorithme de parcours et de tri
- */
-
- /**
- *  \author Stephane Achari
- */
 #include <iostream>
 #include <cmath>
 #include <vector>
 #include "Ramapiece.hh"
 #include "Piece.hh"
-#include "imageParcours.h"
+#include "imageParcours.hh"
 
 using namespace std;
 
