@@ -18,6 +18,9 @@ class Piece
 	double		radius;
 	int     	couleur;
 	int			chiffre;
+	double      moyA[2];
+	double      moyB[2];
+
     Piece(int val = 0, const Position & po = Position());
     Piece(int val, double x, double y, double rad = 0);
 
